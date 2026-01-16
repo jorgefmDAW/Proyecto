@@ -1,0 +1,4 @@
+.table tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.03);
+        transition: background-color 0.2s ease; 
+    }

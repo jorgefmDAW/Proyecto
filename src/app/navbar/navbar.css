@@ -1,0 +1,37 @@
+.fondo-personalizado{
+    background-color: rgb(31, 30, 30);
+}
+
+.navbar-altura-max{
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.seccion-activa{
+   background-color: rgba(0, 132, 255, 0.4); 
+   border-radius: 0.5rem;
+   border-color: black;
+}
+
+.hover-secciones{
+    border-radius: 0.5rem;
+    transition: all 0.3 ease;
+}
+
+.hover-secciones:hover{
+    background-color: rgba(0, 132, 255, 0.4);
+    border-radius: 0.5rem;
+    border-color: black;
+}
+
+.hover-logout{
+    border-radius: 0.5rem;
+    transition: all 0.3 ease;
+}
+
+.hover-logout:hover{
+    background-color: rgba(255, 0, 0, 0.4);
+    border-radius: 0.5rem;
+    border-color: black
+}

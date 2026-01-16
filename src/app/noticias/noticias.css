@@ -1,0 +1,14 @@
+.titulo{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    
+}
+
+.introduccion {
+        
+    color: #ffffff;
+}

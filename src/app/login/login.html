@@ -1,0 +1,71 @@
+<div class="container d-flex justify-content-center pt-5">
+  <div class="card bg-dark text-white border-3 border-secondary shadow-lg rounded-3 p-4" style="max-width: 450px; width: 100%;">
+
+    <div class="card-body p-0">
+      <div class="p-2 pb-0">
+        <h1 class="text-center mb-4 fw-bold text-uppercase border-bottom border-3 border-secondary pb-3" style="letter-spacing: 2px;"> 
+          LaLiga Manager </h1>
+      </div>
+
+      <div class=""> 
+        
+        <nav class="navbar navbar-expand p-0 border-bottom border-secondary">
+          <div class="container-fluid p-0">
+            <ul class="navbar-nav w-100 flex-row">
+              <li class="nav-item w-50">
+                <button (click)="mostrarSeccion('iniciar-sesion')" 
+                  class="text-white nav-link w-100 text-center py-3 border-end border-secondary rounded-0"
+                  [class.bg-primary]="getSeccion_actual() == 'iniciar-sesion'"
+                  [class.fw-bold]="getSeccion_actual() == 'iniciar-sesion'"> INICIA SESIÓN </button>
+              </li>
+              <li class="nav-item w-50">
+                <button (click)="mostrarSeccion('registrate')" 
+                  class="text-white nav-link w-100 text-center py-3 rounded-0"
+                  [class.bg-primary]="getSeccion_actual() == 'registrate'"
+                  [class.fw-bold]="getSeccion_actual() == 'registrate'"> REGÍSTRATE </button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="p-4">
+          @if(getSeccion_actual() == 'registrate') {
+            <form>
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-white">CORREO ELECTRÓNICO</label>
+                <input type="email" class="form-control bg-dark text-white border-secondary rounded-0" 
+                  placeholder="ejemplo@correo.com">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-white">NOMBRE DE USUARIO</label>
+                <input type="text" class="form-control bg-dark text-white border-secondary rounded-0" 
+                  placeholder="Este será tu nombre en el juego">
+              </div>
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-white">CONTRASEÑA</label>
+                <input type="password" class="form-control bg-dark text-white border-secondary rounded-0" 
+                  placeholder="Mínimo 8 caracteres">
+              </div>
+              <button type="submit" class="btn btn-primary w-100 rounded-0 py-2 fw-bold"> CREAR CUENTA </button>
+            </form>
+          } 
+          
+          @else {
+            <form>
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-white">NOMBRE DE USUARIO</label>
+                <input type="text" class="form-control bg-dark text-white border-secondary rounded-0" 
+                  placeholder="Tu usuario registrado">
+              </div>
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-white">CONTRASEÑA</label>
+                <input type="password" class="form-control bg-dark text-white border-secondary rounded-0" 
+                  placeholder="Introduce tu contraseña">
+              </div>
+              <button type="submit" class="btn btn-primary w-100 rounded-0 py-2 fw-bold"> ENTRAR </button>
+            </form>
+          }
+        </div>
+      </div> </div>
+  </div>
+</div>

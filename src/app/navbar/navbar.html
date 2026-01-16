@@ -1,0 +1,56 @@
+<div class="d-flex flex-column ps-1 pe-3 fondo-personalizado navbar-altura-max border-end border-white border-2" style="width: 19rem;">
+  
+  <div class="p-3">
+    <div class="h2 text-white fw-bold pb-3 mb-3 border-bottom border-white border-1"> LaLiga Manager </div> 
+    <div class="navbar-brand mb-3 text-primary"> Global </div>
+    <ul class="navbar-nav w-100">
+      <li class="nav-item">
+        <a [routerLink]="['ligas']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones">Ligas</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['foro']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones">Foro Global</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['noticias']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones">Noticias</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="p-3 flex-grow-1">
+    <p class="navbar-brand mb-3 text-primary"> Liga actual </p>
+    <div class="navbar-brand mb-3 border border-white border-1 rounded-3 d-flex align-items-center">  
+        <div class="p-3 border-end border-white border-1 nav-item text-white" href="#">
+          <svg
+            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shield-shaded" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 14.933a1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
+          </svg>   
+        </div>
+        <div class="text-white ps-3"> Liga Santander </div>
+    </div>
+    <ul class="navbar-nav w-100">
+      <li class="nav-item">
+        <a [routerLink]="['equipos']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones"> Equipos y Jugadores </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['partidos']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones"> Partidos </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['clasificacion']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones"> Clasificación </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['chat']" routerLinkActive="seccion-activa" class="text-white nav-link p-3 hover-secciones"> Chat de la Liga </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="p-3 border-top border-white border-1">
+    <a class="p-3 navbar-brand d-flex align-items-center hover-logout" href="#">
+      <svg
+        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+          <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+      </svg>    
+      <div class="text-white ps-3"> Cerrar Sesión </div>
+    </a>
+  </div>
+</div>
