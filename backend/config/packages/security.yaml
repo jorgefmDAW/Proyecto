@@ -1,0 +1,63 @@
+security:
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    #jerarquia de roles | el rol admin tiene los permisos del rol user + los de rol admin
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\Usuario
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_profiler|_wdt|assets|build)/
+            security: false
+        
+        # le entrega el token al usuario cuando hace login
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login: 
+                check_path: /api/login
+                username_path: email
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        # refresca el token usando el que esta guardado en la base de datos 
+        refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            refresh_jwt: ~
+
+        # acceder a los endpoints con el token
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+
+    access_control:
+        # rutas jwt
+        - { path: ^/api/login, roles: PUBLIC_ACCESS } # revisa si el usuario y la contraseña son correctos en la base de datos y si es asi devuelve token y refresh token 
+        - { path: ^/api/token/refresh, roles: PUBLIC_ACCESS } # devuelve un nuevo token cuando el anterior ha caducado pasandole el refresh token
+
+        # rutas password
+        - { path: ^/api/password/forgot, roles: PUBLIC_ACCESS }
+        - { path: ^/api/password/reset, roles: PUBLIC_ACCESS }
+
+        # rutas usuario
+        - { path: ^/api/usuario/registro, roles: PUBLIC_ACCESS } # crea al usuario en la base de datos
+        - { path: ^/api/logout, roles: IS_AUTHENTICATED_FULLY } # elimina el refresh token de la base de datos
+
+        # rutas aplicacion publicas
+        - { path: ^/api/jugadores, roles: PUBLIC_ACCESS }
+        - { path: ^/api/equipos, roles: PUBLIC_ACCESS }
+        
+        # rutas aplicacion protegidas (USUARIO)
+        - { path: ^/api/partidos, roles: ROLE_USER }
+
+        # rutas aplicacion protegidas (ADMIN)
+        - { path: ^/api/admin, roles: ROLE_ADMIN }

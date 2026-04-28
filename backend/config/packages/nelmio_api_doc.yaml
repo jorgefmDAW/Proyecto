@@ -1,0 +1,68 @@
+nelmio_api_doc:
+    areas:
+        path_patterns:
+            - ^/api(?!/doc$) # Documenta todo lo que empiece por /api excepto la propia doc
+    documentation:
+        info:
+            title: LaLiga API
+            description: API para gestionar ligas, jugadores y equipos.
+            version: 1.0.0
+        components:
+            securitySchemes:
+                bearerAuth:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        
+        # endpoints creados automaticamente por jwt y refresh token
+        paths:
+            /api/login:
+                post:
+                    tags:
+                        - JWT
+                    summary: Iniciar sesión para obtener el token jwt y el refresh token
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        email: { type: string, example: "usuario@gmail.com" }
+                                        password: { type: string, example: "123456" }
+                    responses:
+                        '200':
+                            description: Login exitoso. Devuelve los tokens.
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token: { type: string }
+                                            refresh_token: { type: string }
+                        '401':
+                            description: Credenciales inválidas.
+
+            /api/token/refresh:
+                post:
+                    tags:
+                        - JWT
+                    summary: Renovar un token jwt caducado usando el refresh token
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    properties:
+                                        refresh_token: { type: string, example: "pega_aqui_tu_refresh_token" }
+                    responses:
+                        '200':
+                            description: Tokens renovados con éxito.
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token: { type: string }
+                                            refresh_token: { type: string }
+                        '401':
+                            description: Refresh token inválido o caducado.
