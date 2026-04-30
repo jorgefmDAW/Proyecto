@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PartidoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,6 +38,17 @@ class Partido
 
     #[ORM\ManyToOne(inversedBy: 'partidos')]
     private ?Jornada $jornada = null;
+
+    /**
+     * @var Collection<int, EleccionEstrella>
+     */
+    #[ORM\OneToMany(targetEntity: EleccionEstrella::class, mappedBy: 'partido')]
+    private Collection $eleccionEstrellas;
+
+    public function __construct()
+    {
+        $this->eleccionEstrellas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +135,36 @@ class Partido
     public function setJornada(?Jornada $jornada): static
     {
         $this->jornada = $jornada;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EleccionEstrella>
+     */
+    public function getEleccionEstrellas(): Collection
+    {
+        return $this->eleccionEstrellas;
+    }
+
+    public function addEleccionEstrella(EleccionEstrella $eleccionEstrella): static
+    {
+        if (!$this->eleccionEstrellas->contains($eleccionEstrella)) {
+            $this->eleccionEstrellas->add($eleccionEstrella);
+            $eleccionEstrella->setPartido($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEleccionEstrella(EleccionEstrella $eleccionEstrella): static
+    {
+        if ($this->eleccionEstrellas->removeElement($eleccionEstrella)) {
+            // set the owning side to null (unless already changed)
+            if ($eleccionEstrella->getPartido() === $this) {
+                $eleccionEstrella->setPartido(null);
+            }
+        }
 
         return $this;
     }

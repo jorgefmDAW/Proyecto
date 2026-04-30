@@ -33,10 +33,17 @@ class Jornada
     #[ORM\Column]
     private ?\DateTime $fecha_final = null;
 
+    /**
+     * @var Collection<int, Alineacion>
+     */
+    #[ORM\OneToMany(targetEntity: Alineacion::class, mappedBy: 'jornada')]
+    private Collection $alineacions;
+
     public function __construct()
     {
         $this->partidos = new ArrayCollection();
         $this->puntuacions = new ArrayCollection();
+        $this->alineacions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +136,36 @@ class Jornada
     public function setFechaFinal(\DateTime $fecha_final): static
     {
         $this->fecha_final = $fecha_final;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alineacion>
+     */
+    public function getAlineacions(): Collection
+    {
+        return $this->alineacions;
+    }
+
+    public function addAlineacion(Alineacion $alineacion): static
+    {
+        if (!$this->alineacions->contains($alineacion)) {
+            $this->alineacions->add($alineacion);
+            $alineacion->setJornada($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlineacion(Alineacion $alineacion): static
+    {
+        if ($this->alineacions->removeElement($alineacion)) {
+            // set the owning side to null (unless already changed)
+            if ($alineacion->getJornada() === $this) {
+                $alineacion->setJornada(null);
+            }
+        }
 
         return $this;
     }

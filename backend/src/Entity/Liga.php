@@ -24,9 +24,16 @@ class Liga
     #[ORM\Column]
     private ?bool $privada = null;
 
+    /**
+     * @var Collection<int, UsuarioFantasy>
+     */
+    #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'liga')]
+    private Collection $usuarioFantasies;
+
     public function __construct()
     {
         $this->miembros = new ArrayCollection();
+        $this->usuarioFantasies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,6 +66,36 @@ class Liga
     public function setPrivada(bool $privada): static
     {
         $this->privada = $privada;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UsuarioFantasy>
+     */
+    public function getUsuarioFantasies(): Collection
+    {
+        return $this->usuarioFantasies;
+    }
+
+    public function addUsuarioFantasy(UsuarioFantasy $usuarioFantasy): static
+    {
+        if (!$this->usuarioFantasies->contains($usuarioFantasy)) {
+            $this->usuarioFantasies->add($usuarioFantasy);
+            $usuarioFantasy->setLiga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsuarioFantasy(UsuarioFantasy $usuarioFantasy): static
+    {
+        if ($this->usuarioFantasies->removeElement($usuarioFantasy)) {
+            // set the owning side to null (unless already changed)
+            if ($usuarioFantasy->getLiga() === $this) {
+                $usuarioFantasy->setLiga(null);
+            }
+        }
 
         return $this;
     }

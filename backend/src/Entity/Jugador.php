@@ -37,10 +37,17 @@ class Jugador
     #[ORM\Column(length: 255)]
     private ?string $nacionalidad = null;
 
+    /**
+     * @var Collection<int, EleccionEstrella>
+     */
+    #[ORM\OneToMany(targetEntity: EleccionEstrella::class, mappedBy: 'jugador')]
+    private Collection $eleccionEstrellas;
+
 
     public function __construct()
     {
         $this->puntuacions = new ArrayCollection();
+        $this->eleccionEstrellas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +152,36 @@ class Jugador
     public function setNacionalidad(string $nacionalidad): static
     {
         $this->nacionalidad = $nacionalidad;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EleccionEstrella>
+     */
+    public function getEleccionEstrellas(): Collection
+    {
+        return $this->eleccionEstrellas;
+    }
+
+    public function addEleccionEstrella(EleccionEstrella $eleccionEstrella): static
+    {
+        if (!$this->eleccionEstrellas->contains($eleccionEstrella)) {
+            $this->eleccionEstrellas->add($eleccionEstrella);
+            $eleccionEstrella->setJugador($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEleccionEstrella(EleccionEstrella $eleccionEstrella): static
+    {
+        if ($this->eleccionEstrellas->removeElement($eleccionEstrella)) {
+            // set the owning side to null (unless already changed)
+            if ($eleccionEstrella->getJugador() === $this) {
+                $eleccionEstrella->setJugador(null);
+            }
+        }
 
         return $this;
     }

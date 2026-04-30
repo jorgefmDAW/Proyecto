@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\UsuarioFantasyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: UsuarioFantasyRepository::class)]
+class UsuarioFantasy
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'usuarioFantasies')]
+    private ?Usuario $usuario = null;
+
+    #[ORM\ManyToOne(inversedBy: 'usuarioFantasies')]
+    private ?Liga $liga = null;
+
+    #[ORM\Column]
+    private ?int $puntosTotales = null;
+
+    /**
+     * @var Collection<int, Alineacion>
+     */
+    #[ORM\OneToMany(targetEntity: Alineacion::class, mappedBy: 'usuarioFantasy')]
+    private Collection $alineacions;
+
+    public function __construct()
+    {
+        $this->alineacions = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getUsuario(): ?Usuario
+    {
+        return $this->usuario;
+    }
+
+    public function setUsuario(?Usuario $usuario): static
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getLiga(): ?Liga
+    {
+        return $this->liga;
+    }
+
+    public function setLiga(?Liga $liga): static
+    {
+        $this->liga = $liga;
+
+        return $this;
+    }
+
+    public function getPuntosTotales(): ?int
+    {
+        return $this->puntosTotales;
+    }
+
+    public function setPuntosTotales(int $puntosTotales): static
+    {
+        $this->puntosTotales = $puntosTotales;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alineacion>
+     */
+    public function getAlineacions(): Collection
+    {
+        return $this->alineacions;
+    }
+
+    public function addAlineacion(Alineacion $alineacion): static
+    {
+        if (!$this->alineacions->contains($alineacion)) {
+            $this->alineacions->add($alineacion);
+            $alineacion->setUsuarioFantasy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlineacion(Alineacion $alineacion): static
+    {
+        if ($this->alineacions->removeElement($alineacion)) {
+            // set the owning side to null (unless already changed)
+            if ($alineacion->getUsuarioFantasy() === $this) {
+                $alineacion->setUsuarioFantasy(null);
+            }
+        }
+
+        return $this;
+    }
+}

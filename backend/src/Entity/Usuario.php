@@ -39,13 +39,16 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: ForoGlobal::class, mappedBy: 'id_usuario')]
     private Collection $foroGlobals;
 
-    #[ORM\ManyToOne(inversedBy: 'miembros')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Liga $liga = null;
+    /**
+     * @var Collection<int, UsuarioFantasy>
+     */
+    #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'usuario')]
+    private Collection $usuarioFantasies;
 
     public function __construct()
     {
         $this->foroGlobals = new ArrayCollection();
+        $this->usuarioFantasies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,15 +162,34 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLiga(): ?Liga
+    /**
+     * @return Collection<int, UsuarioFantasy>
+     */
+    public function getUsuarioFantasies(): Collection
     {
-        return $this->liga;
+        return $this->usuarioFantasies;
     }
 
-    public function setLiga(?Liga $liga): static
+    public function addUsuarioFantasy(UsuarioFantasy $usuarioFantasy): static
     {
-        $this->liga = $liga;
+        if (!$this->usuarioFantasies->contains($usuarioFantasy)) {
+            $this->usuarioFantasies->add($usuarioFantasy);
+            $usuarioFantasy->setUsuario($this);
+        }
 
         return $this;
     }
+
+    public function removeUsuarioFantasy(UsuarioFantasy $usuarioFantasy): static
+    {
+        if ($this->usuarioFantasies->removeElement($usuarioFantasy)) {
+            // set the owning side to null (unless already changed)
+            if ($usuarioFantasy->getUsuario() === $this) {
+                $usuarioFantasy->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
