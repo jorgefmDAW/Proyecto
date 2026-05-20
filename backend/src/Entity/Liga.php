@@ -30,6 +30,9 @@ class Liga
     #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'liga')]
     private Collection $usuarioFantasies;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $codigo = null;
+
     public function __construct()
     {
         $this->miembros = new ArrayCollection();
@@ -96,6 +99,18 @@ class Liga
                 $usuarioFantasy->setLiga(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCodigo(): ?string
+    {
+        return $this->codigo;
+    }
+
+    public function setCodigo(?string $codigo): static
+    {
+        $this->codigo = $codigo;
 
         return $this;
     }

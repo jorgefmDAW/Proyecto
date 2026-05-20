@@ -9,6 +9,9 @@ class UsuarioDto
     #[Assert\Email(message: 'El email no es válido')]
     public string $email;
 
+    #[Assert\NotBlank(message: 'El nombre de usuario es obligatiorio')]
+    public string $username;
+
     #[Assert\NotBlank(message: 'La contraseña es obligatoria')]
     #[Assert\Length(
         min: 6,

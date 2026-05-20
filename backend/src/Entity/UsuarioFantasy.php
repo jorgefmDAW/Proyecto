@@ -24,6 +24,9 @@ class UsuarioFantasy
     #[ORM\Column]
     private ?int $puntosTotales = null;
 
+    #[ORM\Column]
+    private ?bool $creador = null;
+
     /**
      * @var Collection<int, Alineacion>
      */
@@ -72,6 +75,18 @@ class UsuarioFantasy
     public function setPuntosTotales(int $puntosTotales): static
     {
         $this->puntosTotales = $puntosTotales;
+
+        return $this;
+    }
+
+    public function getCreador(): ?bool
+    {
+        return $this->creador;
+    }
+
+    public function setCreador(?bool $creador): static
+    {
+        $this->creador = $creador;
 
         return $this;
     }

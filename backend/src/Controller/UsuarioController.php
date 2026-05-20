@@ -30,13 +30,14 @@ final class UsuarioController extends AbstractController {
             type: 'object',
             properties: [
                 new OA\Property(property: 'email', type: 'string', example: 'usuario@gmail.com'),
+                new OA\Property(property: 'username', type: 'string', example: 'usuario'),
                 new OA\Property(property: 'password', type: 'string', example: 'password')
             ]
         )
     )]
     #[OA\Response(
         response: 200,
-        description: 'Registra a un usuario con un email y password'
+        description: 'Registra a un usuario con un email, un username y password'
     )]
     public function registrarUsuario(
         Request $request,
@@ -50,6 +51,7 @@ final class UsuarioController extends AbstractController {
             // mapear datos al dto
             $usuarioDto = new UsuarioDto();
             $usuarioDto->email = $data['email'];
+            $usuarioDto->username = $data['username'];
             $usuarioDto->password = $data['password'];
 
             // validar dto
@@ -71,6 +73,7 @@ final class UsuarioController extends AbstractController {
 
             $usuario = new Usuario();
             $usuario->setEmail($usuarioDto->email);
+            $usuario->setUsername($usuarioDto->username);
             $usuario->setPassword( $password_hasher->hashPassword($usuario, $usuarioDto->password) );
             $usuario->setRoles($rol_usuario);
 
