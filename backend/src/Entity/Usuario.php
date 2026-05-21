@@ -48,10 +48,17 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'usuario')]
     private Collection $usuarioFantasies;
 
+    /**
+     * @var Collection<int, Solicitud>
+     */
+    #[ORM\ManyToMany(targetEntity: Solicitud::class, mappedBy: 'id_usuario')]
+    private Collection $solicituds;
+
     public function __construct()
     {
         $this->foroGlobals = new ArrayCollection();
         $this->usuarioFantasies = new ArrayCollection();
+        $this->solicituds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,6 +212,14 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Solicitud>
+     */
+    public function getSolicituds(): Collection
+    {
+        return $this->solicituds;
     }
 
 }

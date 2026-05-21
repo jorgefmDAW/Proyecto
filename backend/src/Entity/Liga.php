@@ -6,6 +6,8 @@ use App\Repository\LigaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\UsuarioFantasy;
+use App\Entity\Usuario;
 
 #[ORM\Entity(repositoryClass: LigaRepository::class)]
 class Liga
@@ -18,7 +20,7 @@ class Liga
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
 
-    #[ORM\OneToMany(mappedBy: 'liga', targetEntity: Usuario::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\OneToMany(mappedBy: 'liga', targetEntity: UsuarioFantasy::class, fetch: 'EXTRA_LAZY')]
     private Collection $miembros;
 
     #[ORM\Column]
@@ -30,10 +32,17 @@ class Liga
     #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'liga')]
     private Collection $usuarioFantasies;
 
+    /**
+     * @var Collection<int, Solicitud>
+     */
+    #[ORM\ManyToMany(targetEntity: Solicitud::class, mappedBy: 'id_liga')]
+    private Collection $solicituds;
+
     public function __construct()
     {
         $this->miembros = new ArrayCollection();
         $this->usuarioFantasies = new ArrayCollection();
+        $this->solicituds = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +107,14 @@ class Liga
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Solicitud>
+     */
+    public function getSolicituds(): Collection
+    {
+        return $this->solicituds;
     }
 
 }
