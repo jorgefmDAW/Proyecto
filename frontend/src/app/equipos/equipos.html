@@ -1,13 +1,16 @@
 <div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
     <h1> Equipos de La Liga Santander</h1>
 
-    <div class="card" style="width: 18rem;">
+    @for( e of equipos; track e.id)
+    {
+        <div class="card" style="width: 18rem;">
         <a href="">
             <img src="..." class="card-img-top" alt="...">
         </a>
         <div class="card-body">
-            <h5 class="card-title">Nombre del Equipo</h5>
+            <h5 class="card-title"> {{e.nombre}}</h5>
             
         </div>
     </div>
+    }    
 </div>

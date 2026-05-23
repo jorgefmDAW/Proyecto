@@ -1,0 +1,198 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.global-chat-container {
+  width: 100%;
+  max-width: 650px; /* Un poco más ancho para albergar nombres y avatares */
+  height: 650px;
+  margin: 20px auto;
+  background-color: #e5e5f7;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px; /* Un sutil patrón de puntos de fondo */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- CABECERA --- */
+.global-header {
+  background-color: #1e293b;
+  color: white;
+  padding: 16px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.online-count {
+  font-size: 0.85rem;
+  color: #10b981; /* Verde brillante para indicar que hay gente online */
+  font-weight: 500;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+/* --- ZONA DE MENSAJES --- */
+.global-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Personalización del scrollbar */
+.global-messages::-webkit-scrollbar {
+  width: 6px;
+}
+.global-messages::-webkit-scrollbar-thumb {
+  background-color: #94a3b8;
+  border-radius: 4px;
+}
+
+/* --- ESTRUCTURA DEL MENSAJE --- */
+.message-wrapper {
+  display: flex;
+  align-items: flex-end; /* Alinea el avatar con la base de la burbuja */
+  gap: 10px;
+  max-width: 85%;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* --- MENSAJES DE OTROS (IZQUIERDA) --- */
+.message-wrapper.others {
+  align-self: flex-start;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.message-wrapper.others .message-bubble {
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 16px 16px 16px 0; /* Esquina inferior izquierda recta */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.message-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  gap: 15px;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #3b82f6; /* Color para distinguir el nombre de usuario */
+}
+
+/* --- MENSAJES PROPIOS (DERECHA) --- */
+.message-wrapper.mine {
+  align-self: flex-end;
+}
+
+.message-wrapper.mine .message-bubble {
+  background-color: #dcf8c6; /* Verde tipo WhatsApp/iMessage */
+  color: #111827;
+  padding: 12px 16px;
+  border-radius: 16px 16px 0 16px; /* Esquina inferior derecha recta */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Elementos comunes de los textos */
+.message-bubble p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.time, .time-mine {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.time-mine {
+  display: block;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* --- ZONA PARA ESCRIBIR (FOOTER) --- */
+.global-input-area {
+  background-color: #ffffff;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.global-input-area input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 24px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #f8fafc;
+}
+
+.global-input-area input:focus {
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn-send {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0 24px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-send:hover {
+  background-color: #2563eb;
+}
+
+.btn-send:active {
+  transform: scale(0.95); /* Pequeño efecto de pulsación */
+}
+
+/* --- ANIMACIÓN --- */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

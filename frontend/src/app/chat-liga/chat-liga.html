@@ -1,1 +1,59 @@
-<p>chat-liga works!</p>
+    
+<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+    <h1 class="fw-bold"> Chat de la Liga </h1>
+    <p class="text-secondary"> Bienvenido al chat de tu liga. 
+    <div class="global-chat-container">
+    
+    <!-- Cabecera del Chat -->
+    <header class="global-header">
+        <div class="header-info">
+        <h3>🌍 Sala Global</h3>
+        <span class="online-count">124 en línea</span>
+        </div>
+    </header>
+
+    <!-- Zona de Mensajes (con scroll) -->
+    <div class="global-messages">
+        
+        <!-- Mensaje de OTRO usuario (Aparece a la izquierda) -->
+        <div class="message-wrapper others">
+        <div class="avatar">JM</div>
+        <div class="message-bubble">
+            <div class="message-info">
+            <span class="user-name">Juan Martínez</span>º
+            <span class="time">10:42</span>
+            </div>
+            <p>¡Hola a todos! ¿Alguien ha probado ya la nueva funcionalidad?</p>
+        </div>
+        </div>
+
+        <!-- Mensaje PROPIO (Aparece a la derecha) -->
+        <div class="message-wrapper mine">
+        <div class="message-bubble">
+            <p>Sí, la estuve probando ayer y va bastante rápido. ¡Te la recomiendo!</p>
+            <span class="time-mine">10:43</span>
+        </div>
+        </div>
+
+        <!-- Otro mensaje de OTRO usuario -->
+        <div class="message-wrapper others">
+        <div class="avatar">AL</div>
+        <div class="message-bubble">
+            <div class="message-info">
+            <span class="user-name">Ana López</span>
+            <span class="time">10:45</span>
+            </div>
+            <p>Genial, entonces me pondré con ello esta tarde. ¡Gracias por el aviso!</p>
+        </div>
+        </div>
+
+    </div>
+
+    <!-- Zona fija para escribir mensajes -->
+    <footer class="global-input-area">
+        <input type="text" placeholder="Escribe tu mensaje aquí..." />
+        <button class="btn-send">Enviar</button>
+    </footer>
+
+    </div>
+</div>    

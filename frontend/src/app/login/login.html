@@ -3,68 +3,97 @@
 
     <div class="card-body p-0">
       <div class="p-2 pb-0">
-        <h1 class="text-center mb-4 fw-bold text-uppercase border-bottom border-3 border-secondary pb-3" style="letter-spacing: 2px;"> 
-          LaLiga Manager </h1>
+        <h1 class="text-center mb-4 fw-bold text-uppercase border-bottom border-3 border-secondary pb-3" style="letter-spacing: 2px;">
+          LaLiga Manager
+        </h1>
       </div>
 
-      <div class=""> 
-        
+      <div>
         <nav class="navbar navbar-expand p-0 border-bottom border-secondary">
           <div class="container-fluid p-0">
             <ul class="navbar-nav w-100 flex-row">
               <li class="nav-item w-50">
-                <button (click)="mostrarSeccion('registrate')" 
-                  class="text-white nav-link w-100 text-center py-3 rounded-0"
-                  [class.bg-primary]="getSeccion_actual() == 'registrate'"
-                  [class.fw-bold]="getSeccion_actual() == 'registrate'"> CREAR CUENTA </button>
+                <button (click)="activarRegistro()" [class.bg-primary]="formRegistro()" [class.active]="formRegistro()"
+                  class="text-white nav-link w-100 text-center py-3 rounded-0">
+                  CREAR CUENTA
+                </button>
               </li>
               <li class="nav-item w-50">
-                <button (click)="mostrarSeccion('iniciar-sesion')" 
-                  class="text-white nav-link w-100 text-center py-3 border-end border-secondary rounded-0"
-                  [class.bg-primary]="getSeccion_actual() == 'iniciar-sesion'"
-                  [class.fw-bold]="getSeccion_actual() == 'iniciar-sesion'"> INICIAR SESIÓN </button>
-              </li>              
+                <button (click)="activarLogin()" [class.bg-primary]="formLogin()" [class.active]="formLogin()"
+                  class="text-white nav-link w-100 text-center py-3 border-end border-secondary rounded-0">
+                  INICIAR SESIÓN
+                </button>
+              </li>
             </ul>
           </div>
         </nav>
 
         <div class="p-4">
-          @if(getSeccion_actual() == 'registrate') {
-            <form>
+
+          @if(formRegistro()) {
+            <form [formGroup]="registroForm">
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-white">NOMBRE DE USUARIO</label>
+                <input formControlName="username" type="text" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Tu nombre de usuario">                
+              </div>
+
               <div class="mb-3">
                 <label class="form-label small fw-bold text-white">CORREO ELECTRÓNICO</label>
-                <input type="email" class="form-control bg-dark text-white border-secondary rounded-0" 
-                  placeholder="ejemplo@correo.com">
+                <input formControlName="email" type="email" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="ejemplo@correo.com">                
               </div>
-              <div class="mb-3">
-                <label class="form-label small fw-bold text-white">NOMBRE DE USUARIO</label>
-                <input type="text" class="form-control bg-dark text-white border-secondary rounded-0" 
-                  placeholder="Este será tu nombre en el juego">
-              </div>
+
               <div class="mb-4">
                 <label class="form-label small fw-bold text-white">CONTRASEÑA</label>
-                <input type="password" class="form-control bg-dark text-white border-secondary rounded-0" 
-                  placeholder="Mínimo 8 caracteres">
+                <input formControlName="password" type="password" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Mínimo 8 caracteres">               
               </div>
-              <button type="submit" class="btn btn-primary w-100 rounded-0 py-2 fw-bold"> CREAR CUENTA </button>
-            </form>
-          } 
-          
-          @else {
-            <form>
-              <div class="mb-3">
-                <label class="form-label small fw-bold text-white">NOMBRE DE USUARIO</label>
-                <input type="text" class="form-control bg-dark text-white border-secondary rounded-0" 
-                  placeholder="Tu usuario registrado">
-              </div>
-              <div class="mb-4">
-                <label class="form-label small fw-bold text-white">CONTRASEÑA</label>
-                <input type="password" class="form-control bg-dark text-white border-secondary rounded-0" 
-                  placeholder="Introduce tu contraseña">
-              </div>
-              <button type="submit" class="btn btn-primary w-100 rounded-0 py-2 fw-bold"> ENTRAR </button>
+
+                @if(mensajeExito()) {
+                  <div class="alert alert-success py-2 mb-3">{{ mensajeExito() }}</div>
+                }
+                @if(mensajeError()) {
+                  <div class="alert alert-danger py-2 mb-3">{{ mensajeError() }}</div>
+                }
+
+              <button (click)="registrarUsuario()" type="button" class="btn btn-primary w-100 rounded-0 py-2 fw-bold">
+                CREAR CUENTA
+              </button>
+
             </form>
           }
-        </div>
+     
+          <div *ngIf="formLogin()">
+            <form [formGroup]="loginForm" novalidate>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-white">NOMBRE DE USUARIO</label>
+                <input formControlName="username" type="text" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Tu usuario registrado"
+                  [ngClass]="{ 'is-invalid': controlInvalido('login','username'), 'shake': controlInvalido('login','username') }">
+                <div *ngIf="loginForm.get('username')?.errors && (loginForm.get('username')?.touched || loginSubmitted())" class="invalid-feedback d-block small">
+                  <div *ngIf="loginForm.get('username')?.errors?.['required']">El nombre de usuario es obligatorio.</div>
+                  <div *ngIf="loginForm.get('username')?.errors?.['minlength']">Mínimo 3 caracteres.</div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-white">CONTRASEÑA</label>
+                <input formControlName="password" type="password" class="form-control bg-dark text-white border-secondary rounded-0" placeholder="Introduce tu contraseña"
+                  [ngClass]="{ 'is-invalid': controlInvalido('login','password'), 'shake': controlInvalido('login','password') }">
+                <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginSubmitted())" class="invalid-feedback d-block small">
+                  <div *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</div>
+                  <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Mínimo 8 caracteres.</div>
+                </div>
+              </div>
+
+              <div *ngIf="mensajeExito()" class="alert alert-success py-2 mb-3 alert-anim">{{ mensajeExito() }}</div>
+              <div *ngIf="mensajeError()" class="alert alert-danger py-2 mb-3 alert-anim">{{ mensajeError() }}</div>
+              <button (click)="iniciarSesion()" type="button" class="btn btn-primary w-100 rounded-0 py-2 fw-bold"> ENTRAR </button>
+
+            </form>
+          </div>
+        </div>   
+
+      </div>
+
+    </div>
   </div>
 </div>

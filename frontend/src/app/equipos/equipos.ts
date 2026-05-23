@@ -1,11 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Equipo } from '../services/equipo';
 
 @Component({
   selector: 'app-equipos',
-  imports: [],
   templateUrl: './equipos.html',
-  styleUrl: './equipos.css',
+  styleUrls: ['./equipos.css'],
 })
-export class Equipos {
+export class Equipos implements OnInit {
+
+  private equipoService = inject(Equipo);
+  equipos: any[] = [];
+
+  ngOnInit() {
+    this.cargarEquipos();
+  }
+
+  cargarEquipos() {
+    this.equipoService.obtenerEquipos().subscribe(data => {
+      console.log("Datos que recibe Angular:", data);
+      this.equipos = data || [];
+    }, err => {
+      console.error('Error al cargar equipos', err);
+    });
+  }
 
 }
