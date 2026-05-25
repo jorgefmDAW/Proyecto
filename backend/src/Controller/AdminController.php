@@ -182,11 +182,11 @@ final class AdminController extends AbstractController {
             return $this->json($resultados, 201);
     }
 
-    // ======================= ACTUALIZAR NOTICIA =======================
-    #[Route(path:'/noticias/actualizar/{noticia_id}', methods:['PUT'])]
-    #[OA\Put(
+    // ======================= ACTUALIZAR NOTICIA (PATCH) =======================
+    #[Route(path:'/noticias/actualizar/{noticia_id}', methods:['PATCH'])]
+    #[OA\Patch(
         path: '/api/admin/noticias/actualizar/{noticia_id}',
-        summary: 'Actualiza una noticia',
+        summary: 'Actualiza parcialmente una noticia',
         tags: ['Admin - Noticias'],
         security: [['bearerAuth' => []]]
     )]
@@ -194,64 +194,58 @@ final class AdminController extends AbstractController {
         content: new OA\JsonContent(
             type: 'object',
             properties: [
-                new OA\Property(property: 'titulo', type: 'string', example: 'Curso gratis de Symfony'),
-                new OA\Property(property: 'categoria', type: 'string', example: 'Backend'),
-                new OA\Property(property: 'texto', type: 'text', example: 'Se ha lanzado ya el nuevo curso de symfony con mas de mil videos...')
+                new OA\Property(property: 'titulo', type: 'string', example: 'Curso gratis de Symfony (Opcional)'),
+                new OA\Property(property: 'categoria', type: 'string', example: 'Backend (Opcional)'),
+                new OA\Property(property: 'texto', type: 'text', example: 'Se ha lanzado ya el nuevo curso... (Opcional)')
             ]
         )
     )]
     #[OA\Response(
         response: 200,
-        description: 'Actualiza una noticia'
+        description: 'Noticia actualizada correctamente'
     )]
-    public function actualizarNoticia(
-        EntityManagerInterface $em,
-        Request $request, 
-        ValidatorInterface $validator,
-        int $noticia_id
-    ): JsonResponse {
+    public function actualizarNoticia(EntityManagerInterface $em, Request $request, ValidatorInterface $validator, int $noticia_id): JsonResponse {
+        $noticia = $em->getRepository(Noticia::class)->find($noticia_id);
 
-            $noticia = $em->getRepository(Noticia::class)->find($noticia_id);
+        if(!$noticia) {
+            return $this->json(['message' => 'Noticia no encontrada'], 404);
+        }
 
-            if(!$noticia) {
-                return $this->json(['message' => 'Noticia no encontrada'], 404);
-            }
+        $data = json_decode($request->getContent(), true) ?? []; 
 
-            $data = json_decode($request->getContent(), true); // SIN true devuelve un objeto | CON true devuelve un array asociativo ( array['ejemplo1'] )
+        $noticiaDto = new NoticiaDto();
+        $noticiaDto->titulo = $data['titulo'] ?? $noticia->getTitulo();
+        $noticiaDto->categoria = $data['categoria'] ?? $noticia->getCategoria();
+        $noticiaDto->texto = $data['texto'] ?? $noticia->getTexto();
 
-            // mapear datos al dto
-            $noticiaDto = new NoticiaDto();
-            $noticiaDto->titulo = $data['titulo'];
-            $noticiaDto->categoria = $data['categoria'];
-            $noticiaDto->texto = $data['texto'];
+        $errores = $validator->validate($noticiaDto);
+        if( count($errores) > 0 ) {
+            return $this->json(['errores' => (string) $errores], 400);
+        } 
 
-            // validar dto
-            $errores = $validator->validate($noticiaDto);
-            if( count($errores) > 0 ) {
-                return $this->json(['errores' => (string) $errores], 400);
-            } 
-
-            // verificar si hay una noticia con el mismo titulo
+        // verifica si hay una noticia con el mismo titulo si se esta enviando un titulo nuevo
+        if (isset($data['titulo']) && $data['titulo'] !== $noticia->getTitulo()) {
             $titulo_existente = $em
                 ->getRepository(Noticia::class)
                 ->findOneBy(['titulo' => $noticiaDto->titulo]);
 
-            if($titulo_existente && $titulo_existente->getId() !== $noticia->getId()) {
+            if($titulo_existente) {
                 return $this->json(['error' => 'Ya hay otra noticia con ese titulo'], 409);
             }
+        }
 
-            $noticia->setTitulo($noticiaDto->titulo);
-            $noticia->setCategoria($noticiaDto->categoria);
-            $noticia->setTexto($noticiaDto->texto);
+        $noticia->setTitulo($noticiaDto->titulo);
+        $noticia->setCategoria($noticiaDto->categoria);
+        $noticia->setTexto($noticiaDto->texto);
 
-            $resultados = [
-                'message' => 'Noticia actualizada correctamente',
-                'noticia_actualizada' => $this->toArrayNoticia($noticia)
-            ];
+        $resultados = [
+            'message' => 'Noticia actualizada parcialmente con éxito',
+            'noticia_actualizada' => $this->toArrayNoticia($noticia)
+        ];
 
-            $em->flush();
+        $em->flush();
 
-            return $this->json($resultados, 200);
+        return $this->json($resultados, 200);
     }
 
     // ======================= ELIMINAR NOTICIA =======================

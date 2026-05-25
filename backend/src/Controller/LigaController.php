@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Dto\LigaDto;
 use App\Entity\Solicitud;
+use App\Entity\Usuario;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use App\Entity\UsuarioFantasy;
@@ -54,6 +55,62 @@ final class LigaController extends AbstractController {
         return $this->json($resultados);
     }
 
+    // ======================= GET LIGA BY ID =======================
+    #[Route(path:'/liga/{id}', methods:['GET'])]
+    #[OA\Get(
+        path: '/api/ligas/liga/{id}',
+        summary: 'Obtiene todas las ligas',
+        tags: ['Ligas']
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Obtiene todas las ligas'
+    )]
+    public function getLigaById(int $id): JsonResponse {
+        $liga = $this->ligaRepository->find($id);
+
+        if(!$liga) {
+            return $this->json(['message' => 'No se han encontrado ligas'], 404);
+        }
+
+        $ligaResultado = $this->toArray($liga);
+
+        return $this->json($ligaResultado);
+    }
+
+    // ======================= GET MIS LIGAS =======================
+    #[Route(path:'/mis-ligas', methods:['GET'])]
+    #[OA\Get(
+        path: '/api/ligas/mis-ligas',
+        summary: 'Obtiene las ligas a las que esta unido el usuario',
+        tags: ['Ligas']
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Obtiene las ligas a las que esta unido el usuario'
+    )]
+    public function getMisLigas(#[CurrentUser] ?Usuario $usuario): JsonResponse {
+        if(!$usuario) {
+            return $this->json(['error' => 'Tienes que estar loggeado para poder crear una liga'], 403);
+        }
+
+        $usuarioFantasy = $this->em->getRepository(UsuarioFantasy::class)->findBy(['usuario' => $usuario]);
+
+        if(!$usuarioFantasy) {
+            return $this->json(['message' => 'No se ha encontrado ningun usuario con ligas'], 404);
+        }
+
+        $resultados = [
+            'ligas' => []
+        ];
+
+        foreach($usuarioFantasy as $uf) {
+            $resultados['ligas'][] = $this->toArray($uf->getLiga());
+        }
+
+        return $this->json($resultados);
+    }
+
     // ======================= CREAR LIGA =======================
     #[Route(path:'/crear', methods:['POST'])]
     #[OA\Post(
@@ -66,7 +123,8 @@ final class LigaController extends AbstractController {
             type: 'object',
             properties: [
                 new OA\Property(property: 'nombre', type: 'string', example: 'Liga Expertos'),
-                new OA\Property(property: 'privada', type: 'boolean', example: '1')
+                new OA\Property(property: 'privada', type: 'boolean', example: '1'),
+                new OA\Property(property: 'max_miembros', type: 'integer', example: '12')
             ]
         )
     )]
@@ -76,52 +134,42 @@ final class LigaController extends AbstractController {
     )]
     public function crearLiga(Request $request, ValidatorInterface $validator, #[CurrentUser] $usuario): JsonResponse 
     {
-            $data = json_decode($request->getContent(), true);
+        $data = json_decode($request->getContent(), true);
 
-            if(!$usuario) {
-                return $this->json(['error' => 'Tienes que estar loggeado para poder crear una liga'], 403);
-            }
+        if(!$usuario) {
+            return $this->json(['error' => 'Tienes que estar loggeado para poder crear una liga'], 403);
+        }
 
-            // mapear datos al dto
-            $ligaDto = new LigaDto();
-            $ligaDto->nombre = $data['nombre'];
-            $ligaDto->privada = $data['privada'];
+        // verificar si hay una liga con el mismo nombre
+        $liga_existente = $this->ligaRepository->findOneBy(['nombre' => $data['nombre']]);
 
-            // validar dto
-            $errores = $validator->validate($ligaDto);
-            if( count($errores) > 0 ) {
-                return $this->json(['errores' => (string) $errores], 400);
-            } 
+        if($liga_existente) {
+            return $this->json(['error' => 'No puede haber dos ligas con el mismo nombre'], 409);
+        }
 
-            // verificar si hay una liga con el mismo nombre
-            $liga_existente = $this->ligaRepository->findOneBy(['nombre' => $ligaDto->nombre]);
+        $liga = new Liga();
+        $liga->setNombre($data['nombre']);
+        $liga->setPrivada($data['privada']);
+        $liga->setMaxMiembros($data['max_miembros']);
 
-            if($liga_existente) {
-                return $this->json(['error' => 'Ya hay una liga con ese nombre'], 409);
-            }
+        $this->em->persist($liga);
+        $this->em->flush();
 
-            $liga = new Liga();
-            $liga->setNombre($ligaDto->nombre);
-            $liga->setPrivada($ligaDto->privada);
+        $usuarioFantasy = new UsuarioFantasy();
+        $usuarioFantasy->setPuntosTotales(0);
+        $usuarioFantasy->setUsuario($usuario);
+        $usuarioFantasy->setLiga($liga);
+        $usuarioFantasy->setCreador(true);
 
-            $this->em->persist($liga);
-            $this->em->flush();
+        $this->em->persist($usuarioFantasy);
+        $this->em->flush();
 
-            $usuarioFantasy = new UsuarioFantasy();
-            $usuarioFantasy->setPuntosTotales(0);
-            $usuarioFantasy->setUsuario($usuario);
-            $usuarioFantasy->setLiga($liga);
-            $usuarioFantasy->setCreador(true);
+        $resultados = [
+            'message' => 'Liga creada correctamente',
+            'liga_creada' => $this->toArray($liga)
+        ];
 
-            $this->em->persist($usuarioFantasy);
-            $this->em->flush();
-
-            $resultados = [
-                'message' => 'Liga creada correctamente',
-                'liga_creada' => $this->toArray($liga)
-            ];
-
-            return $this->json($resultados, 201);
+        return $this->json($resultados, 201);
     }
 
     // ======================= UNIRSE A LIGA PUBLICA =======================
@@ -145,6 +193,10 @@ final class LigaController extends AbstractController {
 
         if(!$liga) {
             return $this->json(['error' => 'No se ha encontrado ninguna liga pública con ese id'], 404);
+        }
+
+        if($liga->getMiembros() == $liga->getMaxMiembros()) {
+            return $this->json(['error' => 'No ha sido posible unirse a la liga. La liga está llena'], 403);
         }
 
         $usuarioFantasy = new UsuarioFantasy();
@@ -213,12 +265,44 @@ final class LigaController extends AbstractController {
         return $this->json(['message' => 'Tu solicitud a la liga ' . $liga->getNombre() . ' se ha realizado correctamente']);
     }
 
+    // ======================= ELIMINAR NOTICIA =======================
+    #[Route(path:'/salirse/{id}', methods:['DELETE'])]
+    #[OA\Delete(
+        path: '/api/ligas/salirse/{id}',
+        summary: 'Elimina al usuario de la liga (elimina el registro de la tabla usuariosfantasy)',
+        tags: ['Ligas'],
+        security: [['bearerAuth' => []]]
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Elimina al usuario de la liga (elimina el registro de la tabla usuariosfantasy)'
+    )]
+    public function salirseLiga(#[CurrentUser] ?Usuario $usuario, int $id): JsonResponse {
+        $liga = $this->em->getRepository(Liga::class)->find($id);
+
+        if(!$liga) {
+            return $this->json(['error' => 'Liga no encontrada'], 404);
+        }
+
+        if(!$usuario) {
+            return $this->json(['error' => 'Tienes que estar loggeado para poder salirte de una liga'], 404);
+        }
+
+        $usuarioFantasy = $this->em->getRepository(UsuarioFantasy::class)->findOneBy(['usuario' => $usuario, 'liga' => $liga]);
+
+        $this->em->remove($usuarioFantasy);
+        $this->em->flush();
+
+        return $this->json(['message' => 'Te has salido de la liga ' . $liga->getNombre() . ' correctamente'], 200);
+    }
+
     // ======================= HELPERS =======================
     private function toArray(Liga $liga): array {
         return [
             'id' => $liga->getId(),
             'nombre' => $liga->getNombre(),
             'miembros' => $liga->getMiembros(),
+            'max_miembros' => $liga->getMaxMiembros(),
             'privada' => $liga->isPrivada()
         ];
     }

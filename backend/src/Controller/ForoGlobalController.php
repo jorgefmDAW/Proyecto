@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use OpenApi\Attributes as OA;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use function PHPUnit\Framework\isArray;
@@ -43,7 +44,7 @@ final class ForoGlobalController extends AbstractController {
     #[Route(path:'/mensajes/enviar', methods:['POST'])]
     #[OA\Post(
         path: '/api/foro-global/mensajes/enviar',
-        summary: 'Inserta un mensaje en la base de datos',
+        summary: 'Inserta un mensaje en la base de datos | POSTMAN',
         tags: ['Foro Global'],
     )]
     #[OA\RequestBody(
@@ -51,7 +52,6 @@ final class ForoGlobalController extends AbstractController {
             type: 'object',
             properties: [
                 new OA\Property(property: 'mensaje', type: 'text', example: 'Hola soy un nuevo usuario'),
-                new OA\Property(property: 'usuario_id', type: 'int', example: '1')
             ]
         )
     )]
@@ -59,41 +59,30 @@ final class ForoGlobalController extends AbstractController {
         response: 200,
         description: 'Inserta un mensaje en la base de datos'
     )]
-    public function enviarMensaje(
-        Request $request,
-        ValidatorInterface $validator,
-        EntityManagerInterface $em
-        ): JsonResponse {
+    public function enviarMensaje(Request $request, EntityManagerInterface $em, #[CurrentUser] $usuario): JsonResponse {
+        $data = json_decode($request->getContent(), true);
 
-            $data = json_decode($request->getContent(), true);
+        if(!$data) {
+            return $this->json(['error' => 'No se enviaron datos o el JSON es inválido'], 400);
+        }
 
-            // mapear datos al dto
-            $foroGlobalDto = new ForoGlobalDto();
-            $foroGlobalDto->mensaje = $data['mensaje'];
-            $foroGlobalDto->usuario = $data['usuario_id'];
+        if(!$usuario) {
+            return $this->json(['message' => 'Tienes que estar loggeado para enviar un mensaje'], 403);
+        }
 
-            // validar dto
-            $errores = $validator->validate($foroGlobalDto);
-            if( count($errores) > 0 ) {
-                return $this->json(['errores' => (string) $errores], 400);
-            }
+        $foroGlobal = new ForoGlobal();
+        $foroGlobal->setMensaje($data['mensaje']);
+        $foroGlobal->setUsuario($usuario);
 
-            // obtiene el usuario mediante el id que se le ha pasado por el dto
-            $usuario = $em->getRepository(Usuario::class)->find($foroGlobalDto->usuario);
+        $em->persist($foroGlobal);
+        $em->flush();
 
-            $foroGlobal = new ForoGlobal();
-            $foroGlobal->setMensaje($foroGlobalDto->mensaje);
-            $foroGlobal->setUsuario($usuario);
+        $resultados = [
+            'message' => 'Mensaje creado correctamente',
+            'mensaje_creado' => $this->toArray($foroGlobal)
+        ];
 
-            $em->persist($foroGlobal);
-            $em->flush();
-
-            $resultados = [
-                'message' => 'Mensaje creado correctamente',
-                'mensaje_creado' => $this->toArray($foroGlobal)
-            ];
-
-            return $this->json($resultados, 201);
+        return $this->json($resultados, 201);
     }
 
     // ======================= HELPERS =======================

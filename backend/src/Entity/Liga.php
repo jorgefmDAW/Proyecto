@@ -38,6 +38,9 @@ class Liga
     #[ORM\ManyToMany(targetEntity: Solicitud::class, mappedBy: 'id_liga')]
     private Collection $solicituds;
 
+    #[ORM\Column]
+    private ?int $max_miembros = null;
+
     public function __construct()
     {
         $this->miembros = new ArrayCollection();
@@ -115,6 +118,18 @@ class Liga
     public function getSolicituds(): Collection
     {
         return $this->solicituds;
+    }
+
+    public function getMaxMiembros(): ?int
+    {
+        return $this->max_miembros;
+    }
+
+    public function setMaxMiembros(int $max_miembros): static
+    {
+        $this->max_miembros = $max_miembros;
+
+        return $this;
     }
 
 }
