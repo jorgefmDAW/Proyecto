@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 export class Users {
   
   private http = inject(HttpClient);  
-  private apiUrl = 'https://localhost:8000/api';
+  private apiUrl = 'http://localhost:8000/api';
 
   // Estado reactivo para guardar al usuario actual
   private currentUserSubject = new BehaviorSubject<any>(null);
