@@ -14,8 +14,9 @@ class EleccionEstrella
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'eleccionEstrellas')]
-    private ?alineacion $alineacion = null;
+    #[ORM\ManyToOne(targetEntity: Alineacion::class, inversedBy: 'eleccionesEstrella')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Alineacion $alineacion = null;
 
     #[ORM\ManyToOne(inversedBy: 'eleccionEstrellas')]
     private ?Partido $partido = null;

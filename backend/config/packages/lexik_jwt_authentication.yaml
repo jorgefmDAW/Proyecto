@@ -3,5 +3,5 @@ lexik_jwt_authentication:
     public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
     pass_phrase: '%env(JWT_PASSPHRASE)%'
 
-    # el token durará 5 minutos únicamente
+    # el token durará 5 minutos
     token_ttl: 300

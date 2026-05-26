@@ -26,6 +26,9 @@ class Equipo
     #[ORM\OneToMany(targetEntity: Jugador::class, mappedBy: 'equipo')]
     private Collection $jugadors;
 
+    #[ORM\Column(length: 255)]
+    private ?string $escudo = null;
+
     public function __construct()
     {
         $this->jugadors = new ArrayCollection();
@@ -74,6 +77,18 @@ class Equipo
                 $jugador->setEquipo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEscudo(): ?string
+    {
+        return $this->escudo;
+    }
+
+    public function setEscudo(string $escudo): static
+    {
+        $this->escudo = $escudo;
 
         return $this;
     }

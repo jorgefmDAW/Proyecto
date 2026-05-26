@@ -13,7 +13,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use OpenApi\Attributes as OA;
-
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route(path:'/api/usuario')]
 final class UsuarioController extends AbstractController {
@@ -88,11 +88,10 @@ final class UsuarioController extends AbstractController {
             return $this->json($resultados, 201);
     }
 
-    // ======================= CERRAR SESION USUARIO =======================
     #[Route('/logout', methods: ['POST'])]
     #[OA\Post(
         path: '/api/usuario/logout',
-        summary: 'Cierra la sesión de un usuario, eliminando su refresh token',
+        summary: 'Cierra la sesión del usuario actual',
         tags: ['Usuarios'],
         security: [['bearerAuth' => []]]
     )]
@@ -100,30 +99,31 @@ final class UsuarioController extends AbstractController {
         content: new OA\JsonContent(
             type: 'object',
             properties: [
-                new OA\Property(property: 'email', type: 'string', example: 'usuario@gmail.com'),
-                new OA\Property(property: 'password', type: 'string', example: 'password')
+                new OA\Property(property: 'refresh_token', type: 'string', example: 'eyJhbGciOiJIUzI1...')
             ]
         )
     )]
-    #[OA\Response(
-        response: 200,
-        description: 'Cierra la sesión de un usuario eliminando su refresh token, obligándole a tener que logearse otra vez para obtener un token válido'
-    )]
+    #[OA\Response(response: 200, description: 'Sesión cerrada con éxito')]
+    #[OA\Response(response: 401, description: 'No autorizado')]
     public function logout(
         Request $request, 
         RefreshTokenManagerInterface $refreshTokenManager, 
-        ): JsonResponse {
+        #[CurrentUser] ?Usuario $usuario
+    ): JsonResponse {
 
-        // recoger el refresh token que envia el frontend
+        // verifica que el usuario este loggeado
+        if (!$usuario) {
+            return new JsonResponse(['error' => 'No autorizado'], 401);
+        }
+
         $data = json_decode($request->getContent(), true);
         $refreshTokenString = $data['refresh_token'] ?? null;
 
-        // se busca el token en la base de datos
         if ($refreshTokenString) {
             $refreshToken = $refreshTokenManager->get($refreshTokenString);
 
-            // si existe se borra
-            if ($refreshToken) {
+            // verifica que el token exista y que pertenezca a el usuario que esta intentando borrarlo
+            if ($refreshToken && $refreshToken->getUsername() === $usuario->getUsername()) {
                 $refreshTokenManager->delete($refreshToken);
             }
         }
