@@ -162,6 +162,7 @@ final class UsuarioController extends AbstractController {
         return [
             'id' => $usuario->getId(),
             'email' => $usuario->getEmail(),
+            'username' => $usuario->getUsername(),
             'roles' => $usuario->getRoles()
         ];
     }

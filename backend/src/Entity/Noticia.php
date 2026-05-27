@@ -23,6 +23,9 @@ class Noticia
     #[ORM\Column(type: Types::TEXT)]
     private ?string $texto = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, options: ['default' => 'CURRENT_DATE'])]
+    private ?\DateTime $fecha = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Noticia
     public function setTexto(string $texto): static
     {
         $this->texto = $texto;
+
+        return $this;
+    }
+
+    public function getFecha(): ?\DateTime
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTime $fecha): static
+    {
+        $this->fecha = $fecha;
 
         return $this;
     }

@@ -38,7 +38,8 @@ final class NoticiaController extends AbstractController {
             'id' => $noticia->getId(),
             'titulo' => $noticia->getTitulo(),
             'categoria' => $noticia->getCategoria(),
-            'texto' => $noticia->getTexto()
+            'texto' => $noticia->getTexto(),
+            'fecha' => $noticia->getFecha()->format('d-m-Y')
         ];
     }
 

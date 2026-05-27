@@ -26,56 +26,38 @@ final class LigaController extends AbstractController {
         private EntityManagerInterface $em,
     ) {}
 
-    // ======================= GET ALL LIGAS =======================
+    // ======================= GET LIGAS DISPONIBLES =======================
     #[Route(path:'', methods:['GET'])]
     #[OA\Get(
         path: '/api/ligas',
-        summary: 'Obtiene todas las ligas',
+        summary: 'Obtiene las ligas disponibles para unirse (no muestra en las que el usuario ya se ha unido)',
         tags: ['Ligas']
     )]
     #[OA\Response(
         response: 200,
-        description: 'Obtiene todas las ligas'
+        description: 'Obtiene las ligas disponibles para unirse (no muestra en las que el usuario ya se ha unido)'
     )]
-    public function getAllLigas(): JsonResponse {
+    public function getLigasDisponibles(#[CurrentUser] ?Usuario $usuario): JsonResponse {
         $ligas = $this->ligaRepository->findAll();
-
         if(!$ligas) {
             return $this->json(['message' => 'No se han encontrado ligas'], 404);
         }
 
-        $resultados = [
-            'ligas' => []
-        ];
+        $resultados = ['ligas' => []];
 
+        // si el usuario ya es miembro de la liga no la muestra en ligas disponibles
         foreach($ligas as $l) {
-            $resultados['ligas'][] = $this->toArray($l);
+            $esMiembro = $this->em->getRepository(UsuarioFantasy::class)->findOneBy([
+                'usuario' => $usuario,
+                'liga' => $l
+            ]);
+
+            if(!$esMiembro) {
+                $resultados['ligas'][] = $this->toArray($l);
+            }
         }
 
         return $this->json($resultados);
-    }
-
-    // ======================= GET LIGA BY ID =======================
-    #[Route(path:'/liga/{id}', methods:['GET'])]
-    #[OA\Get(
-        path: '/api/ligas/liga/{id}',
-        summary: 'Obtiene todas las ligas',
-        tags: ['Ligas']
-    )]
-    #[OA\Response(
-        response: 200,
-        description: 'Obtiene todas las ligas'
-    )]
-    public function getLigaById(int $id): JsonResponse {
-        $liga = $this->ligaRepository->find($id);
-
-        if(!$liga) {
-            return $this->json(['message' => 'No se han encontrado ligas'], 404);
-        }
-
-        $ligaResultado = $this->toArray($liga);
-
-        return $this->json($ligaResultado);
     }
 
     // ======================= GET MIS LIGAS =======================
@@ -105,7 +87,7 @@ final class LigaController extends AbstractController {
         ];
 
         foreach($usuarioFantasy as $uf) {
-            $resultados['ligas'][] = $this->toArray($uf->getLiga());
+            $resultados['ligas'][] = $this->toArrayMisLigas($uf->getLiga(), $uf);
         }
 
         return $this->json($resultados);
@@ -173,9 +155,9 @@ final class LigaController extends AbstractController {
     }
 
     // ======================= UNIRSE A LIGA PUBLICA =======================
-    #[Route(path:'/unirse/{id_liga}', methods:['POST'])]
+    #[Route(path:'/unirse/{id}', methods:['POST'])]
     #[OA\Post(
-        path: '/api/ligas/unirse/{id_liga}',
+        path: '/api/ligas/unirse/{id}',
         summary: 'Unirse a una liga PUBLICA',
         tags: ['Ligas'],
     )]
@@ -183,13 +165,13 @@ final class LigaController extends AbstractController {
         response: 200,
         description: 'Unirse a una liga PUBLICA'
     )]
-    public function unirseLigaPublica(int $id_liga, #[CurrentUser] $usuario): JsonResponse 
+    public function unirseLigaPublica(int $id, #[CurrentUser] $usuario): JsonResponse 
     {
         if(!$usuario) {
             return $this->json(['error' => 'Tienes que estar loggeado para poder unirte a una liga'], 403);
         }
     
-        $liga = $this->ligaRepository->findOneBy(['id' => $id_liga, 'privada' => 0]);
+        $liga = $this->ligaRepository->findOneBy(['id' => $id, 'privada' => 0]);
 
         if(!$liga) {
             return $this->json(['error' => 'No se ha encontrado ninguna liga pública con ese id'], 404);
@@ -212,9 +194,9 @@ final class LigaController extends AbstractController {
     }
 
     // ======================= SOLICITAR UNIRSE A LIGA PRIVADA =======================
-    #[Route(path:'/unirse/solicitar/{id_liga}', methods:['POST'])]
+    #[Route(path:'/unirse/solicitar/{id}', methods:['POST'])]
     #[OA\Post(
-        path: '/api/ligas/unirse/solicitar/{id_liga}',
+        path: '/api/ligas/unirse/solicitar/{id}',
         summary: 'Solicitar unirse a una liga PRIVADA',
         tags: ['Ligas'],
     )]
@@ -230,13 +212,13 @@ final class LigaController extends AbstractController {
         response: 200,
         description: 'Solicitar unirse a una liga PRIVADA'
     )]
-    public function solicitarUnirseLigaPrivada(Request $request, int $id_liga, #[CurrentUser] $usuario): JsonResponse 
+    public function solicitarUnirseLigaPrivada(Request $request, int $id, #[CurrentUser] $usuario): JsonResponse 
     {
         if(!$usuario) {
             return $this->json(['error' => 'Tienes que estar loggeado para poder solicitar unirte a una liga'], 403);
         }
     
-        $liga = $this->ligaRepository->findOneBy(['id' => $id_liga, 'privada' => 1]);
+        $liga = $this->ligaRepository->findOneBy(['id' => $id, 'privada' => 1]);
 
         if(!$liga) {
             return $this->json(['error' => 'No se ha encontrado ninguna liga privada con ese id'], 404);
@@ -265,10 +247,10 @@ final class LigaController extends AbstractController {
         return $this->json(['message' => 'Tu solicitud a la liga ' . $liga->getNombre() . ' se ha realizado correctamente']);
     }
 
-    // ======================= ELIMINAR NOTICIA =======================
-    #[Route(path:'/salirse/{id}', methods:['DELETE'])]
+    // ======================= ABANDONAR LIGA =======================
+    #[Route(path:'/abandonar/{id}', methods:['DELETE'])]
     #[OA\Delete(
-        path: '/api/ligas/salirse/{id}',
+        path: '/api/ligas/abandonar/{id}',
         summary: 'Elimina al usuario de la liga (elimina el registro de la tabla usuariosfantasy)',
         tags: ['Ligas'],
         security: [['bearerAuth' => []]]
@@ -288,9 +270,15 @@ final class LigaController extends AbstractController {
             return $this->json(['error' => 'Tienes que estar loggeado para poder salirte de una liga'], 404);
         }
 
-        $usuarioFantasy = $this->em->getRepository(UsuarioFantasy::class)->findOneBy(['usuario' => $usuario, 'liga' => $liga]);
-
-        $this->em->remove($usuarioFantasy);
+        // si el usuario que abandona la liga es el único miembro de esta, la liga se elimina
+        if($liga->getMiembros()<=1) {
+            $this->em->remove($liga);
+        }
+        else {
+            $usuarioFantasy = $this->em->getRepository(UsuarioFantasy::class)->findOneBy(['usuario' => $usuario, 'liga' => $liga]);
+            $this->em->remove($usuarioFantasy);
+        }
+        
         $this->em->flush();
 
         return $this->json(['message' => 'Te has salido de la liga ' . $liga->getNombre() . ' correctamente'], 200);
@@ -304,6 +292,16 @@ final class LigaController extends AbstractController {
             'miembros' => $liga->getMiembros(),
             'max_miembros' => $liga->getMaxMiembros(),
             'privada' => $liga->isPrivada()
+        ];
+    }
+
+    private function toArrayMisLigas(Liga $liga, UsuarioFantasy $usuarioFantasy): array {
+        return [
+            'id' => $liga->getId(),
+            'nombre' => $liga->getNombre(),
+            'miembros' => $liga->getMiembros(),
+            'max_miembros' => $liga->getMaxMiembros(),
+            'creador' => $usuarioFantasy->getCreador()
         ];
     }
 }

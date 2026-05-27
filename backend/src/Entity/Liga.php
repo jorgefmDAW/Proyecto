@@ -20,22 +20,19 @@ class Liga
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
 
-    #[ORM\OneToMany(mappedBy: 'liga', targetEntity: UsuarioFantasy::class, fetch: 'EXTRA_LAZY')]
-    private Collection $miembros;
-
     #[ORM\Column]
     private ?bool $privada = null;
 
     /**
      * @var Collection<int, UsuarioFantasy>
      */
-    #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'liga')]
+    #[ORM\OneToMany(targetEntity: UsuarioFantasy::class, mappedBy: 'liga', cascade: ['remove'])]
     private Collection $usuarioFantasies;
 
     /**
      * @var Collection<int, Solicitud>
      */
-    #[ORM\ManyToMany(targetEntity: Solicitud::class, mappedBy: 'id_liga')]
+    #[ORM\OneToMany(targetEntity: Solicitud::class, mappedBy: 'liga')]
     private Collection $solicituds;
 
     #[ORM\Column]
@@ -43,7 +40,6 @@ class Liga
 
     public function __construct()
     {
-        $this->miembros = new ArrayCollection();
         $this->usuarioFantasies = new ArrayCollection();
         $this->solicituds = new ArrayCollection();
     }
@@ -67,7 +63,7 @@ class Liga
 
     public function getMiembros(): ?int
     {
-        return $this->miembros->count();
+        return $this->usuarioFantasies->count();
     }
 
     public function isPrivada(): ?bool

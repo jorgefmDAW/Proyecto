@@ -20,6 +20,9 @@ class ForoGlobal
     #[ORM\ManyToOne(inversedBy: 'foroGlobals')]
     private ?Usuario $usuario = null;
 
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $fecha = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -48,4 +51,10 @@ class ForoGlobal
 
         return $this;
     }
+
+    public function getFecha(): ?\DateTimeImmutable
+    {
+        return $this->fecha;
+    }
+    
 }

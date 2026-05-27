@@ -90,7 +90,11 @@ final class ForoGlobalController extends AbstractController {
         return [
             'id' => $foroGlobal->getId(),
             'mensaje' => $foroGlobal->getMensaje(),
-            'usuario_id' => $foroGlobal->getUsuario()->getId()
+            'fecha' => $foroGlobal->getFecha()->format('d-m-Y | H:i'),
+            'usuario' => [
+                'usuario_id' => $foroGlobal->getUsuario()->getId(),
+                'username' => $foroGlobal->getUsuario()->getUsername()
+            ]
         ];
     }
 
