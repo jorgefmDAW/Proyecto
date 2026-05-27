@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { Users } from '../services/users';
+import { Users } from '../services/users-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -21,7 +21,7 @@ export class Navbar implements OnInit {
   ngOnInit(): void {
     // 1. Al cargar el navbar, le pedimos al backend los datos del usuario
     this.usersService.usuarioActual().subscribe({
-      next: (usuario) => console.log('Usuario conectado:', usuario.email),
+      next: (usuario) => console.log('Usuario conectado:', usuario.username),
       error: () => console.log('Aún no hay sesión iniciada')
     });
   }

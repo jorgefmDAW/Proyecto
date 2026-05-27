@@ -1,14 +1,60 @@
-.titulo{
-    text-align: center;
+/* --- TARJETAS DE NOTICIAS --- */
+.news-card {
+    background-color: #111111; /* Gris oscuro para destacar sobre tu fondo negro */
+    border: 1px solid #1a1a1a;
+    border-top: 4px solid #007bff; /* Acento superior azul corporativo */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #ffffff;
-    margin-bottom: 20px;
-    
+    flex-direction: column;
 }
 
-.introduccion {
-        
-    color: #ffffff;
+/* Efecto al pasar el cursor */
+.news-card:hover {
+    transform: translateY(-5px); /* Se levanta ligeramente */
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15); /* Resplandor azul */
+    border-color: rgba(0, 123, 255, 0.4);
+}
+
+/* Insignia de la categoría */
+.news-badge {
+    background: rgba(0, 123, 255, 0.15); /* Fondo azul semitransparente */
+    color: #8ab4f8; /* Texto azul claro */
+    padding: 5px 12px;
+    border-radius: 20px; /* Bordes totalmente redondeados estilo "pill" */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+/* Fecha */
+.news-date {
+    font-size: 0.8rem;
+    color: #6c757d; /* Gris secundario para no restar protagonismo */
+    font-weight: 500;
+}
+
+/* Título */
+.news-title {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+/* El título se ilumina al hacer hover en la tarjeta */
+.news-card:hover .news-title {
+    color: #8ab4f8 !important; 
+}
+
+/* Texto/Extracto de la noticia */
+.news-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    /* Las siguientes líneas obligan al texto a cortarse a las 3 líneas con puntos suspensivos (...) */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }

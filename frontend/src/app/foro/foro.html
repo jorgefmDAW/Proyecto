@@ -1,45 +1,32 @@
 <div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
     <h1 class="fw-bold"> Chat Global </h1>
-    <p class="text-secondary"> Bienvenido al chat global. <br> Aquí podrás ver información nueva sobre la aplicaión. 
-     También podrás votar en nuestras encuentas, reaccionar a los nuevos parches y mandar sugerencias. </p>
+    <p class="text-secondary"> Bienvenido al chat global. Aquí podrás hablar y debatir sobre fútbol con los demás usuarios de la web.
 
     <div class="chat-container">
-  
-        <header class="chat-header">
-            <h3> Chat Global</h3>
-            <span class="status-dot"></span>
-        </header>
 
         <div class="chat-body">
-            
-            <!-- Aquí iría tu *ngFor. Esto es un ejemplo visual -->
-            <div class="message-card">
-            <div class="message-content">
-                <p>¡Bienvenidos a la sesión! En breve lanzaremos la primera encuesta.</p>
-            </div>
-            <span class="time">10:00</span>
-            </div>
-
-            <div class="message-card poll-card">
-            <div class="message-content">
-                <h4>📊 ¿Qué framework prefieres para el front?</h4>
-                <div class="opciones">
-                <button>Angular <span class="votos">(12)</span></button>
-                <button>React <span class="votos">(5)</span></button>
+            @for (mensaje of mensajes(); track mensaje.id) {
+              <div class="message-card">
+                
+                <div class="message-header">
+                    <span class="username">{{ mensaje.usuario.username }}</span>
+                    <span class="time"> {{ mensaje.fecha }}</span>
                 </div>
-            </div>
-            </div>
-
-            <div class="message-card open-card">
-            <div class="message-content">
-                <h4>✍️ Deja aquí tus dudas generales:</h4>
-                <div class="respuesta-form">
-                <input type="text" placeholder="Escribe tu respuesta..." />
-                <button>Enviar</button>
+                
+                <hr class="message-separator">
+                
+                <div class="message-content">
+                    <p> {{ mensaje.mensaje }} </p>
                 </div>
-            </div>
-            </div>
 
+              </div>  
+            }
         </div>
+
+        <div class="chat-footer">
+            <input type="text" class="chat-input" placeholder="Escribe un mensaje...">
+            <button class="chat-btn">Enviar</button>
+        </div>
+
     </div>
 </div>
