@@ -1,32 +1,31 @@
 <div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
     <h1 class="fw-bold"> Chat Global </h1>
     <p class="text-secondary"> Bienvenido al chat global. Aquí podrás hablar y debatir sobre fútbol con los demás usuarios de la web.
-
     <div class="chat-container">
-
-        <div class="chat-body">
+        <div class="chat-body" #chatBody>
             @for (mensaje of mensajes(); track mensaje.id) {
-              <div class="message-card">
-                
+              <div class="message-card" [class.message-own]="mensaje.usuario.username === usuarioActual()?.username">
                 <div class="message-header">
                     <span class="username">{{ mensaje.usuario.username }}</span>
                     <span class="time"> {{ mensaje.fecha }}</span>
                 </div>
-                
                 <hr class="message-separator">
-                
                 <div class="message-content">
                     <p> {{ mensaje.mensaje }} </p>
                 </div>
-
               </div>  
             }
         </div>
-
         <div class="chat-footer">
-            <input type="text" class="chat-input" placeholder="Escribe un mensaje...">
-            <button class="chat-btn">Enviar</button>
+            <input 
+                type="text" 
+                class="chat-input" 
+                placeholder="Escribe un mensaje..."
+                [value]="nuevoMensaje()"
+                (input)="nuevoMensaje.set($any($event.target).value)"
+                (keydown.enter)="enviarMensaje()"
+            >
+            <button class="chat-btn" (click)="enviarMensaje()">Enviar</button>
         </div>
-
     </div>
 </div>

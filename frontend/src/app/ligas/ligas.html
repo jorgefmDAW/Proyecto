@@ -50,7 +50,7 @@
                             <p class="text-secondary small mb-4 mt-auto">ID de Liga: #{{ liga.id }}</p>
                             
                             <div class="d-flex gap-2 mt-auto">
-                                <button class="btn btn-outline-light w-100 rounded-3 btn-unirse d-flex align-items-center justify-content-center">
+                                <button (click)="entrarEnLiga(liga.id)" class="btn btn-outline-light w-100 rounded-3 btn-unirse d-flex align-items-center justify-content-center">
                                     Entrar
                                 </button>
 

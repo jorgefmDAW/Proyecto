@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LigasService {
-  
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8000/api/ligas'
+  private router = inject(Router);
+  private baseUrl = 'http://localhost:8000/api/ligas';
+
+  ligaActiva = signal<any>(null);
 
   getLigasDisponibles(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);
@@ -15,6 +19,10 @@ export class LigasService {
 
   getMisLigas(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/mis-ligas`);
+  }
+
+  getLigaById(ligaId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${ligaId}`);
   }
 
   crearLiga(datos: { nombre: string, privada: boolean, max_miembros: number }): Observable<any> {
@@ -33,4 +41,19 @@ export class LigasService {
     return this.http.delete<any>(`${this.baseUrl}/abandonar/${idLiga}`);
   }
 
+  entrarEnLiga(ligaId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/entrar/${ligaId}`, {}).pipe(
+      tap(() => {
+        this.getLigaById(ligaId).subscribe({
+          next: (liga) => this.ligaActiva.set(liga),
+          error: () => this.ligaActiva.set(null)
+        });
+      })
+    );
+  }
+
+  salirDeLiga(): void {
+    this.ligaActiva.set(null);
+    this.router.navigate(['/ligas']);
+  }
 }

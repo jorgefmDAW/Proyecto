@@ -13,4 +13,8 @@ export class ForoService {
     return this.http.get<any[]>(this.baseUrl);
   }
 
+  enviarMensaje(mensaje: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/enviar`, { mensaje });
+  }
+
 }

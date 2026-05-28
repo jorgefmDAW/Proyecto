@@ -58,6 +58,18 @@ export class Ligas {
     });
   }
 
+  entrarEnLiga(ligaId: number): void {
+    this.service.entrarEnLiga(ligaId).subscribe({
+      error: (err) => {
+        if (err.status === 403) {
+          this.mensajeError.set('No tienes acceso a esta liga.');
+        } else {
+          this.mensajeError.set('Error al entrar en la liga.');
+        }
+      }
+    });
+  }
+
   crearLiga(): void {
     if (this.crearLigaForm.invalid) {
       this.crearLigaForm.markAllAsTouched();

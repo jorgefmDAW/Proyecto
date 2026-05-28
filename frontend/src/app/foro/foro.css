@@ -45,8 +45,7 @@
   border-left: 4px solid #007bff; 
   animation: fadeIn 0.3s ease-in-out;
   align-self: flex-start; 
-  width: 100%; /* Para que la tarjeta ocupe el ancho y separe bien el nombre de la hora */
-  max-width: 80%; /* Evita que el mensaje sea infinitamente ancho en pantallas grandes */
+  width: 45%; /* Para que la tarjeta ocupe el ancho y separe bien el nombre de la hora */
 }
 
 /* --- NUEVO: CABECERA DEL MENSAJE --- */
@@ -72,7 +71,7 @@
 
 .message-separator {
   border: 0;
-  border-top: 1px solid rgba(0, 123, 255, 0.4); 
+  border-top: 2px solid rgba(0, 123, 255, 0.8); 
   margin: 4px 0 6px 0; 
 }
 
@@ -127,6 +126,11 @@
 .chat-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.message-own {
+    margin-left: auto;
+    /* o el color/alineación que quieras */
 }
 
 /* --- ANIMACIÓN SUAVE --- */

@@ -5,9 +5,12 @@ import {
   HttpHandlerFn,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { throwError, BehaviorSubject } from 'rxjs';
+import { catchError, switchMap, filter, take } from 'rxjs/operators';
 import { Users } from '../services/users-service';
+
+let isRefreshing = false;
+let refreshSubject = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -15,7 +18,6 @@ export const authInterceptor: HttpInterceptorFn = (
 ) => {
   const usersService = inject(Users);
   const token = usersService.getAccessToken();
-
   const isRefreshCall = req.url.includes('/token/refresh');
   const isLoginCall = req.url.includes('/login');
 
@@ -26,19 +28,39 @@ export const authInterceptor: HttpInterceptorFn = (
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && !isRefreshCall && !isLoginCall) {
+
+        if (isRefreshing) {
+          // Si ya hay un refresh en curso, espera a que termine y reintenta
+          return refreshSubject.pipe(
+            filter(token => token !== null),
+            take(1),
+            switchMap(token => {
+              return next(req.clone({
+                setHeaders: { Authorization: `Bearer ${token}` }
+              }));
+            })
+          );
+        }
+
+        isRefreshing = true;
+        refreshSubject.next(null);
+
         return usersService.refrescarToken().pipe(
           switchMap(() => {
-            const newReq = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${usersService.getAccessToken()}`,
-              },
-            });
-            return next(newReq);
+            isRefreshing = false;
+            const newToken = usersService.getAccessToken();
+            refreshSubject.next(newToken);
+            return next(req.clone({
+              setHeaders: { Authorization: `Bearer ${newToken}` }
+            }));
           }),
-          catchError((refreshError) => throwError(() => refreshError))
+          catchError((refreshError) => {
+            isRefreshing = false;
+            refreshSubject.next(null);
+            return throwError(() => refreshError);
+          })
         );
       }
-
       return throwError(() => error);
     })
   );
