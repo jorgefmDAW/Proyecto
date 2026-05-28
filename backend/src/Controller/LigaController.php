@@ -16,6 +16,7 @@ use App\Entity\Usuario;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use App\Entity\UsuarioFantasy;
+use App\Service\LigaAuthService;
 use DateTime;
 
 #[Route(path:'/api/ligas')]
@@ -24,7 +25,35 @@ final class LigaController extends AbstractController {
     public function __construct(
         private LigaRepository $ligaRepository,
         private EntityManagerInterface $em,
+        private LigaAuthService $ligaAuthService
     ) {}
+
+    // ======================= ENTRAR A MI LIGA =======================
+    #[Route('/entrar/{id}', methods: ['POST'])]
+    #[OA\Post(
+        path: '/api/ligas/entrar/{id}',
+        summary: 'Verifica que el usuario pertenece a la liga y autoriza el acceso',
+        tags: ['Ligas'],
+        security: [['bearerAuth' => []]],
+        parameters: [
+            new OA\Parameter(
+                name: 'id',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Acceso autorizado'),
+            new OA\Response(response: 403, description: 'No perteneces a esta liga'),
+            new OA\Response(response: 401, description: 'No autenticado'),
+        ]
+    )]
+    public function entrar(int $id, #[CurrentUser] Usuario $usuario): JsonResponse {
+        $this->ligaAuthService->verificarAcceso($id, $usuario);
+
+        return $this->json(['mensaje' => 'Acceso autorizado']);
+    }
 
     // ======================= GET LIGAS DISPONIBLES =======================
     #[Route(path:'', methods:['GET'])]
@@ -39,6 +68,7 @@ final class LigaController extends AbstractController {
     )]
     public function getLigasDisponibles(#[CurrentUser] ?Usuario $usuario): JsonResponse {
         $ligas = $this->ligaRepository->findAll();
+        
         if(!$ligas) {
             return $this->json(['message' => 'No se han encontrado ligas'], 404);
         }
@@ -72,10 +102,6 @@ final class LigaController extends AbstractController {
         description: 'Obtiene las ligas a las que esta unido el usuario'
     )]
     public function getMisLigas(#[CurrentUser] ?Usuario $usuario): JsonResponse {
-        if(!$usuario) {
-            return $this->json(['error' => 'Tienes que estar loggeado para poder crear una liga'], 403);
-        }
-
         $usuarioFantasy = $this->em->getRepository(UsuarioFantasy::class)->findBy(['usuario' => $usuario]);
 
         if(!$usuarioFantasy) {
@@ -237,7 +263,6 @@ final class LigaController extends AbstractController {
         $solicitud = new Solicitud();
         $solicitud->setUsuario($usuario);
         $solicitud->setLiga($liga);
-        $solicitud->setFecha(new DateTime());
         $solicitud->setMensaje($mensaje);
         $solicitud->setAceptada(false);
 
@@ -282,6 +307,40 @@ final class LigaController extends AbstractController {
         $this->em->flush();
 
         return $this->json(['message' => 'Te has salido de la liga ' . $liga->getNombre() . ' correctamente'], 200);
+    }
+
+    // ======================= GET LIGA BY ID =======================
+    #[Route('/{id}', methods: ['GET'])]
+    #[OA\Get(
+        path: '/api/ligas/{id}',
+        summary: 'Obtiene los datos de una liga',
+        tags: ['Ligas'],
+        security: [['bearerAuth' => []]],
+        parameters: [
+            new OA\Parameter(
+                name: 'id',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'integer')
+            )
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Datos de la liga'),
+            new OA\Response(response: 403, description: 'No perteneces a esta liga'),
+            new OA\Response(response: 401, description: 'No autenticado'),
+        ]
+    )]
+    public function getLigaById(int $id, #[CurrentUser] Usuario $usuario): JsonResponse {
+        $usuarioFantasy = $this->ligaAuthService->verificarAcceso($id, $usuario);
+        $liga = $usuarioFantasy->getLiga();
+
+        return $this->json([
+            'id' => $liga->getId(),
+            'nombre' => $liga->getNombre(),
+            'privada' => $liga->isPrivada(),
+            'miembros' => $liga->getMiembros(),
+            'max_miembros' => $liga->getMaxMiembros(),
+        ]);
     }
 
     // ======================= HELPERS =======================

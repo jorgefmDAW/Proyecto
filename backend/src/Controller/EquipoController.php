@@ -57,7 +57,8 @@ final class EquipoController extends AbstractController {
     private function toArray(Equipo $equipo): array {
         return [
             'id' => $equipo->getId(),
-            'nombre' => $equipo->getNombre()
+            'nombre' => $equipo->getNombre(),
+            'escudo' => $equipo->getEscudo(),
         ];
     }
 

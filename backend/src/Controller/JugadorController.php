@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Jugador;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -299,11 +300,11 @@ final class JugadorController extends AbstractController {
             'nacionalidad' => $jugador->getNacionalidad(),
             'equipo' => $jugador->getEquipo()->getNombre(),
             'puntos_totales' => $jugador->sumaPuntos(),
-            'puntos_por_jornada' => $this->pcToArray($jugador->getPuntuacions()) // getPuntuacions() devuelve una Persistent Collection (pc) | se pasa a array con la pcToArray()
+            'puntos_por_jornada' => $this->collectionToArray($jugador->getPuntuacions())
         ];
     }
 
-    private function pcToArray(PersistentCollection $puntos_por_jornada) {
+    private function collectionToArray(Collection $puntos_por_jornada) {
         $listaPuntos = [];
         foreach ($puntos_por_jornada as $p) {
             $listaPuntos[] = [
