@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 30-04-2026 a las 10:11:32
+-- Tiempo de generación: 29-05-2026 a las 11:43:27
 -- Versión del servidor: 10.11.14-MariaDB-0ubuntu0.24.04.1
 -- Versión de PHP: 8.3.6
 
@@ -76,7 +76,19 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20260309131659', '2026-03-09 13:17:03', 57),
 ('DoctrineMigrations\\Version20260309133707', '2026-03-09 13:37:13', 212),
 ('DoctrineMigrations\\Version20260430080715', '2026-04-30 08:07:30', 834),
-('DoctrineMigrations\\Version20260430080953', '2026-04-30 08:09:56', 63);
+('DoctrineMigrations\\Version20260430080953', '2026-04-30 08:09:56', 63),
+('DoctrineMigrations\\Version20260520115618', '2026-05-20 11:56:30', 59),
+('DoctrineMigrations\\Version20260520122014', '2026-05-20 12:20:16', 47),
+('DoctrineMigrations\\Version20260520122049', '2026-05-20 12:20:51', 48),
+('DoctrineMigrations\\Version20260520122247', '2026-05-20 12:22:51', 50),
+('DoctrineMigrations\\Version20260520123536', '2026-05-20 12:35:42', 46),
+('DoctrineMigrations\\Version20260521081036', '2026-05-21 08:10:51', 386),
+('DoctrineMigrations\\Version20260521081527', '2026-05-21 08:15:30', 482),
+('DoctrineMigrations\\Version20260521083900', '2026-05-21 08:39:05', 69),
+('DoctrineMigrations\\Version20260525072325', '2026-05-25 07:23:37', 61),
+('DoctrineMigrations\\Version20260526122635', '2026-05-26 12:26:47', 171),
+('DoctrineMigrations\\Version20260527080511', '2026-05-27 08:05:21', 58),
+('DoctrineMigrations\\Version20260527083929', '2026-05-27 08:39:33', 50);
 
 -- --------------------------------------------------------
 
@@ -86,7 +98,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 
 CREATE TABLE `eleccion_estrella` (
   `id` int(11) NOT NULL,
-  `alineacion_id` int(11) DEFAULT NULL,
+  `alineacion_id` int(11) NOT NULL,
   `partido_id` int(11) DEFAULT NULL,
   `jugador_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -99,34 +111,35 @@ CREATE TABLE `eleccion_estrella` (
 
 CREATE TABLE `equipo` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
+  `nombre` varchar(255) NOT NULL,
+  `escudo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `equipo`
 --
 
-INSERT INTO `equipo` (`id`, `nombre`) VALUES
-(1, 'Real Madrid'),
-(2, 'Barcelona'),
-(3, 'Villarreal'),
-(4, 'Espanyol'),
-(5, 'Sevilla'),
-(6, 'Betis'),
-(7, 'Elche'),
-(8, 'Oviedo'),
-(9, 'Celta'),
-(10, 'Mallorca'),
-(11, 'Atlético de Madrid'),
-(12, 'Girona'),
-(13, 'Osasuna'),
-(14, 'Athletic Club de Bilbao'),
-(15, 'Real Sociedad'),
-(16, 'Valencia'),
-(17, 'Levante'),
-(18, 'Alavés'),
-(19, 'Getafe'),
-(20, 'Rayo Vallecano');
+INSERT INTO `equipo` (`id`, `nombre`, `escudo`) VALUES
+(1, 'Real Madrid', 'realmadrid.jpg'),
+(2, 'FC Barcelona', 'barcelona.jpg'),
+(3, 'Villarreal CF', 'villareal.jpg'),
+(4, 'RCD Espanyol', 'espanyol.jpg'),
+(5, 'Sevilla FC', 'sevilla.jpg'),
+(6, 'Real Betis', 'betis.jpg'),
+(7, 'Elche CF', 'elche.jpg'),
+(8, 'Real Oviedo', 'oviedo.jpg'),
+(9, 'Celta', 'celta.jpg'),
+(10, 'RCD Mallorca', 'mallorca.jpg'),
+(11, 'Atlético de Madrid', 'atleti.jpg'),
+(12, 'Girona FC', 'girona.jpg'),
+(13, 'CA Osasuna', 'osasuna.jpg'),
+(14, 'Athletic Club', 'bilbao.jpg'),
+(15, 'Real Sociedad', 'realsociedad.jpg'),
+(16, 'Valencia CF', 'valencia.jpg'),
+(17, 'Levante UD', 'levante.jpg'),
+(18, 'Deportivo Alavés', 'alaves.jpg'),
+(19, 'Getafe CF', 'getafe.jpg'),
+(20, 'Rayo Vallecano', 'rayo.jpg');
 
 -- --------------------------------------------------------
 
@@ -137,17 +150,27 @@ INSERT INTO `equipo` (`id`, `nombre`) VALUES
 CREATE TABLE `foro_global` (
   `id` int(11) NOT NULL,
   `mensaje` longtext NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL
+  `usuario_id` int(11) DEFAULT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `foro_global`
 --
 
-INSERT INTO `foro_global` (`id`, `mensaje`, `usuario_id`) VALUES
-(1, 'Hola soy un nuevo usuario', 1),
-(2, 'Bienvendido', 2),
-(3, 'Me encanta esta app', 1);
+INSERT INTO `foro_global` (`id`, `mensaje`, `usuario_id`, `fecha`) VALUES
+(1, 'Hola soy un nuevo usuario', 1, '2026-05-27 10:05:21'),
+(2, 'Bienvendido', 2, '2026-05-27 10:05:21'),
+(3, 'Me encanta esta app', 1, '2026-05-27 10:05:21'),
+(4, 'Argentina va a ganar su cuarto mundial', 1, '2026-05-27 10:05:21'),
+(5, 'ola ola', 11, '2026-05-28 08:00:40'),
+(6, 'que tal', 11, '2026-05-28 08:00:49'),
+(7, 'sale bien la hora de los mensajes ya?', 11, '2026-05-28 10:01:53'),
+(8, 'si, ya sale bien', 1, '2026-05-28 10:18:52'),
+(9, 'ola', 1, '2026-05-28 11:01:16'),
+(10, 'que tal', 1, '2026-05-28 11:03:19'),
+(11, 'ya es viernes', 12, '2026-05-29 08:42:19'),
+(12, 'si', 1, '2026-05-29 12:00:09');
 
 -- --------------------------------------------------------
 
@@ -749,18 +772,20 @@ INSERT INTO `jugador` (`id`, `nombre`, `posicion`, `edad`, `nacionalidad`, `equi
 CREATE TABLE `liga` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `privada` tinyint(4) NOT NULL
+  `privada` tinyint(4) NOT NULL,
+  `max_miembros` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `liga`
 --
 
-INSERT INTO `liga` (`id`, `nombre`, `privada`) VALUES
-(1, 'Liga Expertos', 1),
-(2, 'Liga Publica', 0),
-(3, 'Los Goats', 0),
-(4, 'Invencibles', 0);
+INSERT INTO `liga` (`id`, `nombre`, `privada`, `max_miembros`) VALUES
+(2, 'Liga Publica', 0, 50),
+(3, 'Los Goats', 0, 2),
+(7, 'Igual que Aytekin al PSG', 1, 24),
+(8, 'Nadaplete', 1, 100),
+(11, 'Los Charlis', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -788,16 +813,19 @@ CREATE TABLE `noticia` (
   `id` int(11) NOT NULL,
   `titulo` varchar(255) NOT NULL,
   `categoria` varchar(255) NOT NULL,
-  `texto` longtext NOT NULL
+  `texto` longtext NOT NULL,
+  `fecha` date NOT NULL DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `noticia`
 --
 
-INSERT INTO `noticia` (`id`, `titulo`, `categoria`, `texto`) VALUES
-(1, 'Curso nuevo de React', 'Frontend', 'Se ha lanzado ya el nuevo curso de frontend con mas de cien ejercicios...'),
-(3, 'La API de Spotify dejara de ser de codigo abierto', 'Informacion', 'A partir de la semana que viene la API de spotify solo se podra usar teniendo una cuenta de pago de spotify...');
+INSERT INTO `noticia` (`id`, `titulo`, `categoria`, `texto`, `fecha`) VALUES
+(1, 'Lamine Yamal Lesionado', 'FC Barcelona', 'El extremo derecho del FC Barcelona se ha lesionado. No se sabe si llegará a tiempo al mundial', '2026-05-27'),
+(3, 'Mourinho vuelve al Real Madrid', 'Real Madrid', 'El historico entrenador portugues volvera a entrenar al Real Madrid CF la siguiente temporada', '2026-05-27'),
+(4, '¿El nuevo Florentino?', 'Real Madrid', 'Enrique Riquelme se postula como candidato a la presidencia del Real Madrid. Promete 2 fichajes de clase mundial, y un entrenador historico', '2026-05-28'),
+(5, 'Se acabó el sueño europeo', 'Rayo Vallecano', 'El Rayo Vallecano ha perdido 1-0 frente al Crystal Palace. El equipo de Madrid estuvo muy cerca de la gloria europea, pero un golazo de Mateta los dejo sin su tan ansiada Conference League. Es una decepcion importante pero el Rayo ya se prepara para la siguiente temporada, pensando en fichajes como Ngumoha y Zaire Emery', '2026-05-28');
 
 -- --------------------------------------------------------
 
@@ -15075,18 +15103,42 @@ CREATE TABLE `refresh_tokens` (
 --
 
 INSERT INTO `refresh_tokens` (`refresh_token`, `username`, `valid`, `id`) VALUES
-('9cd06b61c31b976d8850de6e39c5ce17ed32e90645e025c02394907e3e4574d4a70e375103b08c9ad82f3ccb4f024040b72e6ada53a4d35a29eca1f5f117a10b', 'usuario@gmail.com', '2026-04-04 13:41:20', 11),
-('0f63ba676ff911c8fd23e560376cd1883ef5f3d11c743413593dc05788f6f6a37508677c2874abe0c606697131b726b0aedc71584fabbfbdbceaf97008484939', 'jorgefermur123@gmail.com', '2026-04-05 09:15:50', 13),
-('1b6e7e0495d4366fc0c4ddc64367a42bed7952be8cc0886bfeb92d36cf78b405c4ae976ca3240c565445c6f016514a50fdbcf2fb780e80c7b61c3284b64085e8', 'jorgefermur123@gmail.com', '2026-04-05 09:27:20', 15),
-('98aeb3bc4e31c78b21533cf81209d031e39873b4ccd53230096d2ac377b33c4f233b93581977da4f40158e6d060cbdf5e7097bf872a1091e5164c3334394becc', 'jorgefermur123@gmail.com', '2026-04-05 09:48:31', 16),
-('9ef54091b9b0805aa094b4e72f6dac026c4b0446da15e3681b806de8a78d07837a5078df9c1fe6f747fc1f66cdceff7dd00db087c09f2b007ad2f1f53484d178', 'jorgefermur123@gmail.com', '2026-04-05 10:19:17', 17),
-('c6a25bf650f9e21871d60f8da5152e3c0f170ee9b747e9eaae1fe811901d8d64726256573148a3b8747abd84045e2fea2086b96268fb875c5866e102ad5b165f', 'jorgefermur123@gmail.com', '2026-04-05 13:51:17', 18),
-('a2499328566e33374757a8044836999bbb9808c0685caeeacfca0171d3610c6c7155e55af6335ec71257680dee387a2c44f850484812c0749876178b1f9f25b4', 'jorgefermur123@gmail.com', '2026-04-08 07:17:53', 19),
-('ebbd6757cfe87d602bd475901ecaaaed80abfe43eccd1031d1362f45d66562c52176c8f4d64e70fe1a3cec8ddf4afc1a887ff917cab9c98c38f1c245424d8c78', 'jorgefermur123@gmail.com', '2026-04-08 07:23:37', 20),
-('d3afebf7c2922f7d7d89fb5d865371a231ec9d48e28f6b04e7618c408a4e795e78404ec22a7b1fd0cdc0d37b66fb3d4068d85db08fc21988d4a91b95feb61073', 'jorgefermur123@gmail.com', '2026-04-08 07:24:40', 21),
-('f586457ead22b4df0af5825e5354330c787cbb417e2fcbe0af02f6142377d5a26605d47fd1f536e62e5a8aaf5011767643cb42fedda01e4c60209aaac35fe547', 'ejemplo@gmail.com', '2026-04-08 07:25:36', 22),
-('71090eb066d299230ec28c53d8bbbf3bc25d23ce99c76c863625fbc3add897670a46926cdcdecdfea199fd69b982c7e7ef1672db45fb5a5d5e5830254e62b8a9', 'jorgefermur123@gmail.com', '2026-04-08 10:50:41', 23),
-('e14afa7cdc963d2169e36c525150bc29fe5da24309a0551ba801b9a58044c862bc76eda09d1eb967a3d094d119ebc786c099efdb760f4cda46471b3f8c1af26d', 'jorgefermur123@gmail.com', '2026-04-08 16:14:34', 24);
+('eeb4a8c1fafcbcf581c295fa1b541dd52e4189e9a368f15cbac4ef2e91dfd8febade12e75f72b90c547272e5d875c2515463b8260a22c9ecbd36e4a69c75cbbf', 'jorgefm', '2026-06-26 11:24:09', 89),
+('e647299cd8e3e087231fb4e627825f9484d55940518cec72f6a6a3afb933aaf758d879101ee16848f5776e7e38be970c9790d9e0803e1c95e761e5d3fb9f68b6', 'jorgefm', '2026-06-26 11:43:58', 92),
+('0df09152edfa0db9077784b10b4689a4a055c78c7d867f56cd919eaeb84ecd8ef08a8e6f4b625a0a5401f0c43559c434549fa2f7464c85cb9901b19406550a2c', 'jorgefm', '2026-06-27 07:03:26', 95),
+('63c5fda22084492d49f2e31c0794944768ab58f4fa83d5ca3123293e3e4c7cfb0203db79d7434de67fc9c8ee79ea6c152765927faa96e5f761a78bc0b9cc5e47', 'jorgefm', '2026-06-27 07:09:17', 97),
+('edfd24f1eebe94fdac957685940453aa9dcdbe09fa0dcac69800bac06fd819a38e61d5681b62349d6d224299c7f03c2384ba5b5e480471d3a7b5959022f7f334', 'jorgefm', '2026-06-27 07:10:32', 98),
+('43d6f7d66f858816db0f9b761a6eb898237e50095e9c3640ff89d479739b34e75108a4bf7992be0d56d56ccd29e6ae9f1e7f030776e4b2db597985947f636d4d', 'jorgefm', '2026-06-27 07:13:48', 99),
+('b9e2767d3af3831f83832dae3fffe1f34bdae3c33225e15b02f03fa6b1fb9914d98ff9e591d1aea29ebd0dd83fc60c1cf2c387ac2c22c8db00dbc8dd563650f5', 'jorgefm', '2026-06-27 07:16:58', 100),
+('d9a064416c24cbb45d12fb9b8cae20b6de3e58abb40f9362a43d9d04a49f74d77058c25e0fca9a295947f8bcded7342ece46be35dc743eea28b020e65c0d6fa2', 'jorgefm', '2026-06-27 07:21:29', 101),
+('832719e076ed2ba32a21fdeaa35858c7cf9a6ee875a4b60e15c221597056fe11b4c62cf148b4b170aa022dbeda410e3dbf27ea4a062ac9f489d506bd15352b17', 'jorgefm', '2026-06-27 07:38:00', 103),
+('cc0d5a6c24aa0080d6fdc36ecc6fb08ae8b2e70804c2ff9051318e720528aa3e5cfb1fc8ac65007cda6fb838faeed5214b17c60763b2581af46d7dcf3c30ee96', 'jorgefm', '2026-06-27 07:48:01', 105),
+('1d2800153bb35165466b94e6a7b1da60e713de61fdf1ea54ebde76cc271aa18d785f26e8965ba7c439de22e5fcdc7d4fdbfd6bfcedb1deda88af2cb02a612f1e', 'jorgefm', '2026-06-27 07:56:27', 107),
+('2ba7ac400ffeeb5c9da5201458300c06245169652d5ae99ff3d0a6dc110abf0931aff72a172c892414c4bdb27154ebc3fc284f8123d93d6b2aaf7e41053ae007', 'usuario', '2026-06-27 07:58:04', 109),
+('dfa5bea2a17cb850f14d813eaa724e0565c0df55d05d12c9a2e3bbf51b454521f49d550cfcf4a40eec0bcac43ccfc51ba340b4f207051eeb7f91c5deb69fc692', 'usuario', '2026-06-27 08:06:33', 110),
+('ff571316e9f0e641dc2c09ca03704c07ddc0b4964a80cb00d89866b68b4b52c1e8f9f990727c5f76edb3f5d1d6c8028a7712d0d8f02fdcc3d96f9ad7633c82db', 'jorgefm', '2026-06-27 08:14:28', 112),
+('4510f34d10070feb93c157d37d2380f5b42b7a1d689ca3ddb48839460bd18290917a5f5efb63b11fae150eb3ec674d1975717ead6b2766d0ac6a02cb3ae2109b', 'usuario', '2026-06-27 08:14:35', 113),
+('d1eec6f54fd0eed159aa6a98ff0d73c67b61e4f5d1a6b0c5db6086341381d25190f5bf7a6a22a15b9539d1a4895d1fb0f66580c28a1eae61798431964f6976b8', 'jorgefm', '2026-06-27 08:24:44', 115),
+('a676c3decb88fe21c55e318f6afefa4df61f83b10523f04752367df7e38cb92e69086bbb6cd4d2d9796739db59d972ab27a2def5fb598e1dd47759dcde908c2d', 'usuario', '2026-06-27 08:28:23', 116),
+('29f747b27e9b0e673f4b94d6907ff3a2469882aab19d4f085d5c3e4f5502520eb491119490c38c810188e4d7090574992210fc6274c8c2ac31e68d9a072d648e', 'jorgefm', '2026-06-27 08:29:14', 117),
+('9c9e6b9e26c16215c1c2adaa859db34dec551bea76f89934618cd1071a94d08c16403e0466268f84f4a8bcff3974991ed79113b4a61e6e4db7474b871c1c8a0b', 'usuario', '2026-06-27 10:35:18', 119),
+('12783d971fab99f8447f19bdc149a01288f5c3f57a247ba7a0f4e4fbbc85b727c8322974600cea8b56cb5202020c8fb2622937d19b963faef3e5c5b7627ecbf7', 'jorgefm', '2026-06-27 10:39:04', 121),
+('8fa627d55f79a950de4752de2bd9714d760b8d3d601c5241aaaef245dc15e666c73eec168c1c28c8813a062a0187b46b2b01287d0df17f5bc273c38060c20b48', 'jorgefm', '2026-06-27 10:40:30', 125),
+('7770c52952894b3ae79218fe9f04af931953d247e5855d6160fbb48fdbba6b83f2b34bc248299545675789c4cfd3de20f1379055d01c23cba31cd5c7a84c8767', 'usuario', '2026-06-27 10:41:59', 127),
+('00fff256e3d3242d124f6d6ba4ccbfdeba535c5a097142abdbd41e2f62acf0ace5543d26e6859502b0f8a81317fa861c3fb29e88bad56dbab58a852cafaec0b0', 'usuario', '2026-06-27 10:45:01', 132),
+('db1c08e47b44b4f3f96b8f60c2aaf8d002242d41e2294267cf0b6645af03258694be23050d5fb2822257a24d0c5fc2890593da2d4ccc5c538085eea356d1c248', 'jorgefm', '2026-06-27 10:45:45', 134),
+('f2347a6aef587447bbe4add32a6a04eec7653946dd8cd5db26e6877c994f2a6585a84d0e0bd28152eee938773d9dcf8fcd48ba9a7ca5271195220bb9749b3142', 'jorgefm', '2026-06-27 10:48:12', 137),
+('6f129d2c60dc6d50ce4a8d3255dbf0c68ebffb45f745673be87c8d63fc1b6390ec82b190f8b502d413a650fa99510081aae94a694a92be3d276db49da50a3e1a', 'jorgefm', '2026-06-27 13:07:33', 156),
+('ae35397f63b5a4371b9de3e004dc10ea85e616c5cca3193b5c190c3d158c1fa0b3ec0a8ddb265e30c0b134235383a2546d3da9dfe8d083033e4306c43008bf7d', 'jorgefm', '2026-06-28 08:40:54', 157),
+('a59fc0beed1af2c50b1260ed8ca3658cd8ff65ae018f8bbfc30c1380f3daab4559b0527353957b30afd24a22071f7226988ab2250bbcc5a4922a5b4831dd1609', 'messi', '2026-06-28 08:42:08', 158),
+('b703108abc59b7049b98c7d30140aef7f90a9d861a7f190492ae0a22dcfc76ec9231282cca6e4e9254bd77916c6786786964906725c67ee729bdb77434fd4eb9', 'jorgefm', '2026-06-28 11:15:28', 169),
+('44a73932c7f9b4058525e943a184094a396a75ea151ed904e28537de097caa03094df0e34b3cd97355e6433569a2dfa2d2a891582ba88d14832ced0464e4f7b1', 'jorgefm', '2026-06-28 11:28:21', 171),
+('1ddac17ab716e9b777d12b66191ca85f809c123279e836bc257bce9784044d4aac9e51ce02fe4242f5b79bf2df779938b7543462ff8b6a5e40bbd3f3497474bf', 'jorgefm', '2026-06-28 11:39:27', 174),
+('526b03bb9a5cad505e87c9c44f4619a12062350cacfc88194b59632fc7c5e965224d342f3b48dcc8ccda4cc756bb712ff1473ef06202e726b39c65d8d9359c12', 'jorgefm', '2026-06-28 11:43:16', 175),
+('0d7d799f1afbbd1ace8f7e7ee8414982e416f9e2779292c570dd7c6da30a046895bdf9a1f2eedaa60c9d137779c14e72b49bac0e6073bdeb0a23d36146de4547', 'usuario', '2026-06-28 11:53:55', 178),
+('b1f117eedaa6f98aac0559d48f4cdcbfb8b4bd8149c1cc8b186588b46e6dcc09e2141e4e43f2f57b99b00fec47e116b4e17af96d3c51e9ff7a079cfb31f24c9e', 'jorgefm', '2026-06-28 12:38:01', 185),
+('f58206bfd09ba3dad4eeb190b5894b26545cc89a90c21c76b14a56f158f767f1aba063e83275230b75c9e1ea51677ffce6a5151986ce2112455f30125e215fea', 'usuario', '2026-06-28 13:39:35', 189),
+('d64ee861c9fe2f37b5edf45d56ac02746a9cb97b54e1c97c87705009a0ce124646fe96b96e57e9b0e07d2a0726391899a337a36dcc4990abb2df91695d67d953', 'jorgefm', '2026-06-28 13:40:57', 190);
 
 -- --------------------------------------------------------
 
@@ -15113,12 +15165,36 @@ INSERT INTO `reset_password_request` (`id`, `selector`, `hashed_token`, `request
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `solicitud`
+--
+
+CREATE TABLE `solicitud` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `liga_id` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `mensaje` varchar(255) NOT NULL,
+  `aceptada` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `solicitud`
+--
+
+INSERT INTO `solicitud` (`id`, `usuario_id`, `liga_id`, `fecha`, `mensaje`, `aceptada`) VALUES
+(4, 11, 11, '2026-05-27 10:50:05', 'Quiero ser un charli', 0),
+(5, 11, 8, '2026-05-27 10:54:30', 'Quiero unirme a nadaplete y ser como el real madrid', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `email` varchar(180) NOT NULL,
+  `username` varchar(40) NOT NULL,
   `password` varchar(255) NOT NULL,
   `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`roles`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -15127,9 +15203,12 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `email`, `password`, `roles`) VALUES
-(1, 'jorgefermur123@gmail.com', '$2y$13$lHyLWokcbJmIK6rCH0ErpOb768a8UrXdn7RH3x/QZmEK3SHlYoqU2', '[\"ROLE_ADMIN\"]'),
-(2, 'ejemplo@gmail.com', '$2y$13$b9u5/0trpgmYhb.SZjfesufNejxKxWbC1yAY78Q53VwQZq4PLOlmu', '[\"ROLE_USER\"]');
+INSERT INTO `usuario` (`id`, `email`, `username`, `password`, `roles`) VALUES
+(1, 'jorgefermur123@gmail.com', 'jorgefm', '$2y$13$lHyLWokcbJmIK6rCH0ErpOb768a8UrXdn7RH3x/QZmEK3SHlYoqU2', '[\"ROLE_ADMIN\"]'),
+(2, 'ejemplo@gmail.com', 'ejemplo', '$2y$13$b9u5/0trpgmYhb.SZjfesufNejxKxWbC1yAY78Q53VwQZq4PLOlmu', '[\"ROLE_USER\"]'),
+(11, 'usuario@gmail.com', 'usuario', '$2y$13$EZ4MNYxQqkJmFMfPlbcnou.k1aQcvXx7.r.7p4LbHAjHPfsIKgbZ.', '[\"ROLE_USER\"]'),
+(12, 'messi@gmail.com', 'messi', '$2y$13$GE8zVA.nNiZfOHXwx5m0YeEVuwTaN13.mO4X60.O71aee.wWE8/ra', '[\"ROLE_USER\"]'),
+(13, 'ronaldo@ejemplo.com', 'ronaldo', '$2y$13$Fgi7ao5aJaVtmdEPK3k5b.D.7lMlhwZkfVa4V2E/xJTtUXstGo90y', '[\"ROLE_USER\"]');
 
 -- --------------------------------------------------------
 
@@ -15141,8 +15220,20 @@ CREATE TABLE `usuario_fantasy` (
   `id` int(11) NOT NULL,
   `puntos_totales` int(11) NOT NULL,
   `usuario_id` int(11) DEFAULT NULL,
-  `liga_id` int(11) DEFAULT NULL
+  `liga_id` int(11) DEFAULT NULL,
+  `creador` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario_fantasy`
+--
+
+INSERT INTO `usuario_fantasy` (`id`, `puntos_totales`, `usuario_id`, `liga_id`, `creador`) VALUES
+(1, 0, 11, 2, 0),
+(3, 0, 1, 7, 1),
+(5, 0, 11, 3, 0),
+(6, 0, 1, 8, 1),
+(12, 0, 1, 11, 1);
 
 --
 -- Índices para tablas volcadas
@@ -15249,6 +15340,14 @@ ALTER TABLE `reset_password_request`
   ADD KEY `IDX_7CE748AA76ED395` (`user_id`);
 
 --
+-- Indices de la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_96D27CC0CF098064` (`liga_id`),
+  ADD KEY `IDX_96D27CC0DB38439E` (`usuario_id`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -15289,7 +15388,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `foro_global`
 --
 ALTER TABLE `foro_global`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `jornada`
@@ -15307,7 +15406,7 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `liga`
 --
 ALTER TABLE `liga`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `messenger_messages`
@@ -15319,7 +15418,7 @@ ALTER TABLE `messenger_messages`
 -- AUTO_INCREMENT de la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `partido`
@@ -15337,7 +15436,7 @@ ALTER TABLE `puntuacion`
 -- AUTO_INCREMENT de la tabla `refresh_tokens`
 --
 ALTER TABLE `refresh_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT de la tabla `reset_password_request`
@@ -15346,16 +15445,22 @@ ALTER TABLE `reset_password_request`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_fantasy`
 --
 ALTER TABLE `usuario_fantasy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
@@ -15408,6 +15513,13 @@ ALTER TABLE `puntuacion`
 --
 ALTER TABLE `reset_password_request`
   ADD CONSTRAINT `FK_7CE748AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`);
+
+--
+-- Filtros para la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  ADD CONSTRAINT `FK_96D27CC0CF098064` FOREIGN KEY (`liga_id`) REFERENCES `liga` (`id`),
+  ADD CONSTRAINT `FK_96D27CC0DB38439E` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `usuario_fantasy`
