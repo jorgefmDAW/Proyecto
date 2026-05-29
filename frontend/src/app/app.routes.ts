@@ -8,13 +8,18 @@ import { Foro } from './foro/foro';
 import { Ligas } from './ligas/ligas';
 import { Login } from './login/login';
 import { Start } from './start/start';
-import { Menu } from './menu/menu';
+import { Menu } from './menu/menu'; // Tu componente contenedor
 
 export const routes: Routes = [
+    // Rutas públicas (Sin menús)
     { path: '', component: Start },
     { path: 'login', component: Login },
+    
+    // Rutas privadas (Con Navbar y Sidebar)
     {
-        path: 'menu', component: Menu, children: [
+        path: 'menu', 
+        component: Menu, 
+        children: [
             { path: 'noticias', component: Noticias },
             { path: 'chat', component: ChatLiga },
             { path: 'clasificacion', component: Clasificacion },
@@ -25,5 +30,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'ligas', pathMatch: 'full' }
         ]
     },
+
+    // Ruta comodín por si escriben mal la URL
     { path: '**', redirectTo: '' }
 ];

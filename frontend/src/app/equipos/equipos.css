@@ -1,1 +1,58 @@
 h1{color: white;}
+
+/* --- TARJETAS DE EQUIPOS --- */
+.team-card {
+    background-color: #111111; /* Gris antracita muy oscuro */
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efecto Hover general en la tarjeta */
+.team-card:hover {
+    transform: translateY(-5px); /* Se levanta un poco */
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15); /* Resplandor azulado */
+    border-color: rgba(0, 123, 255, 0.4); /* Borde azul */
+}
+
+/* Contenedor de la imagen (escudo) */
+.img-container {
+    display: block;
+    padding: 25px 20px;
+    background-color: #050505; /* Un negro casi absoluto para destacar el escudo */
+    border-bottom: 1px solid #2a2a2a;
+    text-decoration: none;
+}
+
+/* Estilo para que todas las imágenes midan exactamente lo mismo sin deformarse */
+.team-logo {
+    height: 120px; /* Altura fija */
+    width: auto;
+    max-width: 100%;
+    object-fit: contain; /* Evita que la imagen se estire */
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6)); /* Sombra para el PNG */
+    transition: transform 0.3s ease;
+}
+
+/* Efecto de zoom en el escudo al hacer hover en la tarjeta */
+.team-card:hover .team-logo {
+    transform: scale(1.1); 
+}
+
+/* Cuerpo de la tarjeta donde va el texto */
+.team-card .card-body {
+    padding: 16px 10px;
+    background-color: #111111;
+}
+
+.team-card .card-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+/* El nombre del equipo se pinta de azul claro al pasar el cursor */
+.team-card:hover .card-title {
+    color: #8ab4f8 !important; 
+}

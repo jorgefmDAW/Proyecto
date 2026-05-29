@@ -1,37 +1,35 @@
-.fondo-personalizado{
+.fondo-personalizado {
     background-color: rgb(31, 30, 30);
 }
 
-.navbar-altura-max{
-    min-height: 100vh; 
+.navbar-altura-max {
+    min-height: calc(100vh - 76px); 
     display: flex;
     flex-direction: column;
 }
 
-.seccion-activa{
+.seccion-activa {
    background-color: rgba(0, 132, 255, 0.4); 
    border-radius: 0.5rem;
    border-color: black;
 }
 
-.hover-secciones{
+.hover-secciones {
     border-radius: 0.5rem;
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
 }
 
-.hover-secciones:hover{
+.hover-secciones:hover {
     background-color: rgba(0, 132, 255, 0.4);
     border-radius: 0.5rem;
     border-color: black;
 }
 
-.hover-logout{
-    border-radius: 0.5rem;
-    transition: all 0.3 ease;
+.hover-salir {
+    transition: all 0.2s ease;
 }
 
-.hover-logout:hover{
-    background-color: rgba(255, 0, 0, 0.4);
-    border-radius: 0.5rem;
-    border-color: black
+.hover-salir:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #ff4d4d !important;
 }
