@@ -1,0 +1,54 @@
+<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+    
+    <h1 class="fw-bold mb-2 text-center text-md-start"> Jugadores del {{ nombreEquipo() }} </h1>
+    
+    <p class="text-secondary mb-4 text-center text-md-start"> Bienvenido a la sección de los Jugadores. Aquí podrás ver todos los jugadores. </p>
+
+    @if (escudoEquipo()) {
+        <div class="text-center mb-5">
+            <img [src]="'/imagenes/equipos/' + escudoEquipo()" 
+                 alt="Escudo del {{ nombreEquipo() }}" 
+                 style="width: 120px; height: 120px; object-fit: contain; filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.6)); transition: transform 0.3s ease;"
+                 onmouseover="this.style.transform='scale(1.1)'"
+                 onmouseout="this.style.transform='scale(1)'">
+        </div>
+    }
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+        
+        @for (j of jugador(); track j.id) {
+        <div class="col">
+            <div class="card h-100 player-card pos-{{ j.posicion }} text-center position-relative">
+        
+                <span class="position-absolute top-0 start-50 translate-middle badge position-badge shadow-sm">
+                    {{ j.posicion }}
+                </span>
+
+                <div class="img-wrapper mt-4 mb-2">
+                    <img [src]="j.foto ? '/imagenes/jugadores/' + j.foto : '/imagenes/jugadores/default.png'" 
+                         onerror="this.onerror=null; this.src='/imagenes/jugadores/default.png'" 
+                         class="card-img-top player-photo" 
+                         [alt]="j.nombre">
+                </div>
+                
+                <div class="card-body d-flex flex-column align-items-center justify-content-end pt-0 pb-3">
+                    <h5 class="card-title fw-bold text-white mb-1 text-truncate w-100" [title]="j.nombre" style="font-size: 1.1rem;">
+                        {{ j.nombre }}
+                    </h5>
+
+                    <div class="points-container my-1">
+                        <span class="fw-bold points-text" [title]="j.puntos_totales + ' Puntos Totales'">
+                             {{ j.puntos_totales }} Puntos
+                        </span>
+                    </div>
+                    
+                    <p class="text-secondary mb-0 mt-1" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                        {{ j.nacionalidad }} &bull; {{ j.edad }} años
+                    </p>
+                </div>
+            </div>
+        </div>
+        }
+        
+    </div>    
+</div>

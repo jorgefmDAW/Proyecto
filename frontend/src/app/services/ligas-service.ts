@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class LigasService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private baseUrl = 'http://localhost:8000/api/ligas';
+  private baseUrl = 'https://localhost:8000/api/ligas';
 
   ligaActiva = signal<any>(null);
 

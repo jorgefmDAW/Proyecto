@@ -1,34 +1,115 @@
-.fondo-personalizado {
-    background-color: rgb(31, 30, 30);
+/* --- FONDOS PRINCIPALES (El nuevo Azul Medianoche) --- */
+.mi-navbar {
+    /* Degradado horizontal: Azul marino profundo hacia casi negro */
+    background: linear-gradient(90deg, #0d1b2a 0%, #040814 100%);
+    border-bottom: 2px solid #007bff !important;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.15);
 }
 
-.navbar-altura-max {
-    min-height: calc(100vh - 76px); 
-    display: flex;
-    flex-direction: column;
+.mi-sidebar {
+    /* Degradado vertical para que fluya hacia abajo */
+    background: linear-gradient(180deg, #0d1b2a 0%, #040814 100%);
+    border-right: 1px solid #1b2a47; /* Borde azulado muy elegante */
 }
 
+.brand-header {
+    background: transparent; /* Ahora deja ver el fondo del sidebar */
+    border-bottom: 1px solid #1b2a47 !important;
+}
+
+/* --- NAVBAR SUPERIOR --- */
+.info-game-bar {
+    background-color: #0b1524; /* Azul oscuro translúcido */
+    border: 1px solid #1b2a47;
+    border-radius: 50rem;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.money-text {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: -0.5px;
+    color: #f1c40f !important;
+}
+
+.user-btn {
+    background-color: transparent;
+    color: #e0e0e0;
+    border: 1px solid #1b2a47;
+    border-radius: 50rem;
+    transition: all 0.2s;
+}
+
+.user-btn:hover {
+    background-color: #14243b;
+    color: white;
+    border-color: #007bff;
+}
+
+.custom-dropdown {
+    background-color: #0b1524;
+    border: 1px solid #1b2a47;
+}
+
+.glow-red {
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.8);
+}
+
+/* --- LINKS DEL MENÚ LATERAL (Ajustados para el nuevo fondo) --- */
+.sidebar-link {
+    color: #8fa0b5; /* Un gris ligeramente azulado */
+    border-left: 3px solid transparent;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 0 12px 12px 0;
+    margin-right: 15px;
+}
+
+.sidebar-link:hover {
+    color: #fff;
+    /* El brillo al pasar el ratón ahora destaca mejor sobre el azul */
+    background: linear-gradient(90deg, rgba(0, 123, 255, 0.15) 0%, transparent 100%);
+    border-left: 3px solid rgba(0, 123, 255, 0.5);
+    transform: translateX(4px);
+}
+
+/* EL ELEMENTO ACTIVO */
 .seccion-activa {
-   background-color: rgba(0, 132, 255, 0.4); 
-   border-radius: 0.5rem;
-   border-color: black;
+    color: #ffffff !important;
+    font-weight: 700;
+    background: linear-gradient(90deg, rgba(0, 123, 255, 0.25) 0%, transparent 100%);
+    border-left: 3px solid #007bff;
 }
 
-.hover-secciones {
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
+.seccion-activa svg {
+    fill: #007bff !important;
+    filter: drop-shadow(0 0 8px rgba(0, 123, 255, 0.6));
 }
 
-.hover-secciones:hover {
-    background-color: rgba(0, 132, 255, 0.4);
-    border-radius: 0.5rem;
-    border-color: black;
+/* --- BANNER DE LIGA ACTUAL --- */
+.active-league-banner {
+    background: linear-gradient(135deg, #1c2b3a 0%, #121212 100%);
+    border: 1px solid #2c3e50;
+    transition: transform 0.2s;
 }
 
-.hover-salir {
-    transition: all 0.2s ease;
+.active-league-banner:hover {
+    transform: translateY(-2px);
+    border-color: #3498db;
 }
 
+.league-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    border-radius: 10px; /* Cuadrado con bordes curvos en vez de círculo */
+}
+
+/* --- DETALLES VARIOS --- */
+.hover-white:hover { fill: #ffffff !important; }
+.transition-color { transition: fill 0.2s; }
+
+.hover-salir { transition: all 0.2s ease; }
 .hover-salir:hover {
     background-color: rgba(220, 53, 69, 0.15);
     color: #ff4d4d !important;

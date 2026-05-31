@@ -8,29 +8,38 @@ import { Foro } from './foro/foro';
 import { Ligas } from './ligas/ligas';
 import { Login } from './login/login';
 import { Start } from './start/start';
-import { Menu } from './menu/menu'; // Tu componente contenedor
+import { Jugadores } from './jugadores/jugadores';
+import { Menu } from './menu/menu'; 
+import { ResetPassword } from './reset-password/reset-password';
 
 export const routes: Routes = [
-    // Rutas públicas (Sin menús)
+    // Rutas públicas
     { path: '', component: Start },
     { path: 'login', component: Login },
+    { path: 'reset-password', component: ResetPassword },
     
-    // Rutas privadas (Con Navbar y Sidebar)
+    // Rutas privadas (Con Navbar)
     {
         path: 'menu', 
         component: Menu, 
         children: [
-            { path: 'noticias', component: Noticias },
-            { path: 'chat', component: ChatLiga },
-            { path: 'clasificacion', component: Clasificacion },
-            { path: 'equipos', component: Equipos },
-            { path: 'partidos', component: Partidos },
-            { path: 'foro', component: Foro },
+            // -- SECCIÓN GLOBAL --
             { path: 'ligas', component: Ligas },
+            { path: 'equipos', component: Equipos },
+            { path: 'equipo/:equipo_id', component: Jugadores }, 
+            { path: 'foro', component: Foro },
+            { path: 'noticias', component: Noticias },
+
+            // -- SECCIÓN LIGA ACTUAL --
+            { path: 'partidos', component: Partidos },
+            { path: 'clasificacion', component: Clasificacion },
+            { path: 'chat', component: ChatLiga },
+
+            // Redirección por defecto
             { path: '', redirectTo: 'ligas', pathMatch: 'full' }
         ]
     },
 
-    // Ruta comodín por si escriben mal la URL
+    // Ruta comodín
     { path: '**', redirectTo: '' }
 ];
