@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- src/styles.css --- */
+
+body {
+    /* Color base: Azul pizarra profundo (Slate 900) */
+    background-color: #0f172a; 
+    
+    /* Degradado diagonal suave hacia un tono casi negro en la esquina inferior */
+    background-image: linear-gradient(to bottom right, #0f172a 0%, #05080f 100%);
+    
+    /* Mantiene el fondo fijo al hacer scroll */
+    background-attachment: fixed; 
+    
+    color: #e2e8f0;
+    min-height: 100vh;
+    margin: 0;
+}

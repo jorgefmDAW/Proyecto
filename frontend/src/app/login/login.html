@@ -80,9 +80,31 @@
                   [ngClass]="{ 'is-invalid': controlInvalido('login','password'), 'shake': controlInvalido('login','password') }">
                 <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginSubmitted())" class="invalid-feedback d-block small">
                   <div *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</div>
-                  <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Mínimo 8 caracteres.</div>
+                  <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Mínimo 8 caracteres.</div>                                    
                 </div>
               </div>
+
+             <div class="text-end mb-3" *ngIf="!modoRecuperacion()">
+                <a (click)="modoRecuperacion.set(true)" class="text-primary cursor-pointer text-decoration-none small fw-bold" style="transition: color 0.2s;">
+                    ¿Has olvidado la contraseña?
+                </a>
+            </div>
+
+            <div *ngIf="modoRecuperacion()" class="mb-4 p-3 border border-primary rounded-3" style="background-color: rgba(0, 123, 255, 0.05);">
+                <label class="form-label small fw-bold text-primary">RECUPERAR CONTRASEÑA</label>
+                <p class="small text-secondary mb-2">Introduce tu correo y te enviaremos un enlace para cambiarla.</p>
+                
+                <input type="email" [formControl]="emailRecuperacionControl" class="form-control bg-dark text-white border-secondary mb-2" placeholder="tu@email.com">
+                
+                <div class="d-flex gap-2">
+                    <button (click)="enviarCorreoRecuperacion()" [disabled]="emailRecuperacionControl.invalid" class="btn btn-primary btn-sm flex-grow-1 fw-bold">
+                        Enviar Enlace
+                    </button>
+                    <button (click)="modoRecuperacion.set(false)" class="btn btn-outline-secondary btn-sm fw-bold">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
 
               <div *ngIf="mensajeExito()" class="alert alert-success py-2 mb-3 alert-anim">{{ mensajeExito() }}</div>
               <div *ngIf="mensajeError()" class="alert alert-danger py-2 mb-3 alert-anim">{{ mensajeError() }}</div>

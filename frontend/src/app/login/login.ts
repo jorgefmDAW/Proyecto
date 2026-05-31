@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, AbstractControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Users } from  '../services/users-service';
+import { Users } from '../services/users-service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +21,7 @@ export class Login {
   mensajeError = signal('');
   formRegistro = signal(false);
   formLogin = signal(true);
+  modoRecuperacion = signal<boolean>(false);
 
   registroSubmitted = signal(false);
   loginSubmitted = signal(false);
@@ -35,19 +36,24 @@ export class Login {
     username: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
-  
+
+  emailRecuperacionControl = new FormControl('', [Validators.required, Validators.email]);
+
   activarRegistro() {
     this.formRegistro.set(true);
     this.formLogin.set(false);
-    this.mensajeExito.set('');
-    this.mensajeError.set('');
-    this.registroSubmitted.set(false);
-    this.loginSubmitted.set(false);
+    this.modoRecuperacion.set(false); 
+    this.limpiarMensajesYErrores();
   }
 
   activarLogin() {
     this.formRegistro.set(false);
     this.formLogin.set(true);
+    this.modoRecuperacion.set(false); 
+    this.limpiarMensajesYErrores();
+  }
+
+  private limpiarMensajesYErrores() {
     this.mensajeExito.set('');
     this.mensajeError.set('');
     this.registroSubmitted.set(false);
@@ -91,6 +97,7 @@ export class Login {
       this.loginForm.markAllAsTouched();
       return;
     }
+
     const payload: any = { password: this.loginForm.get('password')?.value };
     const usernameVal = this.loginForm.get('username')?.value;
     if (usernameVal) payload.username = usernameVal;
@@ -106,6 +113,25 @@ export class Login {
       error: (err) => {
         const serverMsg = err?.error?.detail || err?.error?.message || err?.message;
         this.mensajeError.set(serverMsg || 'Usuario o contraseña incorrectos');
+        this.mensajeExito.set('');
+      }
+    });
+  }
+
+  enviarCorreoRecuperacion() {
+    if (this.emailRecuperacionControl.invalid) return;
+
+    const email = this.emailRecuperacionControl.value!;
+    
+    this.users.solicitarCorreo(email).subscribe({
+      next: (res) => {
+        this.mensajeExito.set('¡Revisa tu bandeja de entrada! Te hemos enviado un correo.');
+        this.mensajeError.set('');
+        this.modoRecuperacion.set(false); 
+        this.emailRecuperacionControl.reset();
+      },
+      error: (err) => {
+        this.mensajeError.set('No se pudo enviar el correo. Verifica que el email existe.');
         this.mensajeExito.set('');
       }
     });

@@ -1,0 +1,77 @@
+/* --- ESTILOS BASE DE LA TARJETA --- */
+.player-card {
+    /* Degradado premium en lugar de color plano */
+    background: linear-gradient(145deg, #262626 0%, #151515 100%);
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: visible; 
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Efecto 3D al pasar el ratón */
+.player-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Ajuste de la foto - Descomentado y mejorado */
+.player-photo {
+    border-radius: 8px;
+    object-fit: cover;
+    height: 150px; 
+    width: 100%;
+    max-width: 140px; /* Para que no se estire demasiado en pantallas grandes */
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0px 4px 5px rgba(0,0,0,0.4));
+    transition: transform 0.3s ease;
+}
+
+/* Pequeño zoom a la cara del jugador al hacer hover en la tarjeta */
+.player-card:hover .player-photo {
+    transform: scale(1.05);
+}
+
+/* Estilo base de la pastilla */
+.position-badge {
+    z-index: 2;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50rem;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Estilo de los puntos */
+.points-text {
+    color: #ffd700; /* Dorado */
+    font-size: 1rem;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    background-color: rgba(255, 215, 0, 0.1);
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* --- MAGIA DE COLORES POR POSICIÓN Y BRILLOS --- */
+
+/* Portero (Naranja) */
+.pos-POR { border-top: 4px solid #f39c12; }
+.pos-POR .position-badge { background-color: #f39c12; color: #fff; }
+.pos-POR:hover { border-color: #f39c12; box-shadow: 0 10px 25px rgba(243, 156, 18, 0.3); }
+
+/* Defensa (Azul) */
+.pos-DEF { border-top: 4px solid #3498db; }
+.pos-DEF .position-badge { background-color: #3498db; color: #fff; }
+.pos-DEF:hover { border-color: #3498db; box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3); }
+
+/* Medio (Verde) */
+.pos-MED { border-top: 4px solid #2ecc71; }
+.pos-MED .position-badge { background-color: #2ecc71; color: #fff; }
+.pos-MED:hover { border-color: #2ecc71; box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3); }
+
+/* Delantero (Rojo) */
+.pos-DEL { border-top: 4px solid #e74c3c; }
+.pos-DEL .position-badge { background-color: #e74c3c; color: #fff; }
+.pos-DEL:hover { border-color: #e74c3c; box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3); }

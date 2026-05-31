@@ -11,4 +11,8 @@ export class Equipo {
   obtenerEquipos():Observable<any[]> {
     return this.http.get<any[]>(`/api/equipos`);
   }
+
+obtenerJugadoresPorEquipo(id: number): Observable<any> { 
+    return this.http.get<any>(`/api/jugadores/equipo/${id}`);
+}
 }
