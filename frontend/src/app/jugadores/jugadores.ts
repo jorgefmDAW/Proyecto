@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Equipo } from '../services/equipo';
+import { EquiposService } from '../services/equipos-service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class Jugadores implements OnInit{
 
-  private equipoService = inject(Equipo);
+  private equipoService = inject(EquiposService);
   private route = inject(ActivatedRoute);
   
   jugador = signal<any[]>([]);

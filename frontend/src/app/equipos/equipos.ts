@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
-import { Equipo } from '../services/equipo';
+import { EquiposService } from '../services/equipos-service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./equipos.css'],
 })
 export class Equipos implements OnInit {
-  private equipoService = inject(Equipo);
+  private equipoService = inject(EquiposService);
   
   equipos = signal<any[]>([]);
 

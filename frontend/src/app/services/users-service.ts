@@ -8,7 +8,7 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class Users {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:8000/api';
+  private apiUrl = 'http://localhost:8000/api';
 
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
