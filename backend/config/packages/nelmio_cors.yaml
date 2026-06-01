@@ -11,5 +11,5 @@ nelmio_cors:
         '^/api/': # aplica CORS solo a las rutas que empiecen por /api/
             allow_origin: ['*']
             allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+            allow_methods: ['POST', 'PUT', 'GET', 'PATCH', 'DELETE']
             max_age: 3600

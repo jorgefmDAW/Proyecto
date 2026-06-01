@@ -43,6 +43,9 @@ class Jugador
     #[ORM\OneToMany(targetEntity: EleccionEstrella::class, mappedBy: 'jugador')]
     private Collection $eleccionEstrellas;
 
+    #[ORM\Column(length: 255)]
+    private ?string $foto = null;
+
 
     public function __construct()
     {
@@ -182,6 +185,18 @@ class Jugador
                 $eleccionEstrella->setJugador(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFoto(): ?string
+    {
+        return $this->foto;
+    }
+
+    public function setFoto(string $foto): static
+    {
+        $this->foto = $foto;
 
         return $this;
     }

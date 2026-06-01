@@ -299,8 +299,9 @@ final class JugadorController extends AbstractController {
             'edad' => $jugador->getEdad(),
             'nacionalidad' => $jugador->getNacionalidad(),
             'equipo' => $jugador->getEquipo()->getNombre(),
+            'foto' => $jugador->getFoto(),
             'puntos_totales' => $jugador->sumaPuntos(),
-            'puntos_por_jornada' => $this->collectionToArray($jugador->getPuntuacions())
+            'puntos_por_jornada' => $this->collectionToArray($jugador->getPuntuacions()),
         ];
     }
 

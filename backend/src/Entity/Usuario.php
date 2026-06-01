@@ -54,6 +54,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Solicitud::class, mappedBy: 'id_usuario')]
     private Collection $solicituds;
 
+    #[ORM\ManyToOne]
+    private ?Liga $liga_seleccionada = null;
+
     public function __construct()
     {
         $this->foroGlobals = new ArrayCollection();
@@ -220,6 +223,18 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function getSolicituds(): Collection
     {
         return $this->solicituds;
+    }
+
+    public function getLigaSeleccionada(): ?Liga
+    {
+        return $this->liga_seleccionada;
+    }
+
+    public function setLigaSeleccionada(?Liga $liga_seleccionada): static
+    {
+        $this->liga_seleccionada = $liga_seleccionada;
+
+        return $this;
     }
 
 }

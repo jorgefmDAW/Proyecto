@@ -29,10 +29,10 @@ final class LigaController extends AbstractController {
     ) {}
 
     // ======================= ENTRAR A MI LIGA =======================
-    #[Route('/entrar/{id}', methods: ['POST'])]
-    #[OA\Post(
+    #[Route('/entrar/{id}', methods: ['PATCH'])] 
+    #[OA\Patch(
         path: '/api/ligas/entrar/{id}',
-        summary: 'Verifica que el usuario pertenece a la liga y autoriza el acceso',
+        summary: 'Actualiza la liga actualmente seleccionada por el usuario',
         tags: ['Ligas'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -40,19 +40,64 @@ final class LigaController extends AbstractController {
                 name: 'id',
                 in: 'path',
                 required: true,
+                description: 'ID de la nueva liga a la que se desea cambiar',
                 schema: new OA\Schema(type: 'integer')
             )
         ],
         responses: [
-            new OA\Response(response: 200, description: 'Acceso autorizado'),
+            new OA\Response(response: 200, description: 'Liga actualizada con éxito'),
             new OA\Response(response: 403, description: 'No perteneces a esta liga'),
             new OA\Response(response: 401, description: 'No autenticado'),
+            new OA\Response(response: 404, description: 'Liga no encontrada'),
         ]
     )]
     public function entrar(int $id, #[CurrentUser] Usuario $usuario): JsonResponse {
-        $this->ligaAuthService->verificarAcceso($id, $usuario);
+        $usuarioFantasy = $this->ligaAuthService->verificarAcceso($id, $usuario);
 
-        return $this->json(['mensaje' => 'Acceso autorizado']);
+        $liga = $usuarioFantasy->getLiga();
+
+        if(!$liga) {
+            return $this->json(['message' => 'Liga no encontrada'], 404);
+        }
+
+        $usuario->setLigaSeleccionada($liga);
+
+        $this->em->persist($usuario);
+        $this->em->flush();
+
+        return $this->json(['mensaje' => 'Liga seleccionada actualizada correctamente']);
+    }
+
+    // ======================= GET LIGA SELECCIONADA  =======================
+    #[Route(path:'/seleccionada', methods:['GET'])]
+    #[OA\Get(
+        path: '/api/ligas/seleccionada',
+        summary: 'Obtiene la liga seleccionada (en la que el usuario entro por ultima vez)',
+        tags: ['Ligas']
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Obtiene la liga seleccionada (en la que el usuario entro por ultima vez)'
+    )]
+    public function getLigaSeleccionada(#[CurrentUser] ?Usuario $usuario): JsonResponse {
+        if (!$usuario) {
+            return $this->json(['message' => 'No autenticado'], 401);
+        }
+
+        $ligaSeleccionada = $usuario->getLigaSeleccionada();
+        
+        if(!$ligaSeleccionada) {
+            return $this->json(['message' => 'El usuario no tiene ninguna liga seleccionada'], 404);
+        }
+
+        $resultado = [
+            'liga_seleccionada' => [
+                'id' => $ligaSeleccionada->getId(),
+                'nombre' => $ligaSeleccionada->getNombre(),
+            ]
+        ];
+
+        return $this->json($resultado);
     }
 
     // ======================= GET LIGAS DISPONIBLES =======================
