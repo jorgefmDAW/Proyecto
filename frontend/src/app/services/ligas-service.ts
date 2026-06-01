@@ -13,6 +13,19 @@ export class LigasService {
 
   ligaActiva = signal<any>(null);
 
+  getLigaActual(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/seleccionada`).pipe(
+      tap({
+        next: (res) => {
+          this.ligaActiva.set(res.liga_seleccionada);
+        },
+        error: () => {
+          this.ligaActiva.set(null);
+        }
+      })
+    );
+  }
+
   getLigasDisponibles(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);
   }
@@ -42,7 +55,7 @@ export class LigasService {
   }
 
   entrarEnLiga(ligaId: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/entrar/${ligaId}`, {}).pipe(
+    return this.http.patch<any>(`${this.baseUrl}/entrar/${ligaId}`, {}).pipe(
       tap(() => {
         this.getLigaById(ligaId).subscribe({
           next: (liga) => this.ligaActiva.set(liga),
