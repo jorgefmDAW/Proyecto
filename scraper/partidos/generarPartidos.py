@@ -26,7 +26,7 @@ equipos_map = {
 }
 
 ruta_json_entrada = 'partidosdata.json' 
-ruta_json_salida = '/home/jorge/dwes/pruebas/partidosdata.json'
+ruta_json_salida = '/backend/partidosdata.json'
 
 def procesar_partidosdata():
     try:
