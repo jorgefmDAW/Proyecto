@@ -1947,7 +1947,7 @@
             {
                 "local": 20,
                 "visitante": 8,
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "19:00"
@@ -2170,15 +2170,15 @@
             {
                 "local": 7,
                 "visitante": 4,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "14:00"
             },
             {
                 "local": 16,
                 "visitante": 13,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "16:15"
@@ -2186,16 +2186,16 @@
             {
                 "local": 6,
                 "visitante": 5,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": 12,
                 "visitante": 9,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2203,7 +2203,7 @@
                 "local": 1,
                 "visitante": 19,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Lun",
                 "hora": "21:00"
             }
@@ -2215,32 +2215,32 @@
             {
                 "local": 9,
                 "visitante": 1,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Vie",
                 "hora": "21:00"
             },
             {
                 "local": 13,
                 "visitante": 10,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "14:00"
             },
             {
                 "local": 17,
                 "visitante": 12,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Sab",
                 "hora": "16:15"
             },
             {
                 "local": 11,
                 "visitante": 15,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "18:30"
             },
@@ -2248,22 +2248,22 @@
                 "local": 14,
                 "visitante": 2,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Sab",
                 "hora": "21:00"
             },
             {
                 "local": 3,
                 "visitante": 7,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "14:00"
             },
             {
                 "local": 19,
                 "visitante": 6,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "16:15"
@@ -2271,24 +2271,24 @@
             {
                 "local": 5,
                 "visitante": 20,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": 16,
                 "visitante": 18,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 4,
                 "visitante": 8,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Lun",
                 "hora": "21:00"
             }
@@ -2300,15 +2300,15 @@
             {
                 "local": 18,
                 "visitante": 3,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Vie",
                 "hora": "21:00"
             },
             {
                 "local": 12,
                 "visitante": 14,
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "14:00"
@@ -2316,7 +2316,7 @@
             {
                 "local": 11,
                 "visitante": 19,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "16:15"
@@ -2324,7 +2324,7 @@
             {
                 "local": 8,
                 "visitante": 16,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "18:30"
@@ -2332,48 +2332,48 @@
             {
                 "local": 1,
                 "visitante": 7,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 1,
                 "fecha": "Sab",
                 "hora": "21:00"
             },
             {
                 "local": 10,
                 "visitante": 4,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "14:00"
             },
             {
                 "local": 2,
                 "visitante": 5,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 5,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "16:15"
             },
             {
                 "local": 6,
                 "visitante": 9,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": 15,
                 "visitante": 13,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 20,
                 "visitante": 17,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Lun",
                 "hora": "21:00"
             }
@@ -2385,39 +2385,39 @@
             {
                 "local": 3,
                 "visitante": 15,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Vie",
                 "hora": "21:00"
             },
             {
                 "local": 7,
                 "visitante": 10,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "14:00"
             },
             {
                 "local": 4,
                 "visitante": 19,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "16:15"
             },
             {
                 "local": 17,
                 "visitante": 8,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "18:30"
             },
             {
                 "local": 13,
                 "visitante": 12,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "18:30"
@@ -2426,14 +2426,14 @@
                 "local": 5,
                 "visitante": 16,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "21:00"
             },
             {
                 "local": 2,
                 "visitante": 20,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "14:00"
@@ -2441,24 +2441,24 @@
             {
                 "local": 9,
                 "visitante": 18,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 4,
                 "fecha": "Dom",
                 "hora": "16:15"
             },
             {
                 "local": 14,
                 "visitante": 6,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": 1,
                 "visitante": 11,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2470,23 +2470,23 @@
             {
                 "local": 11,
                 "visitante": 2,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 18,
                 "visitante": 13,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 19,
                 "visitante": 14,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2494,7 +2494,7 @@
             {
                 "local": 12,
                 "visitante": 3,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2502,15 +2502,15 @@
             {
                 "local": 10,
                 "visitante": 1,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 20,
                 "visitante": 7,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2526,7 +2526,7 @@
             {
                 "local": 8,
                 "visitante": 5,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2534,7 +2534,7 @@
             {
                 "local": 15,
                 "visitante": 17,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2542,8 +2542,8 @@
             {
                 "local": 16,
                 "visitante": 9,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2555,16 +2555,16 @@
             {
                 "local": 14,
                 "visitante": 3,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 2,
                 "visitante": 4,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2572,14 +2572,14 @@
                 "local": 9,
                 "visitante": 8,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 7,
                 "visitante": 16,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2587,7 +2587,7 @@
             {
                 "local": 17,
                 "visitante": 19,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2595,7 +2595,7 @@
             {
                 "local": 10,
                 "visitante": 20,
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2603,32 +2603,32 @@
             {
                 "local": 13,
                 "visitante": 6,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 1,
                 "visitante": 12,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 15,
                 "visitante": 18,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 5,
                 "visitante": 11,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2640,16 +2640,16 @@
             {
                 "local": 11,
                 "visitante": 14,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 18,
                 "visitante": 10,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2665,55 +2665,55 @@
                 "local": 19,
                 "visitante": 2,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 13,
                 "visitante": 5,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 20,
                 "visitante": 15,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 6,
                 "visitante": 1,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 8,
                 "visitante": 7,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 16,
                 "visitante": 12,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 3,
                 "visitante": 9,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2725,7 +2725,7 @@
             {
                 "local": 14,
                 "visitante": 13,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2733,7 +2733,7 @@
             {
                 "local": 2,
                 "visitante": 9,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2741,23 +2741,23 @@
             {
                 "local": 7,
                 "visitante": 11,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 12,
                 "visitante": 6,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 17,
                 "visitante": 5,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2765,15 +2765,15 @@
             {
                 "local": 10,
                 "visitante": 16,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 20,
                 "visitante": 4,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2781,16 +2781,16 @@
             {
                 "local": 1,
                 "visitante": 18,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 8,
                 "visitante": 3,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
@@ -2798,7 +2798,7 @@
                 "local": 15,
                 "visitante": 19,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             }
@@ -2810,16 +2810,16 @@
             {
                 "local": 9,
                 "visitante": 7,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 18,
                 "visitante": 14,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 4,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2827,7 +2827,7 @@
                 "local": 4,
                 "visitante": 1,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2835,7 +2835,7 @@
                 "local": 19,
                 "visitante": 20,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2843,22 +2843,22 @@
                 "local": 12,
                 "visitante": 10,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 13,
                 "visitante": 2,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 6,
                 "visitante": 8,
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2866,7 +2866,7 @@
             {
                 "local": 5,
                 "visitante": 15,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2875,15 +2875,15 @@
                 "local": 16,
                 "visitante": 11,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 3,
                 "visitante": 17,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 5,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2896,7 +2896,7 @@
                 "local": 14,
                 "visitante": 16,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2904,14 +2904,14 @@
                 "local": 11,
                 "visitante": 9,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 2,
                 "visitante": 1,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2919,32 +2919,32 @@
             {
                 "local": 7,
                 "visitante": 18,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 17,
                 "visitante": 13,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 10,
                 "visitante": 3,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 20,
                 "visitante": 12,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2959,16 +2959,16 @@
             {
                 "local": 15,
                 "visitante": 6,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 5,
                 "visitante": 4,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2980,15 +2980,15 @@
             {
                 "local": 9,
                 "visitante": 17,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 18,
                 "visitante": 2,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2996,7 +2996,7 @@
             {
                 "local": 4,
                 "visitante": 14,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -3004,39 +3004,39 @@
             {
                 "local": 19,
                 "visitante": 10,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 12,
                 "visitante": 15,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 13,
                 "visitante": 11,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 6,
                 "visitante": 7,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 1,
                 "visitante": 8,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -3044,16 +3044,16 @@
             {
                 "local": 16,
                 "visitante": 20,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": 3,
                 "visitante": 5,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Mie",
                 "hora": "21:00"
             }
@@ -3065,15 +3065,15 @@
             {
                 "local": 14,
                 "visitante": 9,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 11,
                 "visitante": 12,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3081,15 +3081,15 @@
             {
                 "local": 2,
                 "visitante": 6,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 7,
                 "visitante": 19,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3097,7 +3097,7 @@
             {
                 "local": 17,
                 "visitante": 10,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3105,15 +3105,15 @@
             {
                 "local": 13,
                 "visitante": 4,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 20,
                 "visitante": 3,
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3122,15 +3122,15 @@
                 "local": 8,
                 "visitante": 18,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 15,
                 "visitante": 16,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 4,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -3138,7 +3138,7 @@
                 "local": 5,
                 "visitante": 1,
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -3150,7 +3150,7 @@
             {
                 "local": 9,
                 "visitante": 5,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3158,23 +3158,23 @@
             {
                 "local": 18,
                 "visitante": 20,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 4,
                 "visitante": 15,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 19,
                 "visitante": 13,
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3182,15 +3182,15 @@
             {
                 "local": 12,
                 "visitante": 7,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 10,
                 "visitante": 8,
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3198,32 +3198,32 @@
             {
                 "local": 6,
                 "visitante": 17,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 1,
                 "visitante": 14,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 16,
                 "visitante": 2,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": 3,
                 "visitante": 11,
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 5,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
