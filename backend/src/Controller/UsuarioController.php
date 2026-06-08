@@ -88,6 +88,7 @@ final class UsuarioController extends AbstractController {
             return $this->json($resultados, 201);
     }
 
+    // ======================= CERRAR SESION =======================
     #[Route('/logout', methods: ['POST'])]
     #[OA\Post(
         path: '/api/usuario/logout',
@@ -131,7 +132,7 @@ final class UsuarioController extends AbstractController {
         return new JsonResponse(['message' => 'Sesión cerrada con éxito'], 200);
     }
 
-    // ======================= MOSTRAR PERFIL DE USUARIO =======================
+    // ======================= GET PERFIL USUARIO =======================
     #[Route(path:'/perfil', methods:['GET'])]
     #[OA\Get(
         path: '/api/usuario/perfil',
