@@ -1947,7 +1947,7 @@
             {
                 "local": "Rayo",
                 "visitante": "Real Oviedo",
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "19:00"
@@ -2170,15 +2170,15 @@
             {
                 "local": "Elche",
                 "visitante": "Espanyol",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "14:00"
             },
             {
                 "local": "Valencia",
                 "visitante": "Osasuna",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "16:15"
@@ -2186,16 +2186,16 @@
             {
                 "local": "Betis",
                 "visitante": "Sevilla",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": "Girona",
                 "visitante": "Celta",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2203,7 +2203,7 @@
                 "local": "Real Madrid",
                 "visitante": "Getafe",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Lun",
                 "hora": "21:00"
             }
@@ -2215,32 +2215,32 @@
             {
                 "local": "Celta",
                 "visitante": "Real Madrid",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Vie",
                 "hora": "21:00"
             },
             {
                 "local": "Osasuna",
                 "visitante": "Mallorca",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "14:00"
             },
             {
                 "local": "Levante",
                 "visitante": "Girona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Sab",
                 "hora": "16:15"
             },
             {
                 "local": "Atlético",
                 "visitante": "Real Sociedad",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "18:30"
             },
@@ -2248,22 +2248,22 @@
                 "local": "Athletic",
                 "visitante": "Barcelona",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Sab",
                 "hora": "21:00"
             },
             {
                 "local": "Villarreal",
                 "visitante": "Elche",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "14:00"
             },
             {
                 "local": "Getafe",
                 "visitante": "Betis",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "16:15"
@@ -2271,24 +2271,24 @@
             {
                 "local": "Sevilla",
                 "visitante": "Rayo",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": "Valencia",
                 "visitante": "Alavés",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Espanyol",
                 "visitante": "Real Oviedo",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Lun",
                 "hora": "21:00"
             }
@@ -2300,15 +2300,15 @@
             {
                 "local": "Alavés",
                 "visitante": "Villarreal",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Vie",
                 "hora": "21:00"
             },
             {
                 "local": "Girona",
                 "visitante": "Athletic",
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "14:00"
@@ -2316,7 +2316,7 @@
             {
                 "local": "Atlético",
                 "visitante": "Getafe",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "16:15"
@@ -2324,7 +2324,7 @@
             {
                 "local": "Real Oviedo",
                 "visitante": "Valencia",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "18:30"
@@ -2332,48 +2332,48 @@
             {
                 "local": "Real Madrid",
                 "visitante": "Elche",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 1,
                 "fecha": "Sab",
                 "hora": "21:00"
             },
             {
                 "local": "Mallorca",
                 "visitante": "Espanyol",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "14:00"
             },
             {
                 "local": "Barcelona",
                 "visitante": "Sevilla",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 5,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "16:15"
             },
             {
                 "local": "Betis",
                 "visitante": "Celta",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": "Real Sociedad",
                 "visitante": "Osasuna",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Rayo",
                 "visitante": "Levante",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Lun",
                 "hora": "21:00"
             }
@@ -2385,39 +2385,39 @@
             {
                 "local": "Villarreal",
                 "visitante": "Real Sociedad",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Vie",
                 "hora": "21:00"
             },
             {
                 "local": "Elche",
                 "visitante": "Mallorca",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "14:00"
             },
             {
                 "local": "Espanyol",
                 "visitante": "Getafe",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "16:15"
             },
             {
                 "local": "Levante",
                 "visitante": "Real Oviedo",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "18:30"
             },
             {
                 "local": "Osasuna",
                 "visitante": "Girona",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Sab",
                 "hora": "18:30"
@@ -2426,14 +2426,14 @@
                 "local": "Sevilla",
                 "visitante": "Valencia",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Sab",
                 "hora": "21:00"
             },
             {
                 "local": "Barcelona",
                 "visitante": "Rayo",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "14:00"
@@ -2441,24 +2441,24 @@
             {
                 "local": "Celta",
                 "visitante": "Alavés",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 4,
                 "fecha": "Dom",
                 "hora": "16:15"
             },
             {
                 "local": "Athletic",
                 "visitante": "Betis",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "18:30"
             },
             {
                 "local": "Real Madrid",
                 "visitante": "Atlético",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2470,23 +2470,23 @@
             {
                 "local": "Atlético",
                 "visitante": "Barcelona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Alavés",
                 "visitante": "Osasuna",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Getafe",
                 "visitante": "Athletic",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2494,7 +2494,7 @@
             {
                 "local": "Girona",
                 "visitante": "Villarreal",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2502,15 +2502,15 @@
             {
                 "local": "Mallorca",
                 "visitante": "Real Madrid",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Rayo",
                 "visitante": "Elche",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2526,7 +2526,7 @@
             {
                 "local": "Real Oviedo",
                 "visitante": "Sevilla",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2534,7 +2534,7 @@
             {
                 "local": "Real Sociedad",
                 "visitante": "Levante",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2542,8 +2542,8 @@
             {
                 "local": "Valencia",
                 "visitante": "Celta",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2555,16 +2555,16 @@
             {
                 "local": "Athletic",
                 "visitante": "Villarreal",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Barcelona",
                 "visitante": "Espanyol",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2572,14 +2572,14 @@
                 "local": "Celta",
                 "visitante": "Real Oviedo",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Elche",
                 "visitante": "Valencia",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2587,7 +2587,7 @@
             {
                 "local": "Levante",
                 "visitante": "Getafe",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2595,7 +2595,7 @@
             {
                 "local": "Mallorca",
                 "visitante": "Rayo",
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2603,32 +2603,32 @@
             {
                 "local": "Osasuna",
                 "visitante": "Betis",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Real Madrid",
                 "visitante": "Girona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Real Sociedad",
                 "visitante": "Alavés",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Sevilla",
                 "visitante": "Atlético",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2640,16 +2640,16 @@
             {
                 "local": "Atlético",
                 "visitante": "Athletic",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Alavés",
                 "visitante": "Mallorca",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2665,55 +2665,55 @@
                 "local": "Getafe",
                 "visitante": "Barcelona",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Osasuna",
                 "visitante": "Sevilla",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Rayo",
                 "visitante": "Real Sociedad",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 3,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Betis",
                 "visitante": "Real Madrid",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Real Oviedo",
                 "visitante": "Elche",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Valencia",
                 "visitante": "Girona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Villarreal",
                 "visitante": "Celta",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2725,7 +2725,7 @@
             {
                 "local": "Athletic",
                 "visitante": "Osasuna",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2733,7 +2733,7 @@
             {
                 "local": "Barcelona",
                 "visitante": "Celta",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2741,23 +2741,23 @@
             {
                 "local": "Elche",
                 "visitante": "Atlético",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Girona",
                 "visitante": "Betis",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Levante",
                 "visitante": "Sevilla",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2765,15 +2765,15 @@
             {
                 "local": "Mallorca",
                 "visitante": "Valencia",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Rayo",
                 "visitante": "Espanyol",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2781,16 +2781,16 @@
             {
                 "local": "Real Madrid",
                 "visitante": "Alavés",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Real Oviedo",
                 "visitante": "Villarreal",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
@@ -2798,7 +2798,7 @@
                 "local": "Real Sociedad",
                 "visitante": "Getafe",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             }
@@ -2810,16 +2810,16 @@
             {
                 "local": "Celta",
                 "visitante": "Elche",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Alavés",
                 "visitante": "Athletic",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 4,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2827,7 +2827,7 @@
                 "local": "Espanyol",
                 "visitante": "Real Madrid",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2835,7 +2835,7 @@
                 "local": "Getafe",
                 "visitante": "Rayo",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2843,22 +2843,22 @@
                 "local": "Girona",
                 "visitante": "Mallorca",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Osasuna",
                 "visitante": "Barcelona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Betis",
                 "visitante": "Real Oviedo",
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2866,7 +2866,7 @@
             {
                 "local": "Sevilla",
                 "visitante": "Real Sociedad",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2875,15 +2875,15 @@
                 "local": "Valencia",
                 "visitante": "Atlético",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Villarreal",
                 "visitante": "Levante",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 5,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2896,7 +2896,7 @@
                 "local": "Athletic",
                 "visitante": "Valencia",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2904,14 +2904,14 @@
                 "local": "Atlético",
                 "visitante": "Celta",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Barcelona",
                 "visitante": "Real Madrid",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -2919,32 +2919,32 @@
             {
                 "local": "Elche",
                 "visitante": "Alavés",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Levante",
                 "visitante": "Osasuna",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Mallorca",
                 "visitante": "Villarreal",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Rayo",
                 "visitante": "Girona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -2959,16 +2959,16 @@
             {
                 "local": "Real Sociedad",
                 "visitante": "Betis",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Sevilla",
                 "visitante": "Espanyol",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -2980,15 +2980,15 @@
             {
                 "local": "Celta",
                 "visitante": "Levante",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Alavés",
                 "visitante": "Barcelona",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -2996,7 +2996,7 @@
             {
                 "local": "Espanyol",
                 "visitante": "Athletic",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -3004,39 +3004,39 @@
             {
                 "local": "Getafe",
                 "visitante": "Mallorca",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Girona",
                 "visitante": "Real Sociedad",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Osasuna",
                 "visitante": "Atlético",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Betis",
                 "visitante": "Elche",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Real Madrid",
                 "visitante": "Real Oviedo",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Mie",
                 "hora": "21:00"
@@ -3044,16 +3044,16 @@
             {
                 "local": "Valencia",
                 "visitante": "Rayo",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Mie",
                 "hora": "21:00"
             },
             {
                 "local": "Villarreal",
                 "visitante": "Sevilla",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 3,
                 "fecha": "Mie",
                 "hora": "21:00"
             }
@@ -3065,15 +3065,15 @@
             {
                 "local": "Athletic",
                 "visitante": "Celta",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Atlético",
                 "visitante": "Girona",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3081,15 +3081,15 @@
             {
                 "local": "Barcelona",
                 "visitante": "Betis",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Elche",
                 "visitante": "Getafe",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3097,7 +3097,7 @@
             {
                 "local": "Levante",
                 "visitante": "Mallorca",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3105,15 +3105,15 @@
             {
                 "local": "Osasuna",
                 "visitante": "Espanyol",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Rayo",
                 "visitante": "Villarreal",
-                "goles_local": 0,
+                "goles_local": 2,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3122,15 +3122,15 @@
                 "local": "Real Oviedo",
                 "visitante": "Alavés",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Real Sociedad",
                 "visitante": "Valencia",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 4,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
@@ -3138,7 +3138,7 @@
                 "local": "Sevilla",
                 "visitante": "Real Madrid",
                 "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }
@@ -3150,7 +3150,7 @@
             {
                 "local": "Celta",
                 "visitante": "Sevilla",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3158,23 +3158,23 @@
             {
                 "local": "Alavés",
                 "visitante": "Rayo",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Espanyol",
                 "visitante": "Real Sociedad",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Getafe",
                 "visitante": "Osasuna",
-                "goles_local": 0,
+                "goles_local": 1,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3182,15 +3182,15 @@
             {
                 "local": "Girona",
                 "visitante": "Elche",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 1,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Mallorca",
                 "visitante": "Real Oviedo",
-                "goles_local": 0,
+                "goles_local": 3,
                 "goles_visitante": 0,
                 "fecha": "Dom",
                 "hora": "21:00"
@@ -3198,32 +3198,32 @@
             {
                 "local": "Betis",
                 "visitante": "Levante",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 2,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Real Madrid",
                 "visitante": "Athletic",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 4,
+                "goles_visitante": 2,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Valencia",
                 "visitante": "Barcelona",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 3,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             },
             {
                 "local": "Villarreal",
                 "visitante": "Atlético",
-                "goles_local": 0,
-                "goles_visitante": 0,
+                "goles_local": 5,
+                "goles_visitante": 1,
                 "fecha": "Dom",
                 "hora": "21:00"
             }

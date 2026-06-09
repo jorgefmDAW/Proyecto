@@ -57,11 +57,18 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne]
     private ?Liga $liga_seleccionada = null;
 
+    /**
+     * @var Collection<int, ChatLiga>
+     */
+    #[ORM\OneToMany(targetEntity: ChatLiga::class, mappedBy: 'usuario')]
+    private Collection $chatLigas;
+
     public function __construct()
     {
         $this->foroGlobals = new ArrayCollection();
         $this->usuarioFantasies = new ArrayCollection();
         $this->solicituds = new ArrayCollection();
+        $this->chatLigas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,6 +240,36 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLigaSeleccionada(?Liga $liga_seleccionada): static
     {
         $this->liga_seleccionada = $liga_seleccionada;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ChatLiga>
+     */
+    public function getChatLigas(): Collection
+    {
+        return $this->chatLigas;
+    }
+
+    public function addChatLiga(ChatLiga $chatLiga): static
+    {
+        if (!$this->chatLigas->contains($chatLiga)) {
+            $this->chatLigas->add($chatLiga);
+            $chatLiga->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatLiga(ChatLiga $chatLiga): static
+    {
+        if ($this->chatLigas->removeElement($chatLiga)) {
+            // set the owning side to null (unless already changed)
+            if ($chatLiga->getUsuario() === $this) {
+                $chatLiga->setUsuario(null);
+            }
+        }
 
         return $this;
     }

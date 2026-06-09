@@ -69,7 +69,9 @@ final class PartidoController extends AbstractController {
         return [
             'id' => $partido->getId(),
             'local' => $partido->getLocalId()->getNombre(),
+            'escudo_local' => $partido->getLocalId()->getEscudo(),
             'visitante' => $partido->getVisitanteId()->getNombre(),
+            'escudo_visitante' => $partido->getVisitanteId()->getEscudo(),
             'jornada' => $partido->getJornada()->getId(),
             'fecha' => $partido->getDia(),
             'hora' => $partido->getHora()->format('H:i'),

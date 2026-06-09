@@ -38,10 +38,17 @@ class Liga
     #[ORM\Column]
     private ?int $max_miembros = null;
 
+    /**
+     * @var Collection<int, ChatLiga>
+     */
+    #[ORM\OneToMany(targetEntity: ChatLiga::class, mappedBy: 'liga')]
+    private Collection $chatLigas;
+
     public function __construct()
     {
         $this->usuarioFantasies = new ArrayCollection();
         $this->solicituds = new ArrayCollection();
+        $this->chatLigas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +131,36 @@ class Liga
     public function setMaxMiembros(int $max_miembros): static
     {
         $this->max_miembros = $max_miembros;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ChatLiga>
+     */
+    public function getChatLigas(): Collection
+    {
+        return $this->chatLigas;
+    }
+
+    public function addChatLiga(ChatLiga $chatLiga): static
+    {
+        if (!$this->chatLigas->contains($chatLiga)) {
+            $this->chatLigas->add($chatLiga);
+            $chatLiga->setLiga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChatLiga(ChatLiga $chatLiga): static
+    {
+        if ($this->chatLigas->removeElement($chatLiga)) {
+            // set the owning side to null (unless already changed)
+            if ($chatLiga->getLiga() === $this) {
+                $chatLiga->setLiga(null);
+            }
+        }
 
         return $this;
     }

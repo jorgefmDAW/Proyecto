@@ -388,6 +388,41 @@ final class LigaController extends AbstractController {
         ]);
     }
 
+    // ======================= GET CLASIFICACION OF LIGA =======================
+    #[Route(path:'/clasificacion/{id}', methods:['GET'])]
+    #[OA\Get(
+        path: '/api/ligas/clasificacion/{id}',
+        summary: 'Obtiene la clasificacion de los usuarios de la liga',
+        tags: ['Ligas']
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Obtiene la clasificacion de los usuarios de la liga'
+    )]
+    public function getClasificacion(#[CurrentUser] ?Usuario $usuario, int $id): JsonResponse {
+        $usuariosLiga = $this->em->getRepository(UsuarioFantasy::class)->findBy(['liga' => $id], ['puntosTotales'=> 'DESC']);
+        
+        if(!$usuariosLiga) {
+            return $this->json(['message' => 'No se han encontrado usuarios en esa liga'], 404);
+        }
+
+        $resultados = ['clasificacion' => []];
+        $posicion = 1;
+
+        foreach($usuariosLiga as $ul) {
+            $resultados['clasificacion'][] = [ 
+                'id'=> $ul->getId(),
+                'posicion' => $posicion,
+                'usuario'=> $ul->getUsuario()->getUsername(),
+                'puntos'=> $ul->getPuntosTotales(),
+            ];
+
+            $posicion++;
+        }
+
+        return $this->json($resultados);
+    }
+
     // ======================= HELPERS =======================
     private function toArray(Liga $liga): array {
         return [
