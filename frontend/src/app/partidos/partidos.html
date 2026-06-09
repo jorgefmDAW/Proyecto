@@ -1,1 +1,137 @@
-<p>partidos works!</p>
+<div class="partidos-wrapper">
+  <div class="partidos-header">
+    <div class="header-title">
+      <h1>Partidos y Estrella</h1>
+      <p>Predice el ganador y elige al Jugador Estrella</p>
+    </div>
+
+    <div class="jornadas-selector-container">
+      <label for="jornadaSelect" class="jornada-label">Seleccionar Jornada: </label>
+      <select 
+        id="jornadaSelect" 
+        class="jornada-select"
+        [value]="jornadaActiva" 
+        (change)="seleccionarJornada(+$any($event.target).value)"
+      >
+        <option *ngFor="let jornada of jornadas" [value]="jornada">
+          Jornada {{ jornada }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="estado-mensaje">
+    <div class="spinner"></div>
+    <span>Cargando partidos...</span>
+  </div>
+
+  <div *ngIf="error && !cargando" class="estado-mensaje error">
+    <span class="error-icon">⚠</span>
+    <span>{{ error }}</span>
+    <button class="retry-btn" (click)="cargarPartidos(jornadaActiva)">Reintentar</button>
+  </div>
+
+  <div *ngIf="!cargando && !error && partidos.length === 0" class="estado-mensaje">
+    <span>No hay partidos para esta jornada.</span>
+  </div>
+
+  <div *ngIf="!cargando && !error && partidos.length > 0" class="partidos-lista">
+    <div *ngFor="let partido of partidos" class="partido-card">
+
+      <div class="partido-cuerpo">
+
+        <div class="equipo equipo-local">
+          <div
+            class="equipo-avatar"
+            [style.background-color]="getColorEquipo(partido.equipoLocal)"
+          >
+            {{ getIniciales(partido.equipoLocal) }}
+          </div>
+          <span class="equipo-nombre">{{ partido.equipoLocal }}</span>
+          <button
+            class="ganara-btn"
+            [class.selected]="partido.prediccionUsuario === 'local'"
+            [disabled]="partido.estado === 'FINALIZADO'"
+            (click)="predecirGanador(partido, 'local')"
+          >
+            <span *ngIf="partido.prediccionUsuario !== 'local'">¿Ganará?</span>
+            <span *ngIf="partido.prediccionUsuario === 'local'">✓ Mi pick</span>
+          </button>
+        </div>
+
+        <div class="partido-centro">
+          <ng-container *ngIf="partido.estado === 'FINALIZADO'; else noFinalizado">
+            <div class="marcador">
+              <span class="goles">{{ partido.golesLocal }}</span>
+              <span class="separador">-</span>
+              <span class="goles">{{ partido.golesVisitante }}</span>
+            </div>
+          </ng-container>
+          <ng-template #noFinalizado>
+            <span class="vs-texto">VS</span>
+          </ng-template>
+
+          <span
+            class="estado-badge"
+            [class.en-curso]="partido.estado === 'EN_CURSO'"
+            [class.finalizado]="partido.estado === 'FINALIZADO'"
+          >
+            {{ getEstadoLabel(partido.estado) }}
+          </span>
+
+          <button
+            *ngIf="partido.estado !== 'FINALIZADO'"
+            class="empate-btn"
+            [class.selected]="partido.prediccionUsuario === 'empate'"
+            (click)="predecirGanador(partido, 'empate')"
+          >
+            Empate
+          </button>
+        </div>
+
+        <div class="equipo equipo-visitante">
+          <div
+            class="equipo-avatar"
+            [style.background-color]="getColorEquipo(partido.equipoVisitante)"
+          >
+            {{ getIniciales(partido.equipoVisitante) }}
+          </div>
+          <span class="equipo-nombre">{{ partido.equipoVisitante }}</span>
+          <button
+            class="ganara-btn"
+            [class.selected]="partido.prediccionUsuario === 'visitante'"
+            [disabled]="partido.estado === 'FINALIZADO'"
+            (click)="predecirGanador(partido, 'visitante')"
+          >
+            <span *ngIf="partido.prediccionUsuario !== 'visitante'">¿Ganará?</span>
+            <span *ngIf="partido.prediccionUsuario === 'visitante'">✓ Mi pick</span>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="partido-footer">
+        <div class="estrella-info">
+          <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <span *ngIf="!partido.jugadorEstrella" class="estrella-label">ESTRELLA ELEGIDA</span>
+          <span *ngIf="partido.jugadorEstrella" class="estrella-nombre">★ {{ partido.jugadorEstrella }}</span>
+        </div>
+
+        <button
+          class="elegir-jugador-btn"
+          [disabled]="partido.estado === 'FINALIZADO'"
+          (click)="elegirJugadorEstrella(partido)"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          ELEGIR JUGADOR
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
