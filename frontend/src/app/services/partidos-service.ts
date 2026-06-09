@@ -8,6 +8,7 @@ export class PartidosService {
   
   private http = inject(HttpClient);
   private partidosUrl = 'http://localhost:8000/api/partidos'
+  private JugadoresPartidosUrl = 'http://localhost:8000/api/jugadores'
 
 
   obtenerPartidosPorJornada(jornada: number):Observable<any[]> {
@@ -16,5 +17,9 @@ export class PartidosService {
   
   obtenerTodosPartidos(): Observable<any[]> {
     return this.http.get<any[]>(this.partidosUrl);
+  }
+
+  obtenerJugadoresPorEquipos( equipo1: number, equipo2: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.JugadoresPartidosUrl}/equipos/${equipo1}/${equipo2}`);
   }
 }
