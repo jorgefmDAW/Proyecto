@@ -68,8 +68,10 @@ final class PartidoController extends AbstractController {
     private function toArray(Partido $partido): array {
         return [
             'id' => $partido->getId(),
+            'id_local' => $partido->getLocalId()->getId(),
             'local' => $partido->getLocalId()->getNombre(),
             'escudo_local' => $partido->getLocalId()->getEscudo(),
+            'id_visitante' => $partido->getVisitanteId()->getId(),
             'visitante' => $partido->getVisitanteId()->getNombre(),
             'escudo_visitante' => $partido->getVisitanteId()->getEscudo(),
             'jornada' => $partido->getJornada()->getId(),
