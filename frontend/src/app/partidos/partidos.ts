@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PartidosService } from '../services/partidos-service';
 
 interface Partido {
+
   id: number;
   equipoLocal: string;
   equipoVisitante: string;
@@ -12,6 +13,11 @@ interface Partido {
   jornada: number;
   jugadorEstrella?: string;
   prediccionUsuario?: 'local' | 'visitante' | 'empate';
+  escudo_local: any;
+  escudo_visitante: any;
+
+  local_id: number;
+  visitante_id: number;
 }
 
 @Component({
@@ -23,13 +29,16 @@ interface Partido {
 })
 export class Partidos implements OnInit {
   private partidosService = inject(PartidosService);
-  private cdr = inject(ChangeDetectorRef); // <-- 1. INYECTAMOS EL DETECTOR DE CAMBIOS
+  private cdr = inject(ChangeDetectorRef); 
 
-  // Generamos un array del 1 al 38 automáticamente
   jornadas = Array.from({ length: 40 }, (_, i) => i + 1);
-  jornadaActiva = 1; // He puesto que empiece en la 1 por defecto
+  jornadaActiva = 1; 
   partidos: Partido[] = [];
   cargando = false;
+  mostrarModalJugadores = false;
+  jugadoresModal: any[] = [];
+  cargandoJugadores = false;
+  partidoSeleccionado: Partido | null = null;
   error: string | null = null;
 
   ngOnInit(): void {
@@ -53,20 +62,21 @@ export class Partidos implements OnInit {
         const datos = response.partidos ? response.partidos : response;
         console.log('3. Array de partidos extraído:', datos);
 
-        // Mapeamos los datos con la nueva lógica dictatorial
         this.partidos = datos.map((p: any) => {
           
-          // Comprobamos estrictamente que los goles no sean ni null ni undefined
           const partidoJugado = p.local_goles !== null && p.local_goles !== undefined;
 
           return {
             ...p,
             equipoLocal: p.local || p.equipoLocal,
             equipoVisitante: p.visitante || p.equipoVisitante,
+            escudo_local: p.escudo_local, 
+            escudo_visitante: p.escudo_visitante,
             golesLocal: p.local_goles,
             golesVisitante: p.visitante_goles,
+            local_id: p.local_id,
+            visitante_id: p.visitante_id,
             
-            // Si hay goles es FINALIZADO, si está vacío (null) es PENDIENTE garantizado
             estado: partidoJugado ? 'FINALIZADO' : 'PENDIENTE'
           };
         });
@@ -74,14 +84,14 @@ export class Partidos implements OnInit {
         console.log('4. Array mapeado listo para pintar:', this.partidos);
         this.cargando = false;
         
-        this.cdr.detectChanges(); // <-- ¡OBLIGAMOS A ANGULAR A PINTAR LA PANTALLA!
+        this.cdr.detectChanges(); 
       },
       error: (err) => {
         console.error('ERROR CAPTURADO:', err);
         this.error = 'Error al cargar los partidos';
         this.cargando = false;
         
-        this.cdr.detectChanges(); // <-- También lo ponemos por si hay error
+        this.cdr.detectChanges(); 
       },
       complete: () => {
         console.log('5. La petición ha terminado al 100%');
@@ -93,35 +103,39 @@ export class Partidos implements OnInit {
     partido.prediccionUsuario = equipo;
   }
 
-  elegirJugadorEstrella(partido: Partido): void {
-    const jugador = prompt('Nombre del jugador estrella:');
-    if (jugador) {
-      partido.jugadorEstrella = jugador;
-    }
-  }
+elegirJugadorEstrella(partido: Partido): void {
+  this.partidoSeleccionado = partido;
+  this.mostrarModalJugadores = true;
+  this.cargandoJugadores = true;
+  this.jugadoresModal = [];
 
-  getIniciales(nombre: string): string {
-    if (!nombre) return '??';
-    return nombre
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-  }
-
-  getColorEquipo(nombre: string): string {
-    if (!nombre) return '#ccc';
-    const colores = [
-      '#F5C518', '#4CAF50', '#2196F3', '#E91E63',
-      '#FF5722', '#9C27B0', '#00BCD4', '#FF9800',
-    ];
-    let hash = 0;
-    for (let i = 0; i < nombre.length; i++) {
-      hash = nombre.charCodeAt(i) + ((hash << 5) - hash);
+  this.partidosService.obtenerJugadoresPorEquipos(partido.local_id, partido.visitante_id).subscribe({
+    next: (jugadores: any) => {
+      
+      this.jugadoresModal = jugadores; 
+      this.cargandoJugadores = false;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('Error cargando los jugadores', err);
+      this.cargandoJugadores = false;
+      this.cdr.detectChanges();
     }
-    return colores[Math.abs(hash) % colores.length];
+  });
+}
+
+seleccionarEstrella(jugador: any): void {
+  if (this.partidoSeleccionado) {
+    this.partidoSeleccionado.jugadorEstrella = jugador.nombre; 
   }
+  this.cerrarModal();
+}
+
+cerrarModal(): void {
+  this.mostrarModalJugadores = false;
+  this.partidoSeleccionado = null;
+  this.jugadoresModal = [];
+}
 
   getEstadoLabel(estado: string): string {
     const labels: Record<string, string> = {
