@@ -108,7 +108,7 @@ final class ChatLigaController extends AbstractController {
         $chatLiga->setMensaje($data['mensaje']);
         $chatLiga->setUsuario($usuario);
         $chatLiga->setLiga($liga);
-        $chatLiga->setFecha(new \DateTime()); 
+        $chatLiga->setFecha(new \DateTime('now', new \DateTimeZone('Europe/Madrid')));
 
         $em->persist($chatLiga);
         $em->flush();
