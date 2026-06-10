@@ -11,6 +11,7 @@ import { Start } from './start/start';
 import { Jugadores } from './jugadores/jugadores';
 import { Menu } from './menu/menu'; 
 import { ResetPassword } from './reset-password/reset-password';
+import { Solicitudes } from './solicitudes/solicitudes';
 
 export const routes: Routes = [
     // Rutas públicas
@@ -34,6 +35,7 @@ export const routes: Routes = [
             { path: 'partidos', component: Partidos },
             { path: 'clasificacion', component: Clasificacion },
             { path: 'chat', component: ChatLiga },
+            { path: 'solicitudes', component: Solicitudes },
 
             // Redirección por defecto
             { path: '', redirectTo: 'ligas', pathMatch: 'full' }

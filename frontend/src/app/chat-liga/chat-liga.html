@@ -24,6 +24,13 @@
         <div class="messages-list">
           @for (msg of mensajes(); track msg.id || $index) {
             <div class="mensaje-wrapper" [class.mio]="msg.usuario?.usuario_id == usuarioActual()?.id">
+              
+              @if (msg.usuario?.usuario_id != usuarioActual()?.id) {
+                <div class="chat-avatar avatar-otro flex-shrink-0">
+                  {{ (msg.usuario?.username || 'U').charAt(0).toUpperCase() }}
+                </div>
+              }
+
               <div class="mensaje-bubble">
                 <div class="mensaje-autor">
                   {{ msg.usuario?.username || 'Usuario' }}
@@ -35,6 +42,13 @@
                   {{ msg.fecha }}
                 </div>
               </div>
+
+              @if (msg.usuario?.usuario_id == usuarioActual()?.id) {
+                <div class="chat-avatar avatar-mio flex-shrink-0">
+                  {{ (msg.usuario?.username || 'U').charAt(0).toUpperCase() }}
+                </div>
+              }
+              
             </div>
           }
         </div>

@@ -57,10 +57,7 @@ export class LigasService {
   entrarEnLiga(ligaId: number): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}/entrar/${ligaId}`, {}).pipe(
       tap(() => {
-        this.getLigaById(ligaId).subscribe({
-          next: (liga) => this.ligaActiva.set(liga),
-          error: () => this.ligaActiva.set(null)
-        });
+        this.getLigaActual().subscribe();
       })
     );
   }
