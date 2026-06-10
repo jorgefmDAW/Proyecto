@@ -90,10 +90,17 @@ final class LigaController extends AbstractController {
             return $this->json(['message' => 'El usuario no tiene ninguna liga seleccionada'], 404);
         }
 
+        $usuarioFantasy = $this->em->getRepository(UsuarioFantasy::class)->findOneBy(['usuario' => $usuario, 'liga' => $ligaSeleccionada]);
+
+        if(!$usuarioFantasy) {
+            return $this->json(['message' => 'El usuario no esta unido a esta liga'], 404);
+        }
+
         $resultado = [
             'liga_seleccionada' => [
                 'id' => $ligaSeleccionada->getId(),
                 'nombre' => $ligaSeleccionada->getNombre(),
+                'creador' => $usuarioFantasy->getCreador()
             ]
         ];
 
