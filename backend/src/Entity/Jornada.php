@@ -15,17 +15,8 @@ class Jornada
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var Collection<int, Partido>
-     */
-    #[ORM\OneToMany(targetEntity: Partido::class, mappedBy: 'jornada_id')]
-    private Collection $partidos;
-
-    /**
-     * @var Collection<int, Puntuacion>
-     */
-    #[ORM\OneToMany(targetEntity: Puntuacion::class, mappedBy: 'jornada_id')]
-    private Collection $puntuacions;
+    #[ORM\Column]
+    private ?int $numero = null;
 
     #[ORM\Column]
     private ?\DateTime $fecha_inicio = null;
@@ -33,17 +24,16 @@ class Jornada
     #[ORM\Column]
     private ?\DateTime $fecha_final = null;
 
-    /**
-     * @var Collection<int, Alineacion>
-     */
-    #[ORM\OneToMany(targetEntity: Alineacion::class, mappedBy: 'jornada')]
-    private Collection $alineacions;
+    #[ORM\OneToMany(targetEntity: Partido::class, mappedBy: 'jornada')]
+    private Collection $partidos;
+
+    #[ORM\OneToMany(targetEntity: Puntuacion::class, mappedBy: 'jornada')]
+    private Collection $puntuacions;
 
     public function __construct()
     {
         $this->partidos = new ArrayCollection();
         $this->puntuacions = new ArrayCollection();
-        $this->alineacions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,68 +41,20 @@ class Jornada
         return $this->id;
     }
 
-    public function setId(int $id)
+    public function setId(int $id): static
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return Collection<int, Partido>
-     */
-    public function getPartidos(): Collection
-    {
-        return $this->partidos;
-    }
-
-    public function addPartido(Partido $partido): static
-    {
-        if (!$this->partidos->contains($partido)) {
-            $this->partidos->add($partido);
-            $partido->setJornada($this);
-        }
-
         return $this;
     }
 
-    public function removePartido(Partido $partido): static
+    public function getNumero(): ?int
     {
-        if ($this->partidos->removeElement($partido)) {
-            // set the owning side to null (unless already changed)
-            if ($partido->getJornada() === $this) {
-                $partido->setJornada(null);
-            }
-        }
-
-        return $this;
+        return $this->numero;
     }
 
-    /**
-     * @return Collection<int, Puntuacion>
-     */
-    public function getPuntuacions(): Collection
+    public function setNumero(int $numero): static
     {
-        return $this->puntuacions;
-    }
-
-    public function addPuntuacion(Puntuacion $puntuacion): static
-    {
-        if (!$this->puntuacions->contains($puntuacion)) {
-            $this->puntuacions->add($puntuacion);
-            $puntuacion->setJornada($this);
-        }
-
-        return $this;
-    }
-
-    public function removePuntuacion(Puntuacion $puntuacion): static
-    {
-        if ($this->puntuacions->removeElement($puntuacion)) {
-            // set the owning side to null (unless already changed)
-            if ($puntuacion->getJornada() === $this) {
-                $puntuacion->setJornada(null);
-            }
-        }
-
+        $this->numero = $numero;
         return $this;
     }
 
@@ -124,7 +66,6 @@ class Jornada
     public function setFechaInicio(\DateTime $fecha_inicio): static
     {
         $this->fecha_inicio = $fecha_inicio;
-
         return $this;
     }
 
@@ -136,37 +77,54 @@ class Jornada
     public function setFechaFinal(\DateTime $fecha_final): static
     {
         $this->fecha_final = $fecha_final;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Alineacion>
-     */
-    public function getAlineacions(): Collection
+    public function getPartidos(): Collection
     {
-        return $this->alineacions;
+        return $this->partidos;
     }
 
-    public function addAlineacion(Alineacion $alineacion): static
+    public function addPartido(Partido $partido): static
     {
-        if (!$this->alineacions->contains($alineacion)) {
-            $this->alineacions->add($alineacion);
-            $alineacion->setJornada($this);
+        if (!$this->partidos->contains($partido)) {
+            $this->partidos->add($partido);
+            $partido->setJornada($this);
         }
-
         return $this;
     }
 
-    public function removeAlineacion(Alineacion $alineacion): static
+    public function removePartido(Partido $partido): static
     {
-        if ($this->alineacions->removeElement($alineacion)) {
-            // set the owning side to null (unless already changed)
-            if ($alineacion->getJornada() === $this) {
-                $alineacion->setJornada(null);
+        if ($this->partidos->removeElement($partido)) {
+            if ($partido->getJornada() === $this) {
+                $partido->setJornada(null);
             }
         }
+        return $this;
+    }
 
+    public function getPuntuacions(): Collection
+    {
+        return $this->puntuacions;
+    }
+
+    public function addPuntuacion(Puntuacion $puntuacion): static
+    {
+        if (!$this->puntuacions->contains($puntuacion)) {
+            $this->puntuacions->add($puntuacion);
+            $puntuacion->setJornada($this);
+        }
+        return $this;
+    }
+
+    public function removePuntuacion(Puntuacion $puntuacion): static
+    {
+        if ($this->puntuacions->removeElement($puntuacion)) {
+            if ($puntuacion->getJornada() === $this) {
+                $puntuacion->setJornada(null);
+            }
+        }
         return $this;
     }
 }

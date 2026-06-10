@@ -29,9 +29,16 @@ class Equipo
     #[ORM\Column(length: 255)]
     private ?string $escudo = null;
 
+    /**
+     * @var Collection<int, EleccionFantasy>
+     */
+    #[ORM\OneToMany(targetEntity: EleccionFantasy::class, mappedBy: 'equipo')]
+    private Collection $eleccionFantasies;
+
     public function __construct()
     {
         $this->jugadors = new ArrayCollection();
+        $this->eleccionFantasies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +96,36 @@ class Equipo
     public function setEscudo(string $escudo): static
     {
         $this->escudo = $escudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EleccionFantasy>
+     */
+    public function getEleccionFantasies(): Collection
+    {
+        return $this->eleccionFantasies;
+    }
+
+    public function addEleccionFantasy(EleccionFantasy $eleccionFantasy): static
+    {
+        if (!$this->eleccionFantasies->contains($eleccionFantasy)) {
+            $this->eleccionFantasies->add($eleccionFantasy);
+            $eleccionFantasy->setEquipo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEleccionFantasy(EleccionFantasy $eleccionFantasy): static
+    {
+        if ($this->eleccionFantasies->removeElement($eleccionFantasy)) {
+            // set the owning side to null (unless already changed)
+            if ($eleccionFantasy->getEquipo() === $this) {
+                $eleccionFantasy->setEquipo(null);
+            }
+        }
 
         return $this;
     }

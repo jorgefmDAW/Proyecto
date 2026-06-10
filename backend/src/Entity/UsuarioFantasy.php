@@ -28,14 +28,14 @@ class UsuarioFantasy
     private ?bool $creador = null;
 
     /**
-     * @var Collection<int, Alineacion>
+     * @var Collection<int, EleccionFantasy>
      */
-    #[ORM\OneToMany(targetEntity: Alineacion::class, mappedBy: 'usuarioFantasy')]
-    private Collection $alineacions;
+    #[ORM\OneToMany(targetEntity: EleccionFantasy::class, mappedBy: 'usuarioFantasy')]
+    private Collection $eleccionFantasies;
 
     public function __construct()
     {
-        $this->alineacions = new ArrayCollection();
+        $this->eleccionFantasies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,32 +92,33 @@ class UsuarioFantasy
     }
 
     /**
-     * @return Collection<int, Alineacion>
+     * @return Collection<int, EleccionFantasy>
      */
-    public function getAlineacions(): Collection
+    public function getEleccionFantasies(): Collection
     {
-        return $this->alineacions;
+        return $this->eleccionFantasies;
     }
 
-    public function addAlineacion(Alineacion $alineacion): static
+    public function addEleccionFantasy(EleccionFantasy $eleccionFantasy): static
     {
-        if (!$this->alineacions->contains($alineacion)) {
-            $this->alineacions->add($alineacion);
-            $alineacion->setUsuarioFantasy($this);
+        if (!$this->eleccionFantasies->contains($eleccionFantasy)) {
+            $this->eleccionFantasies->add($eleccionFantasy);
+            $eleccionFantasy->setUsuarioFantasy($this);
         }
 
         return $this;
     }
 
-    public function removeAlineacion(Alineacion $alineacion): static
+    public function removeEleccionFantasy(EleccionFantasy $eleccionFantasy): static
     {
-        if ($this->alineacions->removeElement($alineacion)) {
+        if ($this->eleccionFantasies->removeElement($eleccionFantasy)) {
             // set the owning side to null (unless already changed)
-            if ($alineacion->getUsuarioFantasy() === $this) {
-                $alineacion->setUsuarioFantasy(null);
+            if ($eleccionFantasy->getUsuarioFantasy() === $this) {
+                $eleccionFantasy->setUsuarioFantasy(null);
             }
         }
 
         return $this;
     }
+
 }

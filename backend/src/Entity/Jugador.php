@@ -37,20 +37,20 @@ class Jugador
     #[ORM\Column(length: 255)]
     private ?string $nacionalidad = null;
 
-    /**
-     * @var Collection<int, EleccionEstrella>
-     */
-    #[ORM\OneToMany(targetEntity: EleccionEstrella::class, mappedBy: 'jugador')]
-    private Collection $eleccionEstrellas;
-
     #[ORM\Column(length: 255)]
     private ?string $foto = null;
+
+    /**
+     * @var Collection<int, EleccionFantasy>
+     */
+    #[ORM\OneToMany(targetEntity: EleccionFantasy::class, mappedBy: 'jugador')]
+    private Collection $eleccionFantasies;
 
 
     public function __construct()
     {
         $this->puntuacions = new ArrayCollection();
-        $this->eleccionEstrellas = new ArrayCollection();
+        $this->eleccionFantasies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,36 +159,6 @@ class Jugador
         return $this;
     }
 
-    /**
-     * @return Collection<int, EleccionEstrella>
-     */
-    public function getEleccionEstrellas(): Collection
-    {
-        return $this->eleccionEstrellas;
-    }
-
-    public function addEleccionEstrella(EleccionEstrella $eleccionEstrella): static
-    {
-        if (!$this->eleccionEstrellas->contains($eleccionEstrella)) {
-            $this->eleccionEstrellas->add($eleccionEstrella);
-            $eleccionEstrella->setJugador($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEleccionEstrella(EleccionEstrella $eleccionEstrella): static
-    {
-        if ($this->eleccionEstrellas->removeElement($eleccionEstrella)) {
-            // set the owning side to null (unless already changed)
-            if ($eleccionEstrella->getJugador() === $this) {
-                $eleccionEstrella->setJugador(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getFoto(): ?string
     {
         return $this->foto;
@@ -197,6 +167,36 @@ class Jugador
     public function setFoto(string $foto): static
     {
         $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EleccionFantasy>
+     */
+    public function getEleccionFantasies(): Collection
+    {
+        return $this->eleccionFantasies;
+    }
+
+    public function addEleccionFantasy(EleccionFantasy $eleccionFantasy): static
+    {
+        if (!$this->eleccionFantasies->contains($eleccionFantasy)) {
+            $this->eleccionFantasies->add($eleccionFantasy);
+            $eleccionFantasy->setJugador($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEleccionFantasy(EleccionFantasy $eleccionFantasy): static
+    {
+        if ($this->eleccionFantasies->removeElement($eleccionFantasy)) {
+            // set the owning side to null (unless already changed)
+            if ($eleccionFantasy->getJugador() === $this) {
+                $eleccionFantasy->setJugador(null);
+            }
+        }
 
         return $this;
     }

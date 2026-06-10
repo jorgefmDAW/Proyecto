@@ -40,14 +40,14 @@ class Partido
     private ?Jornada $jornada = null;
 
     /**
-     * @var Collection<int, EleccionEstrella>
+     * @var Collection<int, EleccionFantasy>
      */
-    #[ORM\OneToMany(targetEntity: EleccionEstrella::class, mappedBy: 'partido')]
-    private Collection $eleccionEstrellas;
+    #[ORM\OneToMany(targetEntity: EleccionFantasy::class, mappedBy: 'partido')]
+    private Collection $eleccionFantasies;
 
     public function __construct()
     {
-        $this->eleccionEstrellas = new ArrayCollection();
+        $this->eleccionFantasies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,32 +140,33 @@ class Partido
     }
 
     /**
-     * @return Collection<int, EleccionEstrella>
+     * @return Collection<int, EleccionFantasy>
      */
-    public function getEleccionEstrellas(): Collection
+    public function getEleccionFantasies(): Collection
     {
-        return $this->eleccionEstrellas;
+        return $this->eleccionFantasies;
     }
 
-    public function addEleccionEstrella(EleccionEstrella $eleccionEstrella): static
+    public function addEleccionFantasy(EleccionFantasy $eleccionFantasy): static
     {
-        if (!$this->eleccionEstrellas->contains($eleccionEstrella)) {
-            $this->eleccionEstrellas->add($eleccionEstrella);
-            $eleccionEstrella->setPartido($this);
+        if (!$this->eleccionFantasies->contains($eleccionFantasy)) {
+            $this->eleccionFantasies->add($eleccionFantasy);
+            $eleccionFantasy->setPartido($this);
         }
 
         return $this;
     }
 
-    public function removeEleccionEstrella(EleccionEstrella $eleccionEstrella): static
+    public function removeEleccionFantasy(EleccionFantasy $eleccionFantasy): static
     {
-        if ($this->eleccionEstrellas->removeElement($eleccionEstrella)) {
+        if ($this->eleccionFantasies->removeElement($eleccionFantasy)) {
             // set the owning side to null (unless already changed)
-            if ($eleccionEstrella->getPartido() === $this) {
-                $eleccionEstrella->setPartido(null);
+            if ($eleccionFantasy->getPartido() === $this) {
+                $eleccionFantasy->setPartido(null);
             }
         }
 
         return $this;
     }
+    
 }
