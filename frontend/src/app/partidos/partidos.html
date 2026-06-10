@@ -1,9 +1,9 @@
-<div class="partidos-wrapper">
-  
+<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+
   <header class="partidos-header">
     <div class="header-info">
-      <h1>Partidos y Estrella</h1>
-      <p>Predice el ganador y elige a tu jugador clave</p>
+      <h1 class="fw-bold mb-2">Partidos</h1>
+      <p class="text-secondary mb-0">Predice el equipo ganador y elige a tu jugador estrella.</p>
     </div>
 
     <div class="selector-container">
@@ -22,114 +22,116 @@
     </div>
   </header>
 
-  @if (cargando) {
-    <div class="estado-container cargando">
-      <div class="spinner"></div>
-      <p>Cargando partidos...</p>
-    </div>
-  } @else if (error) {
-    <div class="estado-container error">
-      <span class="icono-error">⚠️</span>
-      <p>{{ error }}</p>
-      <button class="btn-reintentar" (click)="cargarPartidos(jornadaActiva)">Reintentar</button>
-    </div>
-  } @else {
-    
-    <div class="partidos-grid">
-      @for (partido of partidos; track partido.id || $index) {
-        
-        <article class="partido-card" [class.opaco]="partido.estado === 'FINALIZADO'">
+  <div style="width: 100%;">
+    @if (cargando) {
+      <div class="estado-container cargando">
+        <div class="spinner"></div>
+        <p>Cargando partidos...</p>
+      </div>
+    } @else if (error) {
+      <div class="estado-container error">
+        <span class="icono-error">⚠️</span>
+        <p>{{ error }}</p>
+        <button class="btn-reintentar" (click)="cargarPartidos(jornadaActiva)">Reintentar</button>
+      </div>
+    } @else {
+      
+      <div class="partidos-grid">
+        @for (partido of partidos; track partido.id || $index) {
           
-          <div class="partido-main">
-            <div class="equipo local">
-              <div class="escudo-wrapper">
-                <img [src]="'/imagenes/equipos/' + partido.escudo_local" [alt]="partido.equipoLocal">
-              </div>
-              <h3 class="equipo-nombre">{{ partido.equipoLocal }}</h3>
-              
-              <button class="btn-prediccion" 
-                      [class.seleccionado]="partido.prediccionUsuario === 'local'"
-                      [disabled]="partido.estado === 'FINALIZADO'"
-                      (click)="predecirGanador(partido, 'local')">
-                @if (partido.prediccionUsuario === 'local') {
-                  <span>✓ Tu Pick</span>
-                } @else {
-                  <span>¿Ganará?</span>
-                }
-              </button>
-            </div>
-
-            <div class="partido-centro">
-              <span class="estado-badge" [class.pendiente]="partido.estado !== 'FINALIZADO'">
-                {{ partido.estado === 'FINALIZADO' ? 'FINALIZADO' : 'PENDIENTE' }}
-              </span>
-
-              @if (partido.estado === 'FINALIZADO') {
-                <div class="marcador-final">
-                  <span>{{ partido.golesLocal }}</span>
-                  <span class="guion">-</span>
-                  <span>{{ partido.golesVisitante }}</span>
+          <article class="partido-card" [class.opaco]="partido.estado === 'FINALIZADO'">
+            
+            <div class="partido-main">
+              <div class="equipo local">
+                <div class="escudo-wrapper">
+                  <img [src]="'/imagenes/equipos/' + partido.escudo_local" [alt]="partido.equipoLocal">
                 </div>
-              } @else {
-                <div class="vs-glow">VS</div>
-                <button class="btn-prediccion empate" 
-                        [class.seleccionado]="partido.prediccionUsuario === 'empate'"
-                        (click)="predecirGanador(partido, 'empate')">
-                  Empate
+                <h3 class="equipo-nombre">{{ partido.equipoLocal }}</h3>
+                
+                <button class="btn-prediccion" 
+                        [class.seleccionado]="partido.prediccionUsuario === 'local'"
+                        [disabled]="partido.estado === 'FINALIZADO'"
+                        (click)="predecirGanador(partido, 'local')">
+                  @if (partido.prediccionUsuario === 'local') {
+                    <span>✓ Tu Pick</span>
+                  } @else {
+                    <span>¿Ganará?</span>
+                  }
                 </button>
-              }
-            </div>
-
-            <div class="equipo visitante">
-              <div class="escudo-wrapper">
-                <img [src]="'/imagenes/equipos/' + partido.escudo_visitante" [alt]="partido.equipoVisitante">
               </div>
-              <h3 class="equipo-nombre">{{ partido.equipoVisitante }}</h3>
-              
-              <button class="btn-prediccion" 
-                      [class.seleccionado]="partido.prediccionUsuario === 'visitante'"
-                      [disabled]="partido.estado === 'FINALIZADO'"
-                      (click)="predecirGanador(partido, 'visitante')">
-                @if (partido.prediccionUsuario === 'visitante') {
-                  <span>✓ Tu Pick</span>
+
+              <div class="partido-centro">
+                <span class="estado-badge" [class.pendiente]="partido.estado !== 'FINALIZADO'">
+                  {{ partido.estado === 'FINALIZADO' ? 'FINALIZADO' : 'PENDIENTE' }}
+                </span>
+
+                @if (partido.estado === 'FINALIZADO') {
+                  <div class="marcador-final">
+                    <span>{{ partido.golesLocal }}</span>
+                    <span class="guion">-</span>
+                    <span>{{ partido.golesVisitante }}</span>
+                  </div>
                 } @else {
-                  <span>¿Ganará?</span>
+                  <div class="vs-glow">VS</div>
+                  <button class="btn-prediccion empate" 
+                          [class.seleccionado]="partido.prediccionUsuario === 'empate'"
+                          (click)="predecirGanador(partido, 'empate')">
+                    Empate
+                  </button>
                 }
+              </div>
+
+              <div class="equipo visitante">
+                <div class="escudo-wrapper">
+                  <img [src]="'/imagenes/equipos/' + partido.escudo_visitante" [alt]="partido.equipoVisitante">
+                </div>
+                <h3 class="equipo-nombre">{{ partido.equipoVisitante }}</h3>
+                
+                <button class="btn-prediccion" 
+                        [class.seleccionado]="partido.prediccionUsuario === 'visitante'"
+                        [disabled]="partido.estado === 'FINALIZADO'"
+                        (click)="predecirGanador(partido, 'visitante')">
+                  @if (partido.prediccionUsuario === 'visitante') {
+                    <span>✓ Tu Pick</span>
+                  } @else {
+                    <span>¿Ganará?</span>
+                  }
+                </button>
+              </div>
+            </div>
+
+            <footer class="partido-footer">
+              <div class="estrella-info">
+                <svg class="icono-estrella" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                @if (partido.jugadorEstrella) {
+                  <span class="estrella-nombre">{{ partido.jugadorEstrella }}</span>
+                } @else {
+                  <span class="estrella-vacia">Sin estrella elegida</span>
+                }
+              </div>
+
+              <button class="btn-elegir-estrella" 
+                      [disabled]="partido.estado === 'FINALIZADO'"
+                      (click)="elegirJugadorEstrella(partido)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Elegir Jugador</span>
               </button>
-            </div>
+            </footer>
+          </article>
+
+        } @empty {
+          <div class="estado-container vacio">
+            <p>No hay partidos programados para esta jornada.</p>
           </div>
-
-          <footer class="partido-footer">
-            <div class="estrella-info">
-              <svg class="icono-estrella" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              @if (partido.jugadorEstrella) {
-                <span class="estrella-nombre">{{ partido.jugadorEstrella }}</span>
-              } @else {
-                <span class="estrella-vacia">Sin estrella elegida</span>
-              }
-            </div>
-
-            <button class="btn-elegir-estrella" 
-                    [disabled]="partido.estado === 'FINALIZADO'"
-                    (click)="elegirJugadorEstrella(partido)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
-              <span>Elegir Jugador</span>
-            </button>
-          </footer>
-        </article>
-
-      } @empty {
-        <div class="estado-container vacio">
-          <p>No hay partidos programados para esta jornada.</p>
-        </div>
-      }
-    </div>
-  }
+        }
+      </div>
+    }
+  </div>
 </div>
 
 @if (mostrarModalJugadores) {

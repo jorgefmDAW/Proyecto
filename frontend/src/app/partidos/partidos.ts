@@ -31,7 +31,7 @@ export class Partidos implements OnInit {
   private partidosService = inject(PartidosService);
   private cdr = inject(ChangeDetectorRef); 
 
-  jornadas = Array.from({ length: 40 }, (_, i) => i + 1);
+  jornadas = Array.from({ length: 38 }, (_, i) => i + 1);
   jornadaActiva = 1; 
   partidos: Partido[] = [];
   cargando = false;

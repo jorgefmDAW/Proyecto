@@ -1,431 +1,389 @@
-/* =========================================
-   VARIABLES DE COLOR Y ESTILO MODERNOS
-   ========================================= */
-   :host {
-    --bg-main: #0B1120;
-    --bg-card: #141C2F;
-    --bg-hover: #1E293B;
-    --text-main: #F8FAFC;
-    --text-muted: #94A3B8;
-    --accent-gold: #F59E0B;
-    --accent-gold-hover: #D97706;
-    --accent-blue: #3B82F6;
-    --border-color: #1E293B;
-    --radius-lg: 16px;
-    --radius-md: 8px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .partidos-wrapper {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    color: var(--text-main);
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-  
-  /* ================= CABECERA ================= */
-  .partidos-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .header-info h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    margin: 0 0 0.5rem 0;
-    background: linear-gradient(to right, #ffffff, #94a3b8);
-    color: transparent;
-  }
-  
-  .header-info p {
-    color: var(--text-muted);
-    margin: 0;
-    font-size: 1rem;
-  }
-  
-  /* Selector Moderno */
-  .selector-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .selector-container label {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-  }
-  
-  .custom-select-wrapper select {
-    appearance: none;
-    background-color: var(--bg-card);
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394A3B8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1.2rem;
-    transition: var(--transition);
-  }
-  
-  .custom-select-wrapper select:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-  }
-  
-  /* ================= CUADRÍCULA DE PARTIDOS ================= */
-  .partidos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .partido-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: var(--transition);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-  }
-  
-  .partido-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-    border-color: #2e3c54;
-  }
-  
-  .partido-card.opaco {
-    opacity: 0.7;
-  }
-  
-  .partido-card.opaco:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .partido-main {
-    display: flex;
-    padding: 1.5rem;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  /* EQUIPOS */
-  .equipo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 33%;
-    text-align: center;
-  }
-  
-  .escudo-wrapper {
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-  }
-  
-  .escudo-wrapper img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-  
-  .equipo-nombre {
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0 0 1rem 0;
-    color: var(--text-main);
-  }
-  
-  /* BOTONES PREDICCIÓN */
-  .btn-prediccion {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-muted);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    width: 100%;
-    max-width: 120px;
-  }
-  
-  .btn-prediccion:not(:disabled):hover {
-    border-color: var(--accent-blue);
-    color: var(--accent-blue);
-  }
-  
-  .btn-prediccion.seleccionado {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: var(--accent-blue);
-    color: var(--accent-blue);
-  }
-  
-  .btn-prediccion:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  
-  .btn-prediccion.empate {
-    margin-top: 1rem;
-    padding: 0.4rem 1.2rem;
-  }
-  
-  /* CENTRO (MARCADOR Y VS) */
-  .partido-centro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 33%;
-  }
-  
-  .estado-badge {
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    background: rgba(148, 163, 184, 0.1);
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-  }
-  
-  .estado-badge.pendiente {
-    background: rgba(245, 158, 11, 0.15);
-    color: var(--accent-gold);
-  }
-  
-  .marcador-final {
-    font-size: 2.5rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .marcador-final .guion {
-    color: var(--text-muted);
-    font-weight: 400;
-  }
-  
-  .vs-glow {
-    font-size: 2rem;
-    font-weight: 900;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.1);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  }
-  
-  /* ================= FOOTER ESTRELLA ================= */
-  .partido-footer {
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid var(--border-color);
-    padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .estrella-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .icono-estrella {
-    width: 20px;
-    height: 20px;
-    color: var(--text-muted);
-  }
-  
-  .estrella-info:has(.estrella-nombre) .icono-estrella {
-    color: var(--accent-gold);
-    filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
-  }
-  
-  .estrella-nombre {
-    font-weight: 700;
-    color: var(--text-main);
-  }
-  
-  .estrella-vacia {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    font-style: italic;
-  }
-  
-  .btn-elegir-estrella {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: var(--accent-gold);
-    padding: 0.6rem 1.2rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: var(--transition);
-  }
-  
-  .btn-elegir-estrella svg {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .btn-elegir-estrella:not(:disabled):hover {
-    background: var(--accent-gold);
-    color: #000;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-  }
-  
-  .btn-elegir-estrella:disabled {
-    background: transparent;
-    border-color: var(--border-color);
-    color: var(--text-muted);
-    cursor: not-allowed;
-  }
-  
-  /* ================= ESTADOS Y CARGAS ================= */
-  .estado-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem;
-    text-align: center;
-    background: var(--bg-card);
-    border-radius: var(--radius-lg);
-    border: 1px dashed var(--border-color);
-  }
-  
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(255,255,255,0.1);
-    border-radius: 50%;
-    border-top-color: var(--accent-blue);
-    animation: spin 1s ease-in-out infinite;
-    margin-bottom: 1rem;
-  }
-  
-  @keyframes spin { to { transform: rotate(360deg); } }
-  
-  /* ================= MODAL JUGADORES ================= */
-  /* Mantén tu código del modal anterior, pero ajústalo un poco a la nueva paleta */
-  .modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(11, 17, 32, 0.85);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    width: 90%;
-    max-width: 900px;
-    max-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  @keyframes scaleUp {
-    from { transform: scale(0.95); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .modal-header h2 { margin: 0; color: var(--accent-gold); }
-  .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: color 0.2s;}
-  .close-btn:hover { color: #ef4444; }
-  
-  .jugadores-grid {
-    padding: 1.5rem;
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
-  }
-  
-  .jugador-card {
-    position: relative;
-    background: var(--bg-hover);
-    border-radius: var(--radius-md);
-    border-top: 4px solid var(--accent-gold);
-    padding: 15px 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: var(--transition);
-  }
-  
-  .jugador-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  }
-  
-  .posicion-badge {
-    position: absolute;
-    top: -12px;
-    background: var(--accent-gold);
-    color: #000;
-    font-weight: 800;
-    font-size: 0.8rem;
-    padding: 2px 12px;
-    border-radius: 20px;
-  }
-  
-  .jugador-foto-container { height: 120px; margin-top: 10px; }
-  .jugador-foto { height: 100%; object-fit: contain; }
-  
-  .jugador-info { text-align: center; margin-top: 10px; width: 100%; }
-  .jugador-nombre-carta { color: var(--text-main); font-size: 1rem; font-weight: 700; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .equipo-tag { background: rgba(255,255,255,0.05); padding: 4px; border-radius: 4px;}
-  .equipo-tag span { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;}
-  
-  /* Responsive simple */
-  @media (max-width: 768px) {
-    .partidos-grid { grid-template-columns: 1fr; }
-    .partidos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  }
+:host {
+  --bg-main: #0B1120;
+  --bg-card: #141C2F;
+  --bg-hover: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-gold: #F59E0B;
+  --accent-gold-hover: #D97706;
+  --accent-blue: #3B82F6;
+  --border-color: #1E293B;
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================= CABECERA IGUAL A CLASIFICACIÓN ================= */
+.partidos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.selector-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selector-container label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.custom-select-wrapper select {
+  appearance: none;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394A3B8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.2rem;
+  transition: var(--transition);
+}
+
+.custom-select-wrapper select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* ================= RESTO DE TUS ESTILOS INTACTOS ================= */
+.partidos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  gap: 1.5rem;
+}
+
+.partido-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.partido-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  border-color: #2e3c54;
+}
+
+.partido-card.opaco { opacity: 0.7; }
+.partido-card.opaco:hover { transform: none; box-shadow: none; }
+
+.partido-main {
+  display: flex;
+  padding: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.equipo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+  text-align: center;
+}
+
+.escudo-wrapper {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.escudo-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.equipo-nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--text-main);
+}
+
+.btn-prediccion {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+  max-width: 120px;
+}
+
+.btn-prediccion:not(:disabled):hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.btn-prediccion.seleccionado {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.btn-prediccion:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-prediccion.empate {
+  margin-top: 1rem;
+  padding: 0.4rem 1.2rem;
+}
+
+.partido-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+}
+
+.estado-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.1);
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.estado-badge.pendiente {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-gold);
+}
+
+.marcador-final {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.marcador-final .guion {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.vs-glow {
+  font-size: 2rem;
+  font-weight: 900;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.partido-footer {
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estrella-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icono-estrella {
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+}
+
+.estrella-info:has(.estrella-nombre) .icono-estrella {
+  color: var(--accent-gold);
+  filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
+}
+
+.estrella-nombre {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.estrella-vacia {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.btn-elegir-estrella {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--accent-gold);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-elegir-estrella svg { width: 18px; height: 18px; }
+
+.btn-elegir-estrella:not(:disabled):hover {
+  background: var(--accent-gold);
+  color: #000;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.btn-elegir-estrella:disabled {
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.estado-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  text-align: center;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-color);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  border-top-color: var(--accent-blue);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ================= MODAL JUGADORES (IGUAL) ================= */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 { margin: 0; color: var(--accent-gold); }
+.close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: color 0.2s;}
+.close-btn:hover { color: #ef4444; }
+
+.jugadores-grid {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.jugador-card {
+  position: relative;
+  background: var(--bg-hover);
+  border-radius: var(--radius-md);
+  border-top: 4px solid var(--accent-gold);
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.jugador-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.posicion-badge {
+  position: absolute;
+  top: -12px;
+  background: var(--accent-gold);
+  color: #000;
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 2px 12px;
+  border-radius: 20px;
+}
+
+.jugador-foto-container { height: 120px; margin-top: 10px; }
+.jugador-foto { height: 100%; object-fit: contain; }
+
+.jugador-info { text-align: center; margin-top: 10px; width: 100%; }
+.jugador-nombre-carta { color: var(--text-main); font-size: 1rem; font-weight: 700; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.equipo-tag { background: rgba(255,255,255,0.05); padding: 4px; border-radius: 4px;}
+.equipo-tag span { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;}
+
+@media (max-width: 768px) {
+  .partidos-grid { grid-template-columns: 1fr; }
+  .partidos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
