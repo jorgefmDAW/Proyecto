@@ -1,59 +1,62 @@
+<div class="text-white p-3 mx-auto mt-4 d-flex flex-column align-items-start" style="width: 90%;">
+
+  <header class="chat-header w-100 mb-4">
+    <div class="header-info">
+      <h1 class="fw-bold mb-2">Chat de la liga</h1>
+      <p class="text-secondary mb-0">Habla y debate sobre la actualidad del futbol con los demás miembros de la liga.</p>
+    </div>
+  </header>
+
+  <div class="chat-container w-100">
     
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
-    <h1 class="fw-bold"> Chat de la Liga </h1>
-    <p class="text-secondary"> Bienvenido al chat de tu liga. 
-    <div class="global-chat-container">
-    
-    <!-- Cabecera del Chat -->
-    <header class="global-header">
-        <div class="header-info">
-        <h3>🌍 Sala Global</h3>
-        <span class="online-count">124 en línea</span>
+    <div class="chat-messages" #scrollContainer>
+      @if (error) {
+        <div class="estado-container error">
+          <span class="icono-error">⚠️</span>
+          <p>{{ error }}</p>
+          <button class="btn-reintentar" (click)="cargarChat()">Reintentar</button>
         </div>
-    </header>
-
-    <!-- Zona de Mensajes (con scroll) -->
-    <div class="global-messages">
-        
-        <!-- Mensaje de OTRO usuario (Aparece a la izquierda) -->
-        <div class="message-wrapper others">
-        <div class="avatar">JM</div>
-        <div class="message-bubble">
-            <div class="message-info">
-            <span class="user-name">Juan Martínez</span>º
-            <span class="time">10:42</span>
+      } @else if (!mensajes() || mensajes().length === 0) {
+        <div class="estado-container vacio">
+          <p>No hay mensajes en el chat de la liga. ¡Sé el primero en enviar uno!</p>
+        </div>
+      } @else {
+        <div class="messages-list">
+          @for (msg of mensajes(); track msg.id || $index) {
+            <div class="mensaje-wrapper" [class.mio]="msg.usuario?.usuario_id == usuarioActual()?.id">
+              <div class="mensaje-bubble">
+                <div class="mensaje-autor">
+                  {{ msg.usuario?.username || 'Usuario' }}
+                </div>
+                <div class="mensaje-texto">
+                  {{ msg.mensaje }}
+                </div>
+                <div class="mensaje-hora">
+                  {{ msg.fecha }}
+                </div>
+              </div>
             </div>
-            <p>¡Hola a todos! ¿Alguien ha probado ya la nueva funcionalidad?</p>
+          }
         </div>
-        </div>
-
-        <!-- Mensaje PROPIO (Aparece a la derecha) -->
-        <div class="message-wrapper mine">
-        <div class="message-bubble">
-            <p>Sí, la estuve probando ayer y va bastante rápido. ¡Te la recomiendo!</p>
-            <span class="time-mine">10:43</span>
-        </div>
-        </div>
-
-        <!-- Otro mensaje de OTRO usuario -->
-        <div class="message-wrapper others">
-        <div class="avatar">AL</div>
-        <div class="message-bubble">
-            <div class="message-info">
-            <span class="user-name">Ana López</span>
-            <span class="time">10:45</span>
-            </div>
-            <p>Genial, entonces me pondré con ello esta tarde. ¡Gracias por el aviso!</p>
-        </div>
-        </div>
-
+      }
     </div>
 
-    <!-- Zona fija para escribir mensajes -->
-    <footer class="global-input-area">
-        <input type="text" placeholder="Escribe tu mensaje aquí..." />
-        <button class="btn-send">Enviar</button>
-    </footer>
-
+    <div class="chat-input-area">
+      <input 
+        type="text" 
+        class="chat-input" 
+        placeholder="Escribe un mensaje..." 
+        [ngModel]="nuevoMensaje()"
+        (ngModelChange)="nuevoMensaje.set($event)"
+        (keyup.enter)="enviar()">
+      
+      <button class="btn-enviar" (click)="enviar()" [disabled]="!nuevoMensaje().trim()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
     </div>
-</div>    
+
+  </div>
+</div>
