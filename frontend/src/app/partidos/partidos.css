@@ -13,7 +13,7 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ================= CABECERA IGUAL A CLASIFICACIÓN ================= */
+/* ================= CABECERA Y NAVEGADOR DE JORNADAS ================= */
 .partidos-header {
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@
   gap: 1rem;
 }
 
-.selector-container label {
+.jornada-label {
   color: var(--text-muted);
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -37,27 +37,83 @@
   font-weight: 600;
 }
 
+/* Envoltorio principal de las flechas + select */
+.jornada-nav-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+/* Efecto Hover global en el grupo entero */
+.jornada-nav-wrapper:hover,
+.jornada-nav-wrapper:focus-within {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Flechas de navegación */
+.nav-arrow {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0.8rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.nav-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-arrow:not(:disabled):hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--accent-blue);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* El select en sí */
+.custom-select-wrapper {
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
 .custom-select-wrapper select {
   appearance: none;
-  background-color: var(--bg-card);
+  background-color: transparent;
   color: var(--text-main);
-  border: 1px solid var(--border-color);
-  padding: 0.75rem 2.5rem 0.75rem 1rem;
-  border-radius: var(--radius-md);
+  border: none;
+  padding: 0.65rem 2.5rem 0.65rem 1rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394A3B8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  /* Icono de chevron de Bootstrap */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233B82F6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.75rem center;
+  background-position: right 0.8rem center;
   background-size: 1.2rem;
   transition: var(--transition);
 }
 
+/* Quitamos el outline por defecto porque ya iluminamos el contenedor padre */
 .custom-select-wrapper select:focus {
   outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Cambio de color del texto del select al hacer hover en el contenedor */
+.jornada-nav-wrapper:hover select {
+  color: var(--accent-blue);
 }
 
 /* ================= RESTO DE TUS ESTILOS INTACTOS ================= */

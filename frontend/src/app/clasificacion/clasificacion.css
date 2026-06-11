@@ -1,155 +1,153 @@
+:host {
+  --bg-main: #0B1120;
+  --bg-card: #141C2F;
+  --bg-hover: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-blue: #3B82F6;
+  --border-color: #1E293B;
+  --border-highlight: rgba(59, 130, 246, 0.4);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- ANIMACIONES --- */
+.animacion-entrada-principal {
+  opacity: 0;
+  animation: smoothEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes smoothEnter {
+  0% { opacity: 0; transform: translateY(25px) scale(0.98); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Animación al cambiar entre Usuarios/Jugadores */
+.animacion-cambio-tab {
+  animation: fadeSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CABECERA Y BOTONES MODO --- */
 .clasificacion-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
-/* --- BOTONES MODO --- */
 .modo-btns {
   display: flex;
-  background-color: #111111;
-  border: 1px solid #1a1a1a;
-  border-radius: 20px;
-  padding: 4px;
-  gap: 4px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 6px;
+  gap: 6px;
 }
 
 .modo-btn {
-  padding: 6px 20px;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 8px;
   border: none;
   background: transparent;
-  color: #6c757d;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition);
   white-space: nowrap;
 }
 
 .modo-btn.active {
-  background: rgba(0, 123, 255, 0.15);
-  color: #8ab4f8;
-  border: 1px solid rgba(0, 123, 255, 0.3);
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .modo-btn:not(.active):hover {
-  color: #aaa;
+  color: var(--text-main);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* --- TABLA CONTAINER --- */
+/* --- CONTENEDOR DE LA TABLA --- */
 .tabla-container {
-  background-color: #111111;
-  border: 1px solid #1a1a1a;
-  border-top: 4px solid #007bff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--accent-blue);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
 /* --- TABLA --- */
-.tabla {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 0;
 }
 
-.tabla thead tr {
-  border-bottom: 1px solid #1a1a1a;
+.custom-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
 }
 
-.tabla th {
-  padding: 1rem 1.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #6c757d;
-  text-align: left;
-  vertical-align: middle;
-}
-
-.tabla tbody tr {
-  border-bottom: 1px solid #1a1a1a;
-  transition: box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.tabla tbody tr:last-child {
+.custom-table tbody tr:last-child {
   border-bottom: none;
 }
 
-.tabla tbody tr:hover {
-  background: rgba(0, 123, 255, 0.04);
-  box-shadow: inset 0 0 0 1px rgba(0, 123, 255, 0.15);
+.custom-table tbody tr:hover {
+  background-color: rgba(59, 130, 246, 0.05);
 }
 
-.tabla td {
-  padding: 1rem 1.5rem;
-  font-size: 0.95rem;
-  color: #6c757d;
+.custom-table td {
+  padding: 1.25rem 1rem; /* Más padding para acomodar las fotos más grandes */
   vertical-align: middle;
 }
 
-/* --- BADGE POSICION --- */
+/* --- BADGE DE POSICIÓN --- */
 .badge-pos {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  background: rgba(0, 123, 255, 0.1);
-  color: #8ab4f8;
-  border: 1px solid rgba(0, 123, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
 }
 
-/* --- JUGADOR CELL --- */
+/* --- ELEMENTOS DE USUARIO / JUGADOR --- */
+.avatar-bg {
+  background-color: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
 .jugador-cell {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
-.jugador-foto {
-  width: 36px;
-  height: 36px;
+.jugador-foto-lg {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #1a1a1a;
+  border: 2px solid var(--border-color);
+  background-color: #0B1120;
 }
 
-/* --- EQUIPO CELL --- */
-.equipo-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.escudo {
-  width: 24px;
-  height: 24px;
+.escudo-sm {
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-}
-
-/* --- TEXTOS --- */
-.nombre {
-  color: #fff;
-  font-weight: 500;
-}
-
-.equipo {
-  color: #6c757d;
-  font-size: 0.875rem;
-}
-
-.puntos {
-  font-weight: 700;
-  font-size: 1rem;
-  color: #8ab4f8;
 }

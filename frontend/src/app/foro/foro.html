@@ -1,31 +1,70 @@
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
-    <h1 class="fw-bold mb-2"> Foro Global </h1>
-    <p class="text-secondary mb-5"> Bienvenido al foro global. Aquí podrás hablar y debatir sobre fútbol con los demás usuarios de la web.
-    <div class="chat-container">
-        <div class="chat-body" #chatBody>
-            @for (mensaje of mensajes(); track mensaje.id) {
-              <div class="message-card" [class.message-own]="mensaje.usuario.username === usuarioActual()?.username">
-                <div class="message-header">
-                    <span class="username">{{ mensaje.usuario.username }}</span>
-                    <span class="time"> {{ mensaje.fecha }}</span>
-                </div>
-                <hr class="message-separator">
-                <div class="message-content">
-                    <p> {{ mensaje.mensaje }} </p>
-                </div>
-              </div>  
-            }
-        </div>
-        <div class="chat-footer">
-            <input 
-                type="text" 
-                class="chat-input" 
-                placeholder="Escribe un mensaje..."
-                [value]="nuevoMensaje()"
-                (input)="nuevoMensaje.set($any($event.target).value)"
-                (keydown.enter)="enviarMensaje()"
-            >
-            <button class="chat-btn" (click)="enviarMensaje()">Enviar</button>
-        </div>
+<div class="text-white p-3 mx-auto mt-4 d-flex flex-column align-items-start" style="width: 90%;">
+
+  <header class="chat-header w-100 mb-4">
+    <div class="header-info">
+      <h1 class="fw-bold mb-2">Foro Global</h1>
+      <p class="text-secondary mb-0">Bienvenido al foro global. Aquí podrás hablar y debatir sobre fútbol con los demás usuarios de la web.</p>
     </div>
+  </header>
+
+  <div class="chat-container w-100">
+    
+    <div class="chat-messages" #chatBody>
+      @if (!mensajes() || mensajes().length === 0) {
+        <div class="estado-container vacio">
+          <p>No hay mensajes en el foro. ¡Sé el primero en enviar uno!</p>
+        </div>
+      } @else {
+        <div class="messages-list">
+          @for (mensaje of mensajes(); track mensaje.id || $index) {
+            <div class="mensaje-wrapper" [class.mio]="mensaje.usuario.username === usuarioActual()?.username">
+              
+              @if (mensaje.usuario.username !== usuarioActual()?.username) {
+                <div class="chat-avatar avatar-otro flex-shrink-0">
+                  {{ (mensaje.usuario.username || 'U').charAt(0).toUpperCase() }}
+                </div>
+              }
+
+              <div class="mensaje-bubble">
+                <div class="mensaje-autor">
+                  {{ mensaje.usuario.username || 'Usuario' }}
+                </div>
+                <div class="mensaje-texto">
+                  {{ mensaje.mensaje }}
+                </div>
+                <div class="mensaje-hora">
+                  {{ mensaje.fecha }}
+                </div>
+              </div>
+
+              @if (mensaje.usuario.username === usuarioActual()?.username) {
+                <div class="chat-avatar avatar-mio flex-shrink-0">
+                  {{ (mensaje.usuario.username || 'U').charAt(0).toUpperCase() }}
+                </div>
+              }
+              
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="chat-input-area">
+      <input 
+        type="text" 
+        class="chat-input" 
+        placeholder="Escribe un mensaje..." 
+        [value]="nuevoMensaje()"
+        (input)="nuevoMensaje.set($any($event.target).value)"
+        (keydown.enter)="enviarMensaje()">
+      
+      <button class="btn-enviar" (click)="enviarMensaje()" [disabled]="!nuevoMensaje().trim()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+  </div>
 </div>

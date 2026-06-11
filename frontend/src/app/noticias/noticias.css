@@ -1,38 +1,57 @@
+:host {
+  --bg-main: #0B1120;
+  --bg-card: #141C2F;
+  --bg-hover: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-blue: #3B82F6;
+  --border-color: #1E293B;
+  --border-highlight: rgba(59, 130, 246, 0.4);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- ANIMACIONES --- */
+.animacion-entrada-principal {
+  opacity: 0;
+  animation: smoothEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes smoothEnter {
+  0% { opacity: 0; transform: translateY(25px) scale(0.98); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
 /* --- TARJETAS DE NOTICIAS --- */
 .news-card {
-    background-color: #111111; /* Gris oscuro para destacar sobre tu fondo negro */
-    border: 1px solid #1a1a1a;
-    border-top: 4px solid #007bff; /* Acento superior azul corporativo */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    cursor: pointer; /* Añadimos cursor pointer para dar sensación de click */
 }
 
 /* Efecto al pasar el cursor */
 .news-card:hover {
-    transform: translateY(-5px); /* Se levanta ligeramente */
-    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15); /* Resplandor azul */
-    border-color: rgba(0, 123, 255, 0.4);
+    transform: translateY(-5px);
+    border-color: var(--border-highlight);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 /* Insignia de la categoría */
-.news-badge {
-    background: rgba(0, 123, 255, 0.15); /* Fondo azul semitransparente */
-    color: #8ab4f8; /* Texto azul claro */
-    padding: 5px 12px;
-    border-radius: 20px; /* Bordes totalmente redondeados estilo "pill" */
-    font-size: 0.75rem;
+.badge-soft-blue {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border: 1px solid rgba(0, 123, 255, 0.3);
 }
 
 /* Fecha */
 .news-date {
     font-size: 0.8rem;
-    color: #6c757d; /* Gris secundario para no restar protagonismo */
+    color: var(--text-muted);
     font-weight: 500;
 }
 
@@ -40,21 +59,38 @@
 .news-title {
     font-size: 1.25rem;
     line-height: 1.4;
-    transition: color 0.2s ease;
+    transition: var(--transition);
 }
 
-/* El título se ilumina al hacer hover en la tarjeta */
 .news-card:hover .news-title {
-    color: #8ab4f8 !important; 
+    color: var(--accent-blue) !important; 
 }
 
 /* Texto/Extracto de la noticia */
 .news-excerpt {
     font-size: 0.95rem;
     line-height: 1.6;
-    /* Las siguientes líneas obligan al texto a cortarse a las 3 líneas con puntos suspensivos (...) */
+    color: var(--text-muted);
+    /* Obliga al texto a cortarse a las 3 líneas con puntos suspensivos (...) */
     display: -webkit-box;
     -webkit-line-clamp: 3; 
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/* --- LEER MÁS --- */
+.read-more {
+    color: var(--accent-blue);
+    transition: var(--transition);
+}
+
+.news-card:hover .read-more {
+    color: #60A5FA; /* Un azul más claro al hacer hover */
+    transform: translateX(4px); /* Se desliza ligeramente hacia la derecha */
+}
+
+/* --- ESTADOS VACÍOS --- */
+.empty-state-container {
+    background-color: var(--bg-card);
+    border: 1px dashed var(--border-color);
 }

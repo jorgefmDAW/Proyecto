@@ -7,17 +7,38 @@
     </div>
 
     <div class="selector-container">
-      <label for="jornadaSelect">Jornada</label>
-      <div class="custom-select-wrapper">
-        <select 
-          id="jornadaSelect" 
-          [value]="jornadaActiva" 
-          (change)="seleccionarJornada(+$any($event.target).value)"
-        >
-          @for (jornada of jornadas; track jornada) {
-            <option [value]="jornada">Jornada {{ jornada }}</option>
-          }
-        </select>
+      <label for="jornadaSelect" class="jornada-label">Jornada</label>
+      
+      <div class="jornada-nav-wrapper">
+        
+        <button class="nav-arrow" 
+                (click)="seleccionarJornada(jornadaActiva - 1)" 
+                [disabled]="jornadaActiva <= 1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+
+        <div class="custom-select-wrapper">
+          <select 
+            id="jornadaSelect" 
+            [value]="jornadaActiva" 
+            (change)="seleccionarJornada(+$any($event.target).value)"
+          >
+            @for (jornada of jornadas; track jornada) {
+              <option [value]="jornada">Jornada {{ jornada }}</option>
+            }
+          </select>
+        </div>
+
+        <button class="nav-arrow" 
+                (click)="seleccionarJornada(jornadaActiva + 1)" 
+                [disabled]="jornadaActiva >= jornadas.length">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+
       </div>
     </div>
   </header>
