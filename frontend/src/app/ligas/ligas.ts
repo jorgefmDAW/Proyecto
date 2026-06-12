@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 @Component({
   selector: 'app-ligas',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './ligas.html',
   styleUrl: './ligas.css',

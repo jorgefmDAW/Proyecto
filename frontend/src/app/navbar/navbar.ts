@@ -20,8 +20,9 @@ export class Navbar implements OnInit {
 
   ngOnInit(): void {
     this.usersService.usuarioActual().subscribe({
-      next: (usuario) => console.log('Usuario conectado:', usuario.username),
-      error: () => console.log('Aún no hay sesión iniciada')
+      next: (usuario) => {
+      },
+      error: () => console.log('Error al comprobar la sesión')
     });
   }
 

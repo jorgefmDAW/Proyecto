@@ -18,6 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (
 ) => {
   const usersService = inject(Users);
   const token = usersService.getAccessToken();
+  const refreshToken = usersService.getRefreshToken();
   const isRefreshCall = req.url.includes('/token/refresh');
   const isLoginCall = req.url.includes('/login');
 
@@ -28,15 +29,18 @@ export const authInterceptor: HttpInterceptorFn = (
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && !isRefreshCall && !isLoginCall) {
+        
+        if (!refreshToken) {
+          return throwError(() => error);
+        }
 
         if (isRefreshing) {
-          // Si ya hay un refresh en curso, espera a que termine y reintenta
           return refreshSubject.pipe(
-            filter(token => token !== null),
+            filter(t => t !== null),
             take(1),
-            switchMap(token => {
+            switchMap(t => {
               return next(req.clone({
-                setHeaders: { Authorization: `Bearer ${token}` }
+                setHeaders: { Authorization: `Bearer ${t}` }
               }));
             })
           );

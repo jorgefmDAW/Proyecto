@@ -37,7 +37,7 @@
                     <span class="nombre fw-bold text-white fs-5">{{ u.usuario }}</span>
                   </div>
                 </td>
-                <td class="text-end pe-4 text-primary fw-bold fs-4">{{ u.puntos }}</td>
+                <td class="text-end pe-4 text-primary fw-bold fs-4">{{ u.puntos }} Pts</td>
               </tr>
             }
           </tbody>
@@ -59,14 +59,22 @@
                     <img class="jugador-foto-lg shadow-sm" [src]="'/imagenes/jugadores/' + j.foto" [alt]="j.nombre" />
                     <div class="d-flex flex-column justify-content-center">
                       <span class="nombre fw-bold text-white fs-5 lh-1 mb-2">{{ j.nombre }}</span>
-                      <div class="d-flex align-items-center gap-2">
+                      
+                      <div class="d-flex align-items-center gap-2 mt-1">
+                        <span class="pos-badge" 
+                              [class.pos-por]="j.posicion === 'POR'"
+                              [class.pos-def]="j.posicion === 'DEF'"
+                              [class.pos-med]="j.posicion === 'MED'"
+                              [class.pos-del]="j.posicion === 'DEL'">
+                          {{ j.posicion }}
+                        </span>
                         <img class="escudo-sm" [src]="'/imagenes/equipos/' + j.escudo" [alt]="j.equipo" />
-                        <span class="text-secondary small fw-medium">{{ j.equipo }}</span>
                       </div>
+
                     </div>
                   </div>
                 </td>
-                <td class="text-end pe-4 text-primary fw-bold fs-4">{{ j.puntos_totales }}</td>
+                <td class="text-end pe-4 text-primary fw-bold fs-4">{{ j.puntos_totales }} Pts</td>
               </tr>
             }
           </tbody>

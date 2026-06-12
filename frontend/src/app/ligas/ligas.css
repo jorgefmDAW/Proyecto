@@ -54,7 +54,7 @@
   justify-content: center;
   padding: 4px;
   transition: var(--transition);
-  z-index: 2; /* Para que esté por encima de la barra */
+  z-index: 2;
 }
 
 .btn-close-toast:hover {
@@ -62,14 +62,13 @@
   transform: scale(1.1);
 }
 
-/* --- BARRA DE TIEMPO DEL TOAST --- */
 .toast-progress {
   position: absolute;
   bottom: 0;
   left: 0;
   height: 4px;
   width: 100%;
-  animation: shrinkProgress 3.5s linear forwards; /* 3.5s exactos como el setTimeout de TypeScript */
+  animation: shrinkProgress 3.5s linear forwards;
 }
 
 .toast-flotante.exito .toast-progress {
@@ -92,33 +91,46 @@
   100% { width: 0%; }
 }
 
-/* --- NAVEGACIÓN MODERNA (TIPO PESTAÑAS APP) --- */
+/* --- NAVEGACIÓN MODERNA INTEGRADA --- */
+.nav-wrapper {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+}
+
 .custom-nav-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 8px;
+  align-items: stretch;
   background-color: var(--bg-card);
-  padding: 6px;
-  border-radius: 12px;
+  padding: 0;
+  gap: 0;
+  border-radius: 12px 12px 0 0;
   border: 1px solid var(--border-color);
+  border-bottom: none; 
   width: fit-content;
-  overflow-x: auto;
+  position: relative;
+  top: 1px; 
+  overflow: hidden; 
 }
 
 .nav-tab {
   background: transparent;
   color: var(--text-muted);
   border: none;
-  padding: 10px 24px;
-  border-radius: 8px;
+  border-radius: 0; 
+  padding: 14px 28px; 
   font-weight: 600;
   font-size: 0.95rem;
   display: flex;
   align-items: center;
   white-space: nowrap;
-  transition: var(--transition);
+  transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
+}
+
+.nav-tab:not(:last-child) {
+  border-right: 1px solid var(--border-color);
 }
 
 .nav-tab:hover {
@@ -129,7 +141,7 @@
 .nav-tab.active {
   background-color: var(--accent-blue);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  border-color: var(--accent-blue);
 }
 
 /* --- TARJETAS DE LIGA --- */
@@ -201,7 +213,6 @@
   border-color: var(--accent-blue);
 }
 
-/* Ocultar flechas de inputs numéricos */
 input[type="number"]::-webkit-inner-spin-button, 
 input[type="number"]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -261,8 +272,8 @@ input[type="number"] {
 
 /* --- MODAL DE SOLICITUD --- */
 .custom-modal-backdrop {
-  background: rgba(11, 17, 32, 0.85); /* Fondo oscuro semitransparente */
-  backdrop-filter: blur(6px); /* Desenfoque bonito por detrás */
+  background: rgba(11, 17, 32, 0.85); 
+  backdrop-filter: blur(6px); 
   z-index: 1050;
 }
 

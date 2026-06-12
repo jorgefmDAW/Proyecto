@@ -13,6 +13,17 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- ANIMACIÓN PRINCIPAL --- */
+.animacion-entrada-principal {
+  opacity: 0;
+  animation: smoothEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes smoothEnter {
+  0% { opacity: 0; transform: translateY(25px) scale(0.98); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
 /* ================= CABECERA Y NAVEGADOR DE JORNADAS ================= */
 .partidos-header {
   display: flex;
@@ -20,7 +31,6 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 .selector-container {
@@ -44,15 +54,8 @@
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  overflow: hidden;
+  overflow: visible; /* Debe ser visible para que el menú caiga fuera */
   transition: var(--transition);
-}
-
-/* Efecto Hover global en el grupo entero */
-.jornada-nav-wrapper:hover,
-.jornada-nav-wrapper:focus-within {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 /* Flechas de navegación */
@@ -83,14 +86,15 @@
   cursor: not-allowed;
 }
 
-/* El select en sí */
-.custom-select-wrapper {
+/* ================= DROPDOWN CUSTOM ================= */
+.custom-dropdown-container {
+  position: relative;
   border-left: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
 }
 
-.custom-select-wrapper select {
-  appearance: none;
+/* El botón que parece un select */
+.custom-select-btn {
   background-color: transparent;
   color: var(--text-main);
   border: none;
@@ -98,25 +102,90 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  /* Icono de chevron de Bootstrap */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233B82F6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
   background-size: 1.2rem;
   transition: var(--transition);
+  width: 140px;
+  text-align: left;
 }
 
-/* Quitamos el outline por defecto porque ya iluminamos el contenedor padre */
-.custom-select-wrapper select:focus {
-  outline: none;
+/* Girar la flechita cuando se abre */
+.custom-select-btn.abierto {
+  color: var(--accent-blue);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233B82F6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 15l7-7 7 7'%3E%3C/path%3E%3C/svg%3E");
 }
 
-/* Cambio de color del texto del select al hacer hover en el contenedor */
-.jornada-nav-wrapper:hover select {
+.jornada-nav-wrapper:hover .custom-select-btn {
   color: var(--accent-blue);
 }
 
-/* ================= RESTO DE TUS ESTILOS INTACTOS ================= */
+/* Fondo invisible para cerrar haciendo clic fuera */
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 900;
+  cursor: default;
+}
+
+/* La caja desplegable */
+.custom-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px); 
+  left: -1px; 
+  width: calc(100% + 2px);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  max-height: 250px;
+  overflow-y: auto;
+  animation: dropDownAnim 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Elementos de la lista y el hover */
+.custom-dropdown-item {
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.custom-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.custom-dropdown-item:hover {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue);
+  padding-left: 1.25rem; 
+}
+
+.custom-dropdown-item.active {
+  background-color: var(--accent-blue);
+  color: #fff;
+}
+
+/* Scrollbar Custom para el Menú */
+.custom-dropdown-menu::-webkit-scrollbar { width: 6px; }
+.custom-dropdown-menu::-webkit-scrollbar-track { background: transparent; }
+.custom-dropdown-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+.custom-dropdown-menu::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+@keyframes dropDownAnim {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= GRID DE PARTIDOS ================= */
 .partidos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
@@ -131,17 +200,12 @@
   flex-direction: column;
   overflow: hidden;
   transition: var(--transition);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-}
-
-.partido-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-  border-color: #2e3c54;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid transparent; /* Preparado para el Glow */
 }
 
 .partido-card.opaco { opacity: 0.7; }
-.partido-card.opaco:hover { transform: none; box-shadow: none; }
+.partido-card.opaco:hover { transform: none; box-shadow: none; border-bottom: 4px solid transparent; }
 
 .partido-main {
   display: flex;
@@ -352,7 +416,7 @@
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ================= MODAL JUGADORES (IGUAL) ================= */
+/* ================= MODAL JUGADORES ================= */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;

@@ -13,18 +13,21 @@ import { Menu } from './menu/menu';
 import { ResetPassword } from './reset-password/reset-password';
 import { Solicitudes } from './solicitudes/solicitudes';
 
+// 1. IMPORTA EL GUARDIA QUE ACABAS DE CREAR
+import { authGuard } from './guards/auth-guard';
+
 export const routes: Routes = [
-    // Rutas públicas
+    // -- RUTAS PUBLICAS --
     { path: '', component: Start },
     { path: 'login', component: Login },
     { path: 'reset-password', component: ResetPassword },
     
-    // Rutas privadas (Con Navbar)
     {
+        // -- RUTAS PRIVADAS --
         path: 'menu', 
         component: Menu, 
+        canActivate: [authGuard], // se usa el guard por si un usuario sin loggear accede a estas rutas se le expulse al login inmediatamente
         children: [
-            // -- SECCIÓN GLOBAL --
             { path: 'ligas', component: Ligas },
             { path: 'equipos', component: Equipos },
             { path: 'equipo/:equipo_id', component: Jugadores }, 

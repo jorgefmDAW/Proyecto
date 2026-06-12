@@ -1,15 +1,15 @@
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+<div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
 
-  <header class="partidos-header">
+  <header class="partidos-header border-bottom border-dark pb-3 mb-4">
     <div class="header-info">
       <h1 class="fw-bold mb-2">Partidos</h1>
       <p class="text-secondary mb-0">Predice el equipo ganador y elige a tu jugador estrella.</p>
     </div>
 
     <div class="selector-container">
-      <label for="jornadaSelect" class="jornada-label">Jornada</label>
+      <label class="jornada-label">Jornada</label>
       
-      <div class="jornada-nav-wrapper">
+      <div class="jornada-nav-wrapper shadow-sm">
         
         <button class="nav-arrow" 
                 (click)="seleccionarJornada(jornadaActiva - 1)" 
@@ -19,16 +19,26 @@
           </svg>
         </button>
 
-        <div class="custom-select-wrapper">
-          <select 
-            id="jornadaSelect" 
-            [value]="jornadaActiva" 
-            (change)="seleccionarJornada(+$any($event.target).value)"
-          >
-            @for (jornada of jornadas; track jornada) {
-              <option [value]="jornada">Jornada {{ jornada }}</option>
-            }
-          </select>
+        <div class="custom-dropdown-container">
+          <button class="custom-select-btn" 
+                  [class.abierto]="menuJornadasAbierto()"
+                  (click)="menuJornadasAbierto.set(!menuJornadasAbierto())">
+            Jornada {{ jornadaActiva }}
+          </button>
+
+          @if (menuJornadasAbierto()) {
+            <div class="dropdown-backdrop" (click)="menuJornadasAbierto.set(false)"></div>
+            
+            <div class="custom-dropdown-menu">
+              @for (jornada of jornadas; track jornada) {
+                <div class="custom-dropdown-item" 
+                     [class.active]="jornada === jornadaActiva"
+                     (click)="seleccionarJornada(jornada); menuJornadasAbierto.set(false)">
+                  Jornada {{ jornada }}
+                </div>
+              }
+            </div>
+          }
         </div>
 
         <button class="nav-arrow" 
@@ -48,12 +58,6 @@
       <div class="estado-container cargando">
         <div class="spinner"></div>
         <p>Cargando partidos...</p>
-      </div>
-    } @else if (error) {
-      <div class="estado-container error">
-        <span class="icono-error">⚠️</span>
-        <p>{{ error }}</p>
-        <button class="btn-reintentar" (click)="cargarPartidos(jornadaActiva)">Reintentar</button>
       </div>
     } @else {
       

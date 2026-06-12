@@ -22,24 +22,26 @@
       <p class="text-secondary mb-0">Bienvenido al panel central. Aquí podrás acceder a tus ligas, crear nuevas o unirte a otras.</p>
     </header>
 
-    <div class="custom-nav-container mb-4">
-        <button (click)="mostrar_seccion('mis-ligas')" class="nav-tab" 
-          [class.active]="getSeccion_actual() == 'mis-ligas'">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-collection-fill me-2" viewBox="0 0 16 16"><path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/></svg>
-          Mis ligas 
-        </button>
-        
-        <button (click)="mostrar_seccion('crear-liga')" class="nav-tab"
-          [class.active]="getSeccion_actual() == 'crear-liga'">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle-fill me-2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/></svg>
-          Crear nueva liga 
-        </button>
-        
-        <button (click)="mostrar_seccion('unirse-a-liga')" class="nav-tab"
-          [class.active]="getSeccion_actual() == 'unirse-a-liga'">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search me-2" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
-          Unirse a una liga 
-        </button>
+    <div class="nav-wrapper mb-4">
+        <div class="custom-nav-container">
+            <button (click)="mostrar_seccion('mis-ligas')" class="nav-tab px-5" 
+              [class.active]="getSeccion_actual() == 'mis-ligas'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-collection-fill me-2" viewBox="0 0 16 16"><path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/></svg>
+              Mis ligas 
+            </button>
+            
+            <button (click)="mostrar_seccion('crear-liga')" class="nav-tab px-5"
+              [class.active]="getSeccion_actual() == 'crear-liga'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle-fill me-2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/></svg>
+              Crear nueva liga 
+            </button>
+            
+            <button (click)="mostrar_seccion('unirse-a-liga')" class="nav-tab px-5"
+              [class.active]="getSeccion_actual() == 'unirse-a-liga'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search me-2" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+              Unirse a una liga 
+            </button>
+        </div>
     </div>
 
     @if(getSeccion_actual() == "mis-ligas"){
@@ -76,7 +78,7 @@
                                 <button (click)="entrarEnLiga(liga)" class="btn custom-btn-blue flex-grow-1 rounded-3 py-2 fw-bold">
                                     Entrar
                                 </button>
-                                <button (click)="abandonarLiga(liga.id)" class="btn custom-btn-danger rounded-3 py-2 px-3">
+                                <button (click)="abandonarLiga(liga.id)" class="btn custom-btn-danger rounded-3 py-2 px-3" title="Abandonar liga">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
                                 </button>
                             </div>

@@ -116,4 +116,9 @@ export class Users {
   resetearContraseña(token: string, password: string): Observable<any>{
     return this.http.post(`${this.apiUrl}/password/reset`, { token, password});
   }
+
+  estaLogueado(): boolean {
+    return !!this.getAccessToken(); // devuelve true si hay un token, y false si es null
+  }
+
 }

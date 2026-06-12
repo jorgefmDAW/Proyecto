@@ -1,10 +1,10 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { EquiposService } from '../services/equipos-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-jugadores',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './jugadores.html',
   styleUrl: './jugadores.css',
 })
@@ -16,6 +16,17 @@ export class Jugadores implements OnInit{
   jugador = signal<any[]>([]);
   nombreEquipo = signal<string>('');
   escudoEquipo = signal<string>('');
+
+  textoBusqueda = signal<string>('');
+
+  jugadoresFiltrados = computed(() => {
+    const texto = this.textoBusqueda().toLowerCase();
+    const listaCompleta = this.jugador();
+
+    return listaCompleta.filter(j => 
+      j.nombre.toLowerCase().includes(texto)
+    );
+  });
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('equipo_id'));

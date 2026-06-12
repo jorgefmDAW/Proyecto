@@ -21,27 +21,6 @@
   100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
-/* --- BUSCADOR --- */
-.custom-search {
-  background-color: #0B1120 !important;
-  border: 1px solid var(--border-color) !important;
-  color: var(--text-main) !important;
-  border-radius: 12px;
-  height: 48px;
-  transition: var(--transition);
-}
-
-.custom-search::placeholder {
-  color: #4B5563 !important;
-}
-
-.custom-search:focus {
-  background-color: rgba(33, 150, 243, 0.05) !important;
-  border-color: var(--accent-blue) !important;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
-  outline: none;
-}
-
 /* --- TARJETAS DE EQUIPOS --- */
 .team-card {
   background-color: var(--bg-card); 
@@ -112,4 +91,27 @@
 .empty-state-container {
   background-color: var(--bg-card);
   border: 1px dashed var(--border-color);
+}
+
+/* --- BUSCADOR (Estilo Premium) --- */
+.custom-search {
+  background-color: var(--bg-card) !important; /* Azul marino oscuro */
+  border: 1px solid var(--border-color) !important; 
+  color: var(--text-main) !important; 
+  border-radius: 12px;
+  height: 48px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.custom-search::placeholder {
+  color: #64748B !important; /* Gris azulado para que no destaque tanto como el texto real */
+}
+
+/* Efecto Glow Azul Corporativo al escribir */
+.custom-search:focus {
+  background-color: var(--bg-hover) !important; /* Fondo sutilmente más claro */
+  border-color: var(--accent-blue) !important; 
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.25) !important; /* Resplandor */
+  outline: none;
 }

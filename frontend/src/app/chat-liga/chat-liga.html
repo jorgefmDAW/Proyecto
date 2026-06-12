@@ -10,13 +10,8 @@
   <div class="chat-container w-100">
     
     <div class="chat-messages" #scrollContainer>
-      @if (error) {
-        <div class="estado-container error">
-          <span class="icono-error">⚠️</span>
-          <p>{{ error }}</p>
-          <button class="btn-reintentar" (click)="cargarChat()">Reintentar</button>
-        </div>
-      } @else if (!mensajes() || mensajes().length === 0) {
+      
+      @if (!mensajes() || mensajes().length === 0) {
         <div class="estado-container vacio">
           <p>No hay mensajes en el chat de la liga. ¡Sé el primero en enviar uno!</p>
         </div>
@@ -53,6 +48,7 @@
           }
         </div>
       }
+
     </div>
 
     <div class="chat-input-area">
