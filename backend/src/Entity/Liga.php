@@ -32,7 +32,7 @@ class Liga
     /**
      * @var Collection<int, Solicitud>
      */
-    #[ORM\OneToMany(targetEntity: Solicitud::class, mappedBy: 'liga')]
+    #[ORM\OneToMany(targetEntity: Solicitud::class, mappedBy: 'liga', cascade: ['remove'], orphanRemoval: true)]
     private Collection $solicituds;
 
     #[ORM\Column]
@@ -41,7 +41,7 @@ class Liga
     /**
      * @var Collection<int, ChatLiga>
      */
-    #[ORM\OneToMany(targetEntity: ChatLiga::class, mappedBy: 'liga')]
+    #[ORM\OneToMany(targetEntity: ChatLiga::class, mappedBy: 'liga', cascade: ['remove'], orphanRemoval: true)]
     private Collection $chatLigas;
 
     public function __construct()

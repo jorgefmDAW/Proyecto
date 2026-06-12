@@ -19,7 +19,7 @@ class JugadorRepository extends ServiceEntityRepository
     public function findTop10Jugadores(?int $equipo_id = null, ?string $posicion = null): array
     {
         $qb = $this->createQueryBuilder('j')
-            ->select('j.nombre', 'j.posicion', 'SUM(p.puntos) as puntos_totales', 'j.foto', 'e.escudo')
+            ->select('j.nombre', 'j.posicion', 'j.nacionalidad', 'SUM(p.puntos) as puntos_totales', 'j.foto', 'e.escudo')
             ->join('j.puntuacions', 'p') 
             ->join('j.equipo', 'e') 
             ->groupBy('j.id')
