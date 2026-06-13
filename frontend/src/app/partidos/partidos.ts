@@ -32,7 +32,7 @@ export class Partidos implements OnInit {
   // Variable para el dropdown personalizado de las jornadas
   public menuJornadasAbierto = signal(false);
 
-  jornadas = Array.from({ length: 38 }, (_, i) => i + 1);
+  jornadas = Array.from({ length: 40 }, (_, i) => i + 1);
   jornadaActiva = 1; 
   partidos: Partido[] = [];
   cargando = false;

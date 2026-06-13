@@ -5,4 +5,4 @@ docker-compose.yml
 frontend/Dockerfile
 backend/Dockerfile
 scraper/Dockerfile
-docker.md
+docker.md*:Zone.Identifier
