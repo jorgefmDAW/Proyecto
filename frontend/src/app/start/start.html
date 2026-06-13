@@ -1,12 +1,40 @@
-<div class="fondo">
-  <section class="hero">
-    <div class="hero-wrapper">
-      <img class="hero-image" src="imagenes/LogoLigaManager.jpeg" alt="Mockup LaLiga">
-      <div class="hero-content text-white">
-        <h1 class="display-heading"> HAZ TÚ PREDICCIÓN, COMPITE Y GANA</h1>
-        <p class="lead">Predice, compite con tus amigos y demuestra quién sabe más de fútbol.</p>
-        <a [routerLink]="['/login']" class="btn btn-primary btn-lg">¡COMIENZA A JUGAR!</a>
+<div class="fondo layout-wrapper">
+    
+    <nav class="navbar-custom">
+      <div class="nav-brand">
+          <img src="imagenes/LogoLigaManager.jpeg" alt="Logo" class="nav-logo me-2">
+          <span class="fw-bold fs-5 text-white">LaLiga Manager</span>
       </div>
-    </div>
-  </section>
+      
+      <div class="nav-actions d-none d-sm-flex gap-3">
+          <a [routerLink]="['/login']" class="btn-nav text-decoration-none">Iniciar Sesión</a>
+          <a [routerLink]="['/registro']" class="btn-nav text-decoration-none">Registrarse</a>
+      </div>
+  </nav>
+
+    <section class="hero">
+        <div class="hero-wrapper">
+            <img class="hero-image" src="imagenes/LogoLigaManager.jpeg" alt="Mockup LaLiga">
+            
+            <div class="hero-content">
+                <h1 class="display-heading">HAZ TU PREDICCIÓN,<br>COMPITE Y GANA</h1>
+                <p class="lead">Predice, compite con tus amigos y demuestra quién sabe más de fútbol.</p>
+                <a [routerLink]="['/login']" class="btn btn-primary btn-lg">¡COMIENZA A JUGAR!</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-custom">
+        <div class="footer-links">
+            <a href="#">Cómo funciona</a>
+            <span class="separator">•</span>
+            <a href="#">Reglas de puntuación</a>
+            <span class="separator">•</span>
+            <a href="#">Contacto</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 LaLiga Manager. Todos los derechos reservados.
+        </div>
+    </footer>
+
 </div>

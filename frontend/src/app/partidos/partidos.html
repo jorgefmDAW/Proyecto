@@ -183,7 +183,7 @@
             <div class="jugador-card" (click)="seleccionarEstrella(jugador)">
               <div class="posicion-badge">{{ jugador.posicion }}</div>
               <div class="jugador-foto-container">
-                <img [src]="jugador.foto || '/imagenes/default-player.png'" class="jugador-foto">
+                <img [src]="jugador.foto ? '/imagenes/jugadores/' + jugador.foto : '/imagenes/default-player.png'" class="jugador-foto">
               </div>
               <div class="jugador-info">
                 <h3 class="jugador-nombre-carta">{{ jugador.nombre }}</h3>

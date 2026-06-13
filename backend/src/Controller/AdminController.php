@@ -171,6 +171,9 @@ final class AdminController extends AbstractController {
             $noticia->setCategoria($noticiaDto->categoria);
             $noticia->setTexto($noticiaDto->texto);
 
+            $fecha = isset($data['fecha']) ? new \DateTime($data['fecha']) : new \DateTime();
+            $noticia->setFecha($fecha);
+
             $em->persist($noticia);
             $em->flush();
 
@@ -238,6 +241,9 @@ final class AdminController extends AbstractController {
         $noticia->setCategoria($noticiaDto->categoria);
         $noticia->setTexto($noticiaDto->texto);
 
+        if (isset($data['fecha'])) {
+            $noticia->setFecha(new \DateTime($data['fecha']));
+        }
         $resultados = [
             'message' => 'Noticia actualizada parcialmente con éxito',
             'noticia_actualizada' => $this->toArrayNoticia($noticia)
