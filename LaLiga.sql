@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: database
--- Tiempo de generación: 08-06-2026 a las 17:04:35
--- Versión del servidor: 10.11.18-MariaDB-ubu2204
--- Versión de PHP: 8.3.31
+-- Servidor: localhost:3306
+-- Tiempo de generación: 10-06-2026 a las 11:07:44
+-- Versión del servidor: 10.11.14-MariaDB-0ubuntu0.24.04.1
+-- Versión de PHP: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,15 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `alineacion`
+-- Estructura de tabla para la tabla `chat_liga`
 --
 
-CREATE TABLE `alineacion` (
+CREATE TABLE `chat_liga` (
   `id` int(11) NOT NULL,
-  `puntos_jornada` int(11) NOT NULL,
-  `usuario_fantasy_id` int(11) DEFAULT NULL,
-  `jornada_id` int(11) DEFAULT NULL
+  `mensaje` longtext NOT NULL,
+  `fecha` datetime NOT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
+  `liga_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `chat_liga`
+--
+
+INSERT INTO `chat_liga` (`id`, `mensaje`, `fecha`, `usuario_id`, `liga_id`) VALUES
+(1, 'Que patetico el madrid ofreciendo 150 millones por Julian Alvarez', '2026-06-10 13:05:54', 1, 2),
+(2, 'Mas patetico es el barcelona que no lo va a poder fichar', '2026-06-10 13:06:17', 11, 2),
+(3, 'El atleti esta loco', '2026-06-10 13:06:48', 12, 2),
+(4, 'Como van a pedir 500 millones por Julian Alvarez', '2026-06-10 13:07:02', 12, 2);
 
 -- --------------------------------------------------------
 
@@ -91,19 +102,27 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20260527083929', '2026-05-27 08:39:33', 50),
 ('DoctrineMigrations\\Version20260601071138', '2026-06-01 07:11:52', 100),
 ('DoctrineMigrations\\Version20260601075126', '2026-06-01 07:51:36', 42),
-('DoctrineMigrations\\Version20260601113749', '2026-06-01 11:37:58', 182);
+('DoctrineMigrations\\Version20260601113749', '2026-06-01 11:37:58', 182),
+('DoctrineMigrations\\Version20260610071450', '2026-06-10 11:02:45', 431),
+('DoctrineMigrations\\Version20260610071927', '2026-06-10 11:02:46', 423),
+('DoctrineMigrations\\Version20260610081404', '2026-06-10 11:02:46', 40),
+('DoctrineMigrations\\Version20260610110443', '2026-06-10 11:04:46', 100);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `eleccion_estrella`
+-- Estructura de tabla para la tabla `eleccion_fantasy`
 --
 
-CREATE TABLE `eleccion_estrella` (
+CREATE TABLE `eleccion_fantasy` (
   `id` int(11) NOT NULL,
-  `alineacion_id` int(11) NOT NULL,
+  `puntos_obtenidos` int(11) DEFAULT NULL,
+  `creado_en` datetime DEFAULT NULL,
+  `actualizado_en` datetime DEFAULT NULL,
+  `usuario_fantasy_id` int(11) DEFAULT NULL,
   `partido_id` int(11) DEFAULT NULL,
-  `jugador_id` int(11) DEFAULT NULL
+  `jugador_id` int(11) DEFAULT NULL,
+  `equipo_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -184,52 +203,53 @@ INSERT INTO `foro_global` (`id`, `mensaje`, `usuario_id`, `fecha`) VALUES
 CREATE TABLE `jornada` (
   `id` int(11) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
-  `fecha_final` datetime NOT NULL
+  `fecha_final` datetime NOT NULL,
+  `numero` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `jornada`
 --
 
-INSERT INTO `jornada` (`id`, `fecha_inicio`, `fecha_final`) VALUES
-(1, '2025-08-15 19:00:00', '2025-08-19 23:30:00'),
-(2, '2025-08-22 21:30:00', '2025-08-25 23:59:00'),
-(3, '2025-08-29 19:30:00', '2025-08-31 23:59:00'),
-(4, '2025-09-12 21:00:00', '2025-09-15 23:30:00'),
-(5, '2025-09-19 21:00:00', '2026-03-21 23:30:00'),
-(6, '2025-09-23 19:00:00', '2025-09-25 23:59:00'),
-(7, '2025-09-26 21:00:00', '2025-09-30 22:30:00'),
-(8, '2025-10-03 21:00:00', '2025-10-05 23:30:00'),
-(9, '2025-10-17 21:00:00', '2025-10-20 23:30:00'),
-(10, '2026-03-24 21:00:00', '2025-10-26 23:30:00'),
-(11, '2025-10-31 21:00:00', '2025-11-03 23:30:00'),
-(12, '2025-11-07 21:00:00', '2025-11-09 23:30:00'),
-(13, '2025-11-21 21:00:00', '2025-11-24 23:30:00'),
-(14, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(15, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(16, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(17, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(18, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(19, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(20, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(21, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(22, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(23, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(24, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(25, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(26, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(27, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(28, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(29, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(30, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(31, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(32, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(33, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(34, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(35, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(36, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(37, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(38, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `jornada` (`id`, `fecha_inicio`, `fecha_final`, `numero`) VALUES
+(1, '2025-08-15 19:00:00', '2025-08-19 23:30:00', 0),
+(2, '2025-08-22 21:30:00', '2025-08-25 23:59:00', 0),
+(3, '2025-08-29 19:30:00', '2025-08-31 23:59:00', 0),
+(4, '2025-09-12 21:00:00', '2025-09-15 23:30:00', 0),
+(5, '2025-09-19 21:00:00', '2026-03-21 23:30:00', 0),
+(6, '2025-09-23 19:00:00', '2025-09-25 23:59:00', 0),
+(7, '2025-09-26 21:00:00', '2025-09-30 22:30:00', 0),
+(8, '2025-10-03 21:00:00', '2025-10-05 23:30:00', 0),
+(9, '2025-10-17 21:00:00', '2025-10-20 23:30:00', 0),
+(10, '2026-03-24 21:00:00', '2025-10-26 23:30:00', 0),
+(11, '2025-10-31 21:00:00', '2025-11-03 23:30:00', 0),
+(12, '2025-11-07 21:00:00', '2025-11-09 23:30:00', 0),
+(13, '2025-11-21 21:00:00', '2025-11-24 23:30:00', 0),
+(14, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(17, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(21, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(22, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(24, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(25, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(27, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(28, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(29, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(30, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(31, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(32, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(33, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(34, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(35, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+(38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -244,7 +264,7 @@ CREATE TABLE `jugador` (
   `edad` int(11) NOT NULL,
   `nacionalidad` varchar(255) NOT NULL,
   `equipo_id` int(11) DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL
+  `foto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -20558,7 +20578,10 @@ INSERT INTO `refresh_tokens` (`refresh_token`, `username`, `valid`, `id`) VALUES
 ('88a0528c6be87e8c1237a02ddc1b753f242334585f81351dd8ad94f7e720bbaaf1890b55bd50b1dfede442da1c99b132b0b7808ee6663727e04ab780102f82f3', 'jorgefm', '2026-07-02 14:33:32', 235),
 ('68052307912416e5b647c3351c52c98dfaaf1518a82ec39e93eaeaf4867722442906d7b768eea2a68202f533e26fea8325ae8ec7a7c518b53dc32474d50d0a12', 'jorgefm', '2026-07-08 17:39:04', 237),
 ('341ee66bf1c2ddda1f3df4ab1b9e352361dc3e3ba5a3d249094985b5e483f1e34669f621cf8f5362444e844f4ad8ebfdbc19245dccad9efb1a00d541606e92c3', 'usuario', '2026-07-08 18:19:01', 241),
-('057cd26f99d34310c5d10fa8d5becdfbd58c4ccc7e577467f1ef9fd0e7fd63b984ecdd8bfecffd010f8430c822eed08a986734cb726d1ec5ba5f27a625486c92', 'jorgefm', '2026-07-08 18:38:24', 243);
+('057cd26f99d34310c5d10fa8d5becdfbd58c4ccc7e577467f1ef9fd0e7fd63b984ecdd8bfecffd010f8430c822eed08a986734cb726d1ec5ba5f27a625486c92', 'jorgefm', '2026-07-08 18:38:24', 243),
+('36670f3014d3a1de3a176edddcd45ab3ae148506b14189a3c51e646180e476e27d60d2497832024ff244f1be17bf31308b18f3c775b5f4d8965df1d73f4b5db9', 'jorgefm', '2026-07-10 13:05:19', 244),
+('e46e06175d50bc43fb2076777381cb097ae1807f1dbd25db0cd0d04bd98e3e33811088f0b40c5f745b577d05da1d115476d25eeeae5a9135e388005cb0020f47', 'usuario', '2026-07-10 13:06:02', 245),
+('aadb15c622df167880d9770d7381efdf90a564b92e2c711828b6ffb4abad104ad0580e4ca893a61a27b394335ebe312a2cd0a356b34587c862a3ffb618a8e1aa', 'messi', '2026-07-10 13:06:25', 246);
 
 -- --------------------------------------------------------
 
@@ -20625,10 +20648,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `email`, `username`, `password`, `roles`, `liga_seleccionada_id`) VALUES
-(1, 'jorgefermur123@gmail.com', 'jorgefm', '$2y$13$lHyLWokcbJmIK6rCH0ErpOb768a8UrXdn7RH3x/QZmEK3SHlYoqU2', '[\"ROLE_ADMIN\"]', 7),
+(1, 'jorgefermur123@gmail.com', 'jorgefm', '$2y$13$lHyLWokcbJmIK6rCH0ErpOb768a8UrXdn7RH3x/QZmEK3SHlYoqU2', '[\"ROLE_ADMIN\"]', 2),
 (2, 'ejemplo@gmail.com', 'ejemplo', '$2y$13$b9u5/0trpgmYhb.SZjfesufNejxKxWbC1yAY78Q53VwQZq4PLOlmu', '[\"ROLE_USER\"]', NULL),
-(11, 'usuario@gmail.com', 'usuario', '$2y$13$EZ4MNYxQqkJmFMfPlbcnou.k1aQcvXx7.r.7p4LbHAjHPfsIKgbZ.', '[\"ROLE_USER\"]', 3),
-(12, 'messi@gmail.com', 'messi', '$2y$13$GE8zVA.nNiZfOHXwx5m0YeEVuwTaN13.mO4X60.O71aee.wWE8/ra', '[\"ROLE_USER\"]', NULL),
+(11, 'usuario@gmail.com', 'usuario', '$2y$13$EZ4MNYxQqkJmFMfPlbcnou.k1aQcvXx7.r.7p4LbHAjHPfsIKgbZ.', '[\"ROLE_USER\"]', 2),
+(12, 'messi@gmail.com', 'messi', '$2y$13$GE8zVA.nNiZfOHXwx5m0YeEVuwTaN13.mO4X60.O71aee.wWE8/ra', '[\"ROLE_USER\"]', 2),
 (13, 'ronaldo@ejemplo.com', 'ronaldo', '$2y$13$Fgi7ao5aJaVtmdEPK3k5b.D.7lMlhwZkfVa4V2E/xJTtUXstGo90y', '[\"ROLE_USER\"]', NULL);
 
 -- --------------------------------------------------------
@@ -20654,19 +20677,21 @@ INSERT INTO `usuario_fantasy` (`id`, `puntos_totales`, `usuario_id`, `liga_id`, 
 (3, 0, 1, 7, 1),
 (5, 0, 11, 3, 0),
 (6, 0, 1, 8, 1),
-(12, 0, 1, 11, 1);
+(12, 0, 1, 11, 1),
+(14, 0, 1, 2, 0),
+(15, 0, 12, 2, 0);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `alineacion`
+-- Indices de la tabla `chat_liga`
 --
-ALTER TABLE `alineacion`
+ALTER TABLE `chat_liga`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_A944AAC1A8F03061` (`usuario_fantasy_id`),
-  ADD KEY `IDX_A944AAC126E992D9` (`jornada_id`);
+  ADD KEY `IDX_A12756E7DB38439E` (`usuario_id`),
+  ADD KEY `IDX_A12756E7CF098064` (`liga_id`);
 
 --
 -- Indices de la tabla `doctrine_migration_versions`
@@ -20675,14 +20700,14 @@ ALTER TABLE `doctrine_migration_versions`
   ADD PRIMARY KEY (`version`);
 
 --
--- Indices de la tabla `eleccion_estrella`
+-- Indices de la tabla `eleccion_fantasy`
 --
-ALTER TABLE `eleccion_estrella`
+ALTER TABLE `eleccion_fantasy`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_partido_alineacion` (`alineacion_id`,`partido_id`),
-  ADD KEY `IDX_1E0BA578D375E804` (`alineacion_id`),
-  ADD KEY `IDX_1E0BA57811856EB4` (`partido_id`),
-  ADD KEY `IDX_1E0BA578B8A54D43` (`jugador_id`);
+  ADD KEY `IDX_D27E4B8EA8F03061` (`usuario_fantasy_id`),
+  ADD KEY `IDX_D27E4B8E11856EB4` (`partido_id`),
+  ADD KEY `IDX_D27E4B8EB8A54D43` (`jugador_id`),
+  ADD KEY `IDX_D27E4B8E23BFBED` (`equipo_id`);
 
 --
 -- Indices de la tabla `equipo`
@@ -20789,15 +20814,15 @@ ALTER TABLE `usuario_fantasy`
 --
 
 --
--- AUTO_INCREMENT de la tabla `alineacion`
+-- AUTO_INCREMENT de la tabla `chat_liga`
 --
-ALTER TABLE `alineacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `chat_liga`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `eleccion_estrella`
+-- AUTO_INCREMENT de la tabla `eleccion_fantasy`
 --
-ALTER TABLE `eleccion_estrella`
+ALTER TABLE `eleccion_fantasy`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -20858,7 +20883,7 @@ ALTER TABLE `puntuacion`
 -- AUTO_INCREMENT de la tabla `refresh_tokens`
 --
 ALTER TABLE `refresh_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=244;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 
 --
 -- AUTO_INCREMENT de la tabla `reset_password_request`
@@ -20882,26 +20907,27 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario_fantasy`
 --
 ALTER TABLE `usuario_fantasy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `alineacion`
+-- Filtros para la tabla `chat_liga`
 --
-ALTER TABLE `alineacion`
-  ADD CONSTRAINT `FK_A944AAC126E992D9` FOREIGN KEY (`jornada_id`) REFERENCES `jornada` (`id`),
-  ADD CONSTRAINT `FK_A944AAC1A8F03061` FOREIGN KEY (`usuario_fantasy_id`) REFERENCES `usuario_fantasy` (`id`);
+ALTER TABLE `chat_liga`
+  ADD CONSTRAINT `FK_A12756E7CF098064` FOREIGN KEY (`liga_id`) REFERENCES `liga` (`id`),
+  ADD CONSTRAINT `FK_A12756E7DB38439E` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
 
 --
--- Filtros para la tabla `eleccion_estrella`
+-- Filtros para la tabla `eleccion_fantasy`
 --
-ALTER TABLE `eleccion_estrella`
-  ADD CONSTRAINT `FK_1E0BA57811856EB4` FOREIGN KEY (`partido_id`) REFERENCES `partido` (`id`),
-  ADD CONSTRAINT `FK_1E0BA578B8A54D43` FOREIGN KEY (`jugador_id`) REFERENCES `jugador` (`id`),
-  ADD CONSTRAINT `FK_1E0BA578D375E804` FOREIGN KEY (`alineacion_id`) REFERENCES `alineacion` (`id`);
+ALTER TABLE `eleccion_fantasy`
+  ADD CONSTRAINT `FK_D27E4B8E11856EB4` FOREIGN KEY (`partido_id`) REFERENCES `partido` (`id`),
+  ADD CONSTRAINT `FK_D27E4B8E23BFBED` FOREIGN KEY (`equipo_id`) REFERENCES `equipo` (`id`),
+  ADD CONSTRAINT `FK_D27E4B8EA8F03061` FOREIGN KEY (`usuario_fantasy_id`) REFERENCES `usuario_fantasy` (`id`),
+  ADD CONSTRAINT `FK_D27E4B8EB8A54D43` FOREIGN KEY (`jugador_id`) REFERENCES `jugador` (`id`);
 
 --
 -- Filtros para la tabla `foro_global`

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
     <h1 class="fw-bold mb-2"> Ligas </h1>
     <p class="text-secondary mb-4"> Bienvenido al panel central. Aquí podrás acceder a tus ligas, crear nuevas o unirte a otras. </p>
@@ -198,4 +199,237 @@
         </div>
     }
 
+=======
+@if (toast()) {
+  <div class="toast-flotante" [class.exito]="toast()?.tipo === 'exito'" [class.error]="toast()?.tipo === 'error'">
+    <div class="toast-content d-flex align-items-center gap-2">
+      @if (toast()?.tipo === 'exito') {
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+      } @else {
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0" viewBox="0 0 16 16"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+      }
+      <span class="fw-semibold">{{ toast()?.mensaje }}</span>
+    </div>
+    <button class="btn-close-toast ms-3" (click)="cerrarToast()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/></svg>
+    </button>
+    <div class="toast-progress"></div>
+  </div>
+}
+
+<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+    
+    <header class="mb-4 border-bottom border-dark pb-3">
+      <h1 class="fw-bold mb-2 text-white">Ligas</h1>
+      <p class="text-secondary mb-0">Bienvenido al panel central. Aquí podrás acceder a tus ligas, crear nuevas o unirte a otras.</p>
+    </header>
+
+    <div class="nav-wrapper mb-4">
+        <div class="custom-nav-container">
+            <button (click)="mostrar_seccion('mis-ligas')" class="nav-tab px-5" 
+              [class.active]="getSeccion_actual() == 'mis-ligas'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-collection-fill me-2" viewBox="0 0 16 16"><path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/></svg>
+              Mis ligas 
+            </button>
+            
+            <button (click)="mostrar_seccion('crear-liga')" class="nav-tab px-5"
+              [class.active]="getSeccion_actual() == 'crear-liga'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle-fill me-2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/></svg>
+              Crear nueva liga 
+            </button>
+            
+            <button (click)="mostrar_seccion('unirse-a-liga')" class="nav-tab px-5"
+              [class.active]="getSeccion_actual() == 'unirse-a-liga'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search me-2" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+              Unirse a una liga 
+            </button>
+        </div>
+    </div>
+
+    @if(getSeccion_actual() == "mis-ligas"){
+        <div class="mb-4 tab-content-animado">
+            <div class="row g-4">
+                @for (liga of misLigas(); track liga.id) {
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="liga-card p-4 rounded-4 h-100 d-flex flex-column">
+                            
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="fw-bold mb-0 text-white text-truncate pe-2" [title]="liga.nombre">
+                                    {{ liga.nombre }}
+                                </h5>
+                                
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge badge-soft-blue rounded-pill px-3 py-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-people-fill me-1 mb-1" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
+                                        {{ liga.miembros }} / {{ liga.max_miembros }}
+                                    </span>
+                                    
+                                    @if (liga.creador) {
+                                        <div class="creador-icon" title="Eres el creador">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#F59E0B" viewBox="0 0 16 16">
+                                                <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512"/>
+                                            </svg>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            
+                            <p class="text-secondary small mb-4 mt-auto">ID de Liga: <span class="text-light">#{{ liga.id }}</span></p>
+                            
+                            <div class="d-flex gap-2 mt-auto">
+                                <button (click)="entrarEnLiga(liga)" class="btn custom-btn-blue flex-grow-1 rounded-3 py-2 fw-bold">
+                                    Entrar
+                                </button>
+                                <button (click)="abandonarLiga(liga.id)" class="btn custom-btn-danger rounded-3 py-2 px-3" title="Abandonar liga">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                } @empty {
+                    <div class="col-12 text-center py-5 empty-state-container rounded-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#3B82F6" class="bi bi-trophy mb-3" viewBox="0 0 16 16"><path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 8 10s2.706-.52 3.57-2.864c.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/></svg>
+                        <p class="fs-5 mb-0 text-white fw-bold">No estás en ninguna liga</p>
+                        <p class="text-secondary mt-2 mb-0">Únete a una existente o crea la tuya propia para empezar a jugar.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if(getSeccion_actual() == "crear-liga"){
+    <div class="liga-card p-5 rounded-4 mb-4 tab-content-animado">
+        <div class="row align-items-center">
+
+        <div class="col-md-7 pe-md-5">
+            <h2 class="mb-4 fw-bold text-white">Crear Liga</h2>
+            <form [formGroup]="crearLigaForm">
+
+            <label class="form-label small text-uppercase fw-semibold text-secondary ms-1"> Nombre de la liga </label>
+            <input formControlName="nombre" type="text" class="form-control custom-input mb-4"
+                placeholder="Escribe el nombre aquí..."
+                [class.is-invalid]="crearLigaForm.get('nombre')?.invalid && crearLigaForm.get('nombre')?.touched">
+
+            <label class="form-label small text-uppercase fw-semibold text-secondary ms-1">Número máximo de miembros</label>
+            <input formControlName="max_miembros" type="number" class="form-control custom-input mb-4"
+                [class.is-invalid]="crearLigaForm.get('max_miembros')?.invalid && crearLigaForm.get('max_miembros')?.touched">
+
+            <div class="mb-4 form-check d-flex align-items-center bg-input-dark p-3 rounded-3 border border-dark">
+                <input formControlName="privada" type="checkbox" class="form-check-input custom-checkbox me-3 mt-0 ms-1 border-secondary" id="privadaCheck" style="width: 1.5em; height: 1.5em;">
+                <label class="form-check-label text-white fw-medium" for="privadaCheck">Hacer esta liga privada</label>
+            </div>
+
+            <button (click)="crearLiga()" type="button" class="btn custom-btn-blue px-5 py-3 fw-bold w-100 fs-6">
+                Crear Liga
+            </button>
+
+            </form>
+        </div>
+
+        <div class="col-md-5 text-center mt-5 mt-md-0 d-none d-md-block">
+            <img src="imagenes/LogoLigaManager.jpeg" class="img-fluid rounded-4 shadow-lg border border-secondary opacity-75" style="max-height: 300px; object-fit: cover;"/>
+        </div>
+
+        </div>
+    </div>
+    }
+   
+    @if(getSeccion_actual() == "unirse-a-liga"){
+        <div class="mb-4 tab-content-animado">
+            <div class="row g-4">
+                @for (liga of ligas(); track liga.id) {
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="liga-card p-4 rounded-4 h-100 d-flex flex-column">
+                            
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="fw-bold mb-0 text-white text-truncate pe-2" [title]="liga.nombre">
+                                    {{ liga.nombre }}
+                                </h5>
+                                
+                                <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                                    <span class="badge badge-soft-blue rounded-pill px-3 py-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-people-fill me-1 mb-1" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
+                                        {{ liga.miembros }} / {{ liga.max_miembros }}
+                                    </span>
+
+                                    @if (liga.privada) {
+                                        <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2 text-secondary d-inline-flex align-items-center gap-2" title="Esta liga es privada">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-lock-fill flex-shrink-0" viewBox="0 0 16 16">
+                                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                            </svg>
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                            
+                            <p class="text-secondary small mb-4 mt-auto">ID de Liga: <span class="text-light">#{{ liga.id }}</span></p>
+                            
+                            @if (liga.privada) {
+                                <button (click)="abrirModalSolicitud(liga)" class="btn custom-btn-outline w-100 rounded-3 mt-auto py-2 fw-bold d-flex align-items-center justify-content-center gap-2 border-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>
+                                    Solicitar Unirse
+                                </button>
+                            } 
+                            @else {
+                                <button (click)="unirseLiga(liga.id)" class="btn custom-btn-blue w-100 rounded-3 mt-auto py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/><path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
+                                    Unirse
+                                </button>
+                            }
+                            
+                        </div>
+                    </div>
+                } @empty {
+                    <div class="col-12 text-center py-5 empty-state-container rounded-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#3B82F6" class="bi bi-search mb-3" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+                        <p class="fs-5 mb-0 text-white fw-bold">No hay ligas disponibles</p>
+                        <p class="text-secondary mt-2 mb-0">En este momento no hay ligas públicas a las que unirse. ¡Crea la tuya!</p>
+                    </div>
+                }
+            </div>
+
+            @if(mostrarModalSolicitud()) {
+                <div class="modal d-block custom-modal-backdrop d-flex align-items-center justify-content-center">
+                    <div class="modal-dialog modal-dialog-centered w-100 m-3" style="max-width: 450px;">
+                        <div class="modal-content custom-modal-content rounded-4 border-0 shadow-lg overflow-hidden position-relative">
+
+                            <button type="button" class="btn-close-custom" (click)="cerrarModalSolicitud()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/></svg>
+                            </button>
+
+                            <div class="modal-body p-4 p-md-5">
+                                <div class="text-center mb-4">
+                                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>
+                                    </div>
+                                    <h4 class="fw-bold text-white mb-1">Unirse a la liga</h4>
+                                    <p class="text-secondary small mb-0"><span class="text-primary fw-bold">{{ ligaSeleccionada()?.nombre }}</span></p>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label small text-uppercase fw-semibold text-secondary mb-2">Mensaje</label>
+                                    <textarea 
+                                        class="form-control custom-input resize-none"
+                                        rows="3"
+                                        placeholder="Hola, soy activo y me gustaría participar..."
+                                        [value]="mensajeSolicitud()"
+                                        (input)="mensajeSolicitud.set($any($event.target).value)"></textarea>
+                                </div>
+
+                                <div class="d-flex gap-3">
+                                    <button class="btn custom-btn-blue flex-grow-1 rounded-3 py-2 fw-bold" (click)="enviarSolicitud()">Enviar</button>
+                                    <button class="btn custom-btn-outline flex-grow-1 rounded-3 py-2 fw-bold" (click)="cerrarModalSolicitud()">Cancelar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+
+>>>>>>> main
 </div>

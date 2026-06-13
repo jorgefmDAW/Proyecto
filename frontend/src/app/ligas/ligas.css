@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .seccion-activa{
     color: rgba(0, 132, 255) !important;
     border-bottom: 1px solid rgba(0, 132, 255);
@@ -143,4 +144,327 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Para Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+=======
+:host {
+  --bg-main: #0B1120;
+  --bg-card: #141C2F;
+  --bg-hover: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-blue: #3B82F6;
+  --accent-blue-hover: #2563eb;
+  --danger-color: #EF4444;
+  --danger-hover: #DC2626;
+  --border-color: #1E293B;
+  --border-highlight: rgba(59, 130, 246, 0.4);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- TOAST DE NOTIFICACIONES --- */
+.toast-flotante {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  /* Animación de rebote sutil */
+  animation: slideInRightBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  overflow: hidden; /* Para que la barra de tiempo no rompa el borde redondeado */
+}
+
+.toast-flotante.exito {
+  background-color: #064e3b; 
+  border: 1px solid #10b981;
+  color: #a7f3d0;
+}
+
+.toast-flotante.error {
+  background-color: #450a0a; 
+  border: 1px solid #ef4444;
+  color: #fecaca;
+}
+
+.btn-close-toast {
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 0.7;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.btn-close-toast:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  animation: shrinkProgress 3.5s linear forwards;
+}
+
+.toast-flotante.exito .toast-progress {
+  background-color: #10b981;
+}
+
+.toast-flotante.error .toast-progress {
+  background-color: #ef4444;
+}
+
+/* Keyframes para el toast */
+@keyframes slideInRightBounce {
+  0% { opacity: 0; transform: translateX(100px); }
+  70% { transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shrinkProgress {
+  0% { width: 100%; }
+  100% { width: 0%; }
+}
+
+/* --- NAVEGACIÓN MODERNA INTEGRADA --- */
+.nav-wrapper {
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+}
+
+.custom-nav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background-color: var(--bg-card);
+  padding: 0;
+  gap: 0;
+  border-radius: 12px 12px 0 0;
+  border: 1px solid var(--border-color);
+  border-bottom: none; 
+  width: fit-content;
+  position: relative;
+  top: 1px; 
+  overflow: hidden; 
+}
+
+.nav-tab {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  border-radius: 0; 
+  padding: 14px 28px; 
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-tab:not(:last-child) {
+  border-right: 1px solid var(--border-color);
+}
+
+.nav-tab:hover {
+  color: var(--text-main);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-tab.active {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+}
+
+/* --- TARJETAS DE LIGA --- */
+.liga-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.liga-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-highlight);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* --- BADGES Y TEXTOS --- */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge-soft-blue {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: var(--accent-blue);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  font-weight: 600;
+}
+
+/* --- INPUTS Y FORMULARIOS --- */
+.custom-input {
+  background-color: #0B1120 !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: var(--transition);
+}
+
+.custom-input::placeholder {
+  color: #4B5563 !important;
+}
+
+.custom-input:focus {
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+  outline: none;
+}
+
+.bg-input-dark {
+  background-color: #0B1120;
+}
+
+.custom-checkbox {
+  background-color: #0B1120;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.custom-checkbox:checked {
+  background-color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+.custom-checkbox:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  border-color: var(--accent-blue);
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* --- BOTONES --- */
+.custom-btn-blue {
+  background: linear-gradient(135deg, var(--accent-blue-hover), var(--accent-blue));
+  border: none;
+  color: #ffffff;
+  transition: var(--transition);
+}
+
+.custom-btn-blue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+  color: #ffffff;
+}
+
+.custom-btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.custom-btn-outline:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--text-muted);
+  color: #ffffff;
+}
+
+.custom-btn-danger {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--danger-color);
+  transition: var(--transition);
+}
+
+.custom-btn-danger:hover {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* --- ESTADOS VACÍOS --- */
+.empty-state-container {
+  background-color: var(--bg-card);
+  border: 1px dashed var(--border-color);
+}
+
+/* --- MODAL DE SOLICITUD --- */
+.custom-modal-backdrop {
+  background: rgba(11, 17, 32, 0.85); 
+  backdrop-filter: blur(6px); 
+  z-index: 1050;
+}
+
+.custom-modal-content {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  animation: modalZoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.btn-close-custom {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.btn-close-custom:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.resize-none {
+  resize: none;
+}
+
+@keyframes modalZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+>>>>>>> main
 }

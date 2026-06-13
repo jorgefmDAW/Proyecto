@@ -1,0 +1,84 @@
+<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+
+    <header class="mb-4 border-bottom border-dark pb-3">
+        <h1 class="fw-bold mb-2 text-white">Solicitudes de Unión</h1>
+        <p class="text-secondary mb-0">Gestiona las solicitudes de unión a la liga.</p>
+    </header>
+
+    <div class="solicitudes-wrapper mt-4">
+        @if (mensajeExito()) {
+        <div class="alert-personalizado exito mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-check-circle-fill flex-shrink-0" viewBox="0 0 16 16">
+                <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            <span>{{ mensajeExito() }}</span>
+        </div>
+        }
+
+        @if (error()) {
+        <div class="alert-personalizado error mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-exclamation-triangle-fill flex-shrink-0" viewBox="0 0 16 16">
+                <path
+                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </svg>
+            <span>{{ error() }}</span>
+        </div>
+        }
+
+        @if (cargando()) {
+        <div class="estado-container">
+            <div class="spinner"></div>
+            <p>Cargando peticiones de mánagers...</p>
+        </div>
+        } @else if (solicitudes().length === 0) {
+        <div class="estado-container vacio border border-dark rounded-4 p-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#3B82F6" class="bi bi-inbox mb-3"
+                viewBox="0 0 16 16">
+                <path
+                    d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm-1.17-.437A1.5 1.5 0 0 1 4.98 3h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625A.5.5 0 0 1 16 8.5V13a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5a.5.5 0 0 1 .168-.588l3.7-4.625zM1 8.5v4.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5h-4.32a2.5 2.5 0 0 1-4.36 0H1z" />
+            </svg>
+            <p class="fs-5 mb-0 text-white">Bandeja limpia</p>
+            <p class="text-secondary mt-2 mb-0">No hay solicitudes pendientes en este momento.</p>
+        </div>
+        } @else {
+        <div class="row g-3">
+            @for (solicitud of solicitudes(); track solicitud.id) {
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="solicitud-card p-4 rounded-4 h-100 d-flex flex-column">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-3">
+
+                            <div class="avatar-bg rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold flex-shrink-0"
+                                style="width: 45px; height: 45px; font-size: 1.2rem;">
+                                {{ solicitud.usuario.username.charAt(0).toUpperCase() }}
+                            </div>
+
+                            <div class="d-flex flex-column justify-content-center" style="line-height: 1;">
+                                <span class="text-white fw-bold fs-6 mb-1">{{ solicitud.usuario.username }}</span>
+                                <span class="text-muted" style="font-size: 0.75rem;">{{ solicitud.fecha }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mensaje-box flex-grow-1 p-3 rounded-3 mb-4">
+                        <p class="mb-0 text-light fs-6 fst-italic">
+                            "{{ solicitud.mensaje || 'Me gustaría unirme a tu liga.' }}"
+                        </p>
+                    </div>
+
+                    <button class="btn btn-aceptar w-100 fw-bold py-2" (click)="aceptar(solicitud.id)">
+                        Aceptar Solicitud
+                    </button>
+
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </div>
+</div>

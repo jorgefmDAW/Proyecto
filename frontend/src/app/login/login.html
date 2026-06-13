@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="fondo">
   <div class="card bg-dark text-white border-3 border-secondary shadow-lg rounded-3 p-4" style="max-width: 450px; width: 100%;">
 
@@ -119,3 +120,155 @@
     </div>
   </div>
 </div>
+=======
+<div class="fondo">
+  <div class="auth-card">
+
+    <div class="card-body p-0">
+      <div class="brand-header">
+        <h1 class="text-center fw-bold text-uppercase m-0">
+          LaLiga Manager
+        </h1>
+      </div>
+
+      <div>
+        <div class="tabs-container">
+          <button (click)="activarRegistro()" [class.active-tab]="formRegistro()" class="tab-btn">
+            CREAR CUENTA
+          </button>
+          <button (click)="activarLogin()" [class.active-tab]="formLogin()" class="tab-btn">
+            INICIAR SESIÓN
+          </button>
+        </div>
+
+        <div class="p-4 pt-4">
+
+          @if (formRegistro()) {
+            <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()" class="fade-in-section">
+              <div class="mb-3">
+                <label class="custom-label">NOMBRE DE USUARIO</label>
+                <input formControlName="username" type="text" class="custom-input" placeholder="Tu nombre de usuario">                
+              </div>
+
+              <div class="mb-3">
+                <label class="custom-label">CORREO ELECTRÓNICO</label>
+                <input formControlName="email" type="email" class="custom-input" placeholder="ejemplo@correo.com">                
+              </div>
+
+              <div class="mb-4">
+                <label class="custom-label">CONTRASEÑA</label>
+                <input formControlName="password" type="password" class="custom-input" placeholder="Mínimo 8 caracteres">               
+              </div>
+
+              @if (mensajeExito()) {
+                <div class="alert custom-alert-success">{{ mensajeExito() }}</div>
+              }
+              @if (mensajeError()) {
+                <div class="alert custom-alert-danger">{{ mensajeError() }}</div>
+              }
+
+              <button type="submit" class="custom-btn-primary w-100">
+                CREAR CUENTA
+              </button>
+            </form>
+          }
+     
+          @if (formLogin()) {
+            <div class="fade-in-section">
+              <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
+
+                <div class="mb-3">
+                  <label class="custom-label">NOMBRE DE USUARIO</label>
+                  <input formControlName="username" type="text" class="custom-input" placeholder="Tu usuario registrado"
+                    [class.is-invalid]="controlInvalido('login','username')" [class.shake]="controlInvalido('login','username')">
+                  
+                  @if (loginForm.get('username')?.errors && (loginForm.get('username')?.touched || loginSubmitted())) {
+                    <div class="invalid-feedback d-block small mt-1">
+                      @if (loginForm.get('username')?.errors?.['required']) {
+                        <div>El nombre de usuario es obligatorio.</div>
+                      }
+                      @if (loginForm.get('username')?.errors?.['minlength']) {
+                        <div>Mínimo 3 caracteres.</div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <div class="mb-4">
+                  <label class="custom-label">CONTRASEÑA</label>
+                  <input formControlName="password" type="password" class="custom-input" placeholder="Introduce tu contraseña"
+                    [class.is-invalid]="controlInvalido('login','password')" [class.shake]="controlInvalido('login','password')">
+                  
+                  @if (loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginSubmitted())) {
+                    <div class="invalid-feedback d-block small mt-1">
+                      @if (loginForm.get('password')?.errors?.['required']) {
+                        <div>La contraseña es obligatoria.</div>
+                      }
+                      @if (loginForm.get('password')?.errors?.['minlength']) {
+                        <div>Mínimo 8 caracteres.</div>                                    
+                      }
+                    </div>
+                  }
+                </div>
+
+                <div class="text-end mb-4">
+                   <a (click)="modoRecuperacion.set(true)" class="forgot-password-link">
+                       ¿Has olvidado la contraseña?
+                   </a>
+                </div>
+
+               @if (mensajeExito()) {
+                 <div class="alert custom-alert-success alert-anim">{{ mensajeExito() }}</div>
+               }
+               @if (mensajeError()) {
+                 <div class="alert custom-alert-danger alert-anim">{{ mensajeError() }}</div>
+               }
+                
+                <button type="submit" class="custom-btn-primary w-100">
+                  ENTRAR
+                </button>
+
+              </form>
+            </div>
+          }
+
+        </div>   
+      </div>
+    </div>
+  </div>
+
+  @if (modoRecuperacion()) {
+    <div class="modal d-block custom-modal-backdrop d-flex align-items-center justify-content-center">
+      <div class="modal-dialog modal-dialog-centered w-100 m-3" style="max-width: 420px;">
+        <div class="modal-content custom-modal-content rounded-4 border-0 shadow-lg position-relative p-4">
+
+          <button type="button" class="btn-close-custom" (click)="modoRecuperacion.set(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/></svg>
+          </button>
+
+          <div class="text-center mb-4 mt-2">
+            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16"><path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+            </div>
+            <h4 class="fw-bold text-white mb-1">Recuperar Contraseña</h4>
+            <p class="text-secondary small mb-0">Introduce tu correo y te enviaremos un enlace para que puedas cambiarla.</p>
+          </div>
+
+          <div class="mb-4">
+            <label class="custom-label">CORREO ELECTRÓNICO</label>
+            <input type="email" [formControl]="emailRecuperacionControl" 
+                   (keydown.enter)="emailRecuperacionControl.valid && enviarCorreoRecuperacion()" 
+                   class="custom-input" placeholder="tu@email.com">
+          </div>
+
+          <button (click)="enviarCorreoRecuperacion()" [disabled]="emailRecuperacionControl.invalid" class="custom-btn-primary w-100 py-3">
+            ENVIAR ENLACE
+          </button>
+
+        </div>
+      </div>
+    </div>
+  }
+
+</div>
+>>>>>>> main

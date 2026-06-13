@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 h1 { color: white; }
 
 /* --- EL BUSCADOR --- */
@@ -75,4 +76,122 @@ h1 { color: white; }
 
 .team-card:hover .card-title {
     color: #3498db !important; /* Azul más eléctrico que el anterior */
+=======
+:host {
+  --bg-main: #0B1120;
+  --bg-card: #141C2F;
+  --bg-hover: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-blue: #3B82F6;
+  --border-color: #1E293B;
+  --border-highlight: rgba(59, 130, 246, 0.4);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- ANIMACIÓN PRINCIPAL --- */
+.animacion-entrada-principal {
+  opacity: 0;
+  animation: smoothEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes smoothEnter {
+  0% { opacity: 0; transform: translateY(25px) scale(0.98); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* --- TARJETAS DE EQUIPOS --- */
+.team-card {
+  background-color: var(--bg-card); 
+  border: 1px solid var(--border-color);
+  border-radius: 16px !important;
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+  /* Línea decorativa inferior invisible por defecto */
+  border-bottom: 4px solid transparent; 
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.team-card:hover {
+  transform: translateY(-8px); 
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); 
+  border-color: var(--border-highlight);
+  /* Aparece la línea decorativa azul */
+  border-bottom: 4px solid var(--accent-blue);
+}
+
+/* Contenedor de la imagen (escudo) */
+.img-container {
+  display: block;
+  padding: 30px 20px;
+  background: radial-gradient(circle at top, rgba(255,255,255,0.03) 0%, transparent 70%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  transition: var(--transition);
+}
+
+.team-card:hover .img-container {
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+}
+
+.team-logo {
+  height: 110px; 
+  width: auto;
+  max-width: 100%;
+  object-fit: contain; 
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6)); 
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team-card:hover .team-logo {
+  transform: scale(1.15) translateY(-5px); 
+}
+
+/* Cuerpo de la tarjeta donde va el texto */
+.team-card .card-body {
+  padding: 16px 10px;
+  background-color: transparent;
+}
+
+.team-card .card-title {
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+
+.team-card:hover .card-title {
+  color: var(--accent-blue) !important;
+}
+
+/* --- ESTADOS VACÍOS --- */
+.empty-state-container {
+  background-color: var(--bg-card);
+  border: 1px dashed var(--border-color);
+}
+
+/* --- BUSCADOR (Estilo Premium) --- */
+.custom-search {
+  background-color: var(--bg-card) !important; /* Azul marino oscuro */
+  border: 1px solid var(--border-color) !important; 
+  color: var(--text-main) !important; 
+  border-radius: 12px;
+  height: 48px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.custom-search::placeholder {
+  color: #64748B !important; /* Gris azulado para que no destaque tanto como el texto real */
+}
+
+/* Efecto Glow Azul Corporativo al escribir */
+.custom-search:focus {
+  background-color: var(--bg-hover) !important; /* Fondo sutilmente más claro */
+  border-color: var(--accent-blue) !important; 
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.25) !important; /* Resplandor */
+  outline: none;
+>>>>>>> main
 }
