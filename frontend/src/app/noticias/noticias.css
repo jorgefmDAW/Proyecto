@@ -94,3 +94,129 @@
     background-color: var(--bg-card);
     border: 1px dashed var(--border-color);
 }
+
+/* --- BOTONES ADMIN EN TARJETA --- */
+.admin-btn {
+    border-color: var(--border-color);
+    background-color: rgba(30, 41, 59, 0.5); /* Un tono muy oscuro y transparente */
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.admin-btn:hover.btn-outline-primary {
+    background-color: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+.admin-btn:hover.btn-outline-danger {
+    background-color: #EF4444; /* Rojo para borrar */
+    color: white;
+    border-color: #EF4444;
+}
+
+/* --- MODAL CUSTOMIZADO LALIGA MANAGER --- */
+.modal-backdrop-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    padding: 1rem;
+}
+
+.modal-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-highlight);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header-custom {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(11, 17, 32, 0.5); /* Usa tu fondo principal con transparencia */
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.modal-body-custom {
+    padding: 1.5rem;
+}
+
+.btn-close-custom {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    transition: var(--transition);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close-custom:hover {
+    color: #EF4444;
+    transform: rotate(90deg); /* Animación chula al pasar el ratón */
+}
+
+/* --- ESTILOS PARA LOS INPUTS DEL FORMULARIO --- */
+.custom-input, .custom-select {
+    background-color: var(--bg-main) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+}
+
+.custom-input:focus, .custom-select:focus {
+    border-color: var(--accent-blue) !important;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25) !important;
+    outline: none;
+}
+
+.custom-input::placeholder {
+    color: rgba(148, 163, 184, 0.5); /* Gris tenue para el texto de ejemplo */
+}
+
+/* Invierte el color del icono del calendario para que se vea en fondo oscuro */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+/* --- ANIMACIONES DEL MODAL --- */
+.animacion-fade-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.animacion-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}

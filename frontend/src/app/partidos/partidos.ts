@@ -14,8 +14,8 @@ interface Partido {
   prediccionUsuario?: 'local' | 'visitante' | 'empate';
   escudo_local: any;
   escudo_visitante: any;
-  local_id: number;
-  visitante_id: number;
+  id_local: number;
+  id_visitante: number;
 }
 
 @Component({
@@ -68,8 +68,8 @@ export class Partidos implements OnInit {
             escudo_visitante: p.escudo_visitante,
             golesLocal: p.local_goles,
             golesVisitante: p.visitante_goles,
-            local_id: p.local_id,
-            visitante_id: p.visitante_id,
+            id_local: p.id_local,
+            id_visitante: p.id_visitante,
             estado: partidoJugado ? 'FINALIZADO' : 'PENDIENTE'
           };
         });
@@ -90,14 +90,19 @@ export class Partidos implements OnInit {
   }
 
   elegirJugadorEstrella(partido: Partido): void {
+    console.log('Objeto partido:', partido);
     this.partidoSeleccionado = partido;
     this.mostrarModalJugadores = true;
     this.cargandoJugadores = true;
     this.jugadoresModal = [];
 
-    this.partidosService.obtenerJugadoresPorEquipos(partido.local_id, partido.visitante_id).subscribe({
-      next: (jugadores: any) => {
-        this.jugadoresModal = jugadores; 
+    this.partidosService.obtenerJugadoresPorEquipos(partido.id_local, partido.id_visitante).subscribe({
+      next: (response: any) => {
+        this.jugadoresModal = [
+          ...response.jugadores_equipo_1, 
+          ...response.jugadores_equipo_2
+        ]; 
+        
         this.cargandoJugadores = false;
         this.cdr.detectChanges();
       },

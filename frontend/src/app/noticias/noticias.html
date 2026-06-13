@@ -1,8 +1,17 @@
 <div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
     
-    <header class="mb-4 border-bottom border-dark pb-3">
-        <h1 class="fw-bold mb-2 text-white">Noticias</h1>
-        <p class="text-secondary mb-0">Bienvenido al apartado de noticias. Aquí podrás ver las últimas novedades del fútbol.</p>
+    <header class="mb-4 border-bottom border-dark pb-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <h1 class="fw-bold mb-2 text-white">Noticias</h1>
+            <p class="text-secondary mb-0">Bienvenido al apartado de noticias. Aquí podrás ver las últimas novedades del fútbol.</p>
+        </div>        
+
+        @if (isAdmin()) {
+            <button class="btn btn-primary fw-bold px-4 py-2 d-flex align-items-center gap-2 shadow-sm" (click)="abrirModalCrear()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/></svg>
+                Añadir Noticia
+            </button>
+        }
     </header>
 
     @if (!noticias() || noticias().length === 0) {
@@ -39,6 +48,17 @@
                             Leer artículo
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/></svg>
                         </span>
+                        @if (isAdmin()) 
+                        {
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-primary btn-sm rounded-circle p-2 d-flex align-items-center justify-content-center admin-btn" title="Editar noticia" (click)="abrirModalEditar(noticia); $event.stopPropagation()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16"><path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/></svg>
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm rounded-circle p-2 d-flex align-items-center justify-content-center admin-btn" title="Eliminar noticia" (click)="eliminarNoticia(noticia.id, noticia.titulo); $event.stopPropagation()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>
+                                </button>
+                            </div>
+                        }
                     </div>
                     
                 </div>
@@ -49,3 +69,67 @@
     }
 
 </div>
+
+
+@if (mostrarModal()) {
+    <div class="modal-backdrop-custom animacion-fade-in" (click)="cerrarModal()">
+        <div class="modal-container animacion-slide-up" (click)="$event.stopPropagation()">
+            
+            <div class="modal-header-custom border-bottom border-dark">
+                <h3 class="fw-bold mb-0 text-white d-flex align-items-center gap-2">
+                    @if(modoEdicion()) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--accent-blue)" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                        Editar Noticia
+                    } @else {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--accent-blue)" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16"><path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0z"/></svg>
+                        Crear Nueva Noticia
+                    }
+                </h3>
+                <button type="button" class="btn-close-custom" (click)="cerrarModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                </button>
+            </div>
+
+            <div class="modal-body-custom">
+                <form (ngSubmit)="guardarNoticia()">
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fw-bold small text-uppercase">Título de la noticia</label>
+                        <input type="text" class="form-control custom-input" placeholder="Ej: Lamine Yamal Lesionado" [(ngModel)]="noticiaActual().titulo" name="titulo" required>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary fw-bold small text-uppercase">Equipo / Categoría</label>
+                            <select class="form-select custom-select" [(ngModel)]="noticiaActual().categoria" name="categoria" required>
+                                <option value="" disabled selected>Selecciona un equipo...</option>
+                                <option value="General">Liga General</option>
+                                <option value="Fichajes">Fichajes</option>
+                                @for (equipo of equipos(); track equipo.id) {
+                                    <option [value]="equipo.nombre">{{ equipo.nombre }}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-secondary fw-bold small text-uppercase">Fecha de publicación</label>
+                            <input type="date" class="form-control custom-input" [(ngModel)]="noticiaActual().fecha" name="fecha" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary fw-bold small text-uppercase">Cuerpo de la noticia</label>
+                        <textarea class="form-control custom-input" rows="6" placeholder="Escribe aquí todo el desarrollo de la noticia..." [(ngModel)]="noticiaActual().texto" name="texto" required></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 pt-3 border-top border-dark">
+                        <button type="button" class="btn btn-outline-secondary fw-bold px-4" (click)="cerrarModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary fw-bold px-4 d-flex align-items-center gap-2 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 16 16"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5v-13Z"/><path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5V16Zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V0ZM9 1h2v4H9V1Z"/></svg>
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
