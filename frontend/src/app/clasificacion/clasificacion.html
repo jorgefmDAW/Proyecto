@@ -1,65 +1,120 @@
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
-
-    <div class="mb-4 pb-2">
-        <h1 class="fw-bold text-white mb-2">Clasificación de la Liga</h1>
-        <p class="text-secondary mb-3">Los mejores managers de la liga</p>
+<div class="clasificacion-wrapper">
+  
+  <header class="clasificacion-header">
+    <div class="titulo-container">
+      <svg class="icono-titulo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="6"/>
+        <circle cx="12" cy="12" r="2"/>
+      </svg>
+      <div>
+        <h1>Clasificación</h1>
+        <p>Los jugadores con mejor rendimiento.</p>
+      </div>
     </div>
 
-    <div class="table-responsive rounded-3 border border-secondary shadow">
-        <table class="table table-dark table-hover mb-0 w-100">
-            <thead class="bg-darker">
-                <tr>
-                    <th class="px-4 py-3 text-center small fw-bold text-primary text-uppercase border-bottom border-secondary"
-                        style="width: 15%;">POSICIÓN</th>
-                    <th
-                        class="px-4 py-3 text-center small fw-bold text-primary text-uppercase border-bottom border-secondary">
-                        USUARIO</th>
-                    <th class="px-4 py-3 text-center small fw-bold text-primary text-uppercase border-bottom border-secondary"
-                        style="width: 20%;">PUNTOS</th>
-                </tr>
-            </thead>
-
-            <tbody class="align-middle custom-tbody">
-                <tr>
-                    <th class="px-4 py-3 text-center border-bottom border-secondary">
-                        <span class="pos-badge">1</span>
-                    </th>
-                    <td class="px-4 py-3 text-center text-white"> Jorge </td>
-                    <td class="px-4 py-3 text-center text-white"> 650 </td>
-                </tr>
-
-                <tr>
-                    <th class="px-4 py-3 text-center border-bottom border-secondary">
-                        <span class="pos-badge">2</span>
-                    </th>
-                    <td class="px-4 py-3 text-center text-white"> Luis </td>
-                    <td class="px-4 py-3 text-center text-white"> 600 </td>
-                </tr>
-
-                <tr>
-                    <th class="px-4 py-3 text-center border-bottom border-secondary">
-                        <span class="pos-badge">3</span>
-                    </th>
-                    <td class="px-4 py-3 text-center text-white"> Pedro </td>
-                    <td class="px-4 py-3 text-center text-white"> 450 </td>
-                </tr>
-
-                <tr>
-                    <th class="px-4 py-3 text-center text-secondary border-bottom border-secondary">
-                        <span class="pos-badge">4</span>
-                    </th>
-                    <td class="px-4 py-3 text-center text-light"> Juan </td>
-                    <td class="px-4 py-3 text-center text-light"> 400 </td>
-                </tr>
-
-                <tr>
-                    <th class="px-4 py-3 text-center text-secondary border-bottom-0">
-                        <span class="pos-badge">5</span>
-                    </th>
-                    <td class="px-4 py-3 text-center text-light border-bottom-0"> Pablo </td>
-                    <td class="px-4 py-3 text-center text-light border-bottom-0"> 300 </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="botones-toggle">
+      <button 
+        class="btn-toggle" 
+        [class.activo]="vistaActual === 'usuarios'"
+        (click)="cambiarVista('usuarios')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        Usuarios
+      </button>
+      
+      <button 
+        class="btn-toggle" 
+        [class.activo]="vistaActual === 'jugadores'"
+        (click)="cambiarVista('jugadores')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        Jugadores
+      </button>
     </div>
+  </header>
+
+  @if (vistaActual === 'usuarios') {
+    <div class="estado-container">
+      <div class="proximamente-card">
+        <h3>Próximamente...</h3>
+        <p>El endpoint de usuarios aún se está desarrollando en el backend.</p>
+      </div>
+    </div>
+  } 
+
+  @else {
+    @if (cargando) {
+      <div class="estado-container">
+        <div class="spinner"></div>
+      </div>
+    } @else if (error) {
+      <div class="estado-container error">
+        <p>{{ error }}</p>
+        <button (click)="cargarJugadores()">Reintentar</button>
+      </div>
+    } @else {
+      
+      <div class="clasificacion-lista">
+        
+        <div class="lista-header">
+          <span class="col-h-pos">POS</span>
+          <span class="col-h-jugador">JUGADOR</span>
+          <span class="col-h-posicion">POSICIÓN</span>
+          <span class="col-h-puntos">PUNTOS</span>
+        </div>
+
+        @for (jugador of jugadoresTop10; track jugador.id || $index) {
+          
+          <article class="jugador-card" [class.top-1]="$index === 0" [class.top-3]="$index > 0 && $index < 3">
+            
+            <div class="card-pos">
+              @if ($index === 0) { <span class="trofeo oro">🏆</span> }
+              @else if ($index === 1) { <span class="trofeo plata">🥈</span> }
+              @else if ($index === 2) { <span class="trofeo bronce">🥉</span> }
+              @else { <span class="numero-pos">{{ $index + 1 }}</span> }
+            </div>
+
+            <div class="card-avatar">
+              @if (jugador.foto) {
+                <img [src]="jugador.foto" [alt]="jugador.nombre">
+              } @else {
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              }
+            </div>
+            
+            <div class="card-info">
+              <h3 class="jugador-nombre">{{ jugador.nombre }}</h3>
+              <span class="jugador-equipo">{{ jugador.equipo_nombre || jugador.equipo }}</span>
+            </div>
+
+            <div class="card-badge">
+              <span class="badge-pos {{ (jugador.posicion || '').toLowerCase() }}">
+                {{ jugador.posicion }}
+              </span>
+            </div>
+
+            <div class="card-puntos">
+              <span class="puntos-valor">{{ jugador.puntos_totales }}</span>
+              <span class="puntos-label">PTS</span>
+            </div>
+
+          </article>
+          
+        } @empty {
+          <div class="estado-container">No hay jugadores para mostrar.</div>
+        }
+        
+      </div>
+    }
+  }
 </div>

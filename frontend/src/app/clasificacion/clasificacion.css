@@ -1,28 +1,307 @@
-.bg-darker {
-    background-color: #1a1a1a !important; 
+:host {
+  --bg-main: #0B1120;
+  --bg-card: #141C2F;
+  --border-color: #1E293B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --accent-green: #10B981;
+  --accent-green-hover: #059669;
 }
 
-.drop-shadow-icon {
-    filter: drop-shadow(0px 3px 4px rgba(0,0,0,0.5));
+.clasificacion-wrapper {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-.custom-tbody tr {
-    transition: background-color 0.2s ease;
+/* --- HEADER --- */
+.clasificacion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
 }
 
-.table-dark.table-hover tbody tr:hover td, 
-.table-dark.table-hover tbody tr:hover th {
-    background-color: rgba(0, 132, 255, 0.1);
-    cursor: default;
+.titulo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.pos-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: white;
+.icono-titulo {
+  width: 32px;
+  height: 32px;
+  color: var(--accent-green);
 }
+
+.titulo-container h1 {
+  font-size: 2rem;
+  margin: 0 0 0.2rem 0;
+  font-weight: 800;
+}
+
+.titulo-container p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* --- BOTONES TOGGLE --- */
+.botones-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-toggle:hover {
+  border-color: var(--text-muted);
+  color: var(--text-main);
+}
+
+.btn-toggle.activo {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #fff;
+}
+
+/* ... (Mantén las variables, .clasificacion-wrapper y el HEADER igual) ... */
+
+/* --- NUEVO DISEÑO: LISTA DE CARTAS --- */
+.clasificacion-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Separación entre cartas */
+}
+
+/* Encabezados encima de las cartas */
+.lista-header {
+  display: flex;
+  padding: 0 1.5rem 0.5rem 1.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.col-h-pos { width: 50px; text-align: center; margin-right: 1rem; }
+.col-h-jugador { flex: 1; margin-left: 60px; /* Compensa el espacio del avatar */ }
+.col-h-posicion { width: 100px; text-align: center; margin-right: 2rem; }
+.col-h-puntos { width: 80px; text-align: right; }
+
+/* --- LA CARTA DEL JUGADOR --- */
+.jugador-card {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jugador-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  border-color: #334155;
+  background: #192236;
+}
+
+/* --- ESTILOS ESPECIALES TOP 3 --- */
+.jugador-card.top-1 {
+  border-color: rgba(245, 158, 11, 0.5); /* Borde dorado */
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, var(--bg-card) 40%);
+}
+
+.jugador-card.top-1 .puntos-valor {
+  color: #F59E0B; /* Puntos dorados para el primero */
+}
+
+.jugador-card.top-3 {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, var(--bg-card) 40%);
+}
+
+/* --- INTERIOR DE LA CARTA --- */
+.card-pos {
+  width: 50px;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.numero-pos {
+  color: var(--text-muted);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.trofeo {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+}
+
+/* El hueco de la foto (Avatar) */
+.card-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  margin-right: 1.5rem;
+}
+
+.card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-avatar svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Info de texto */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.jugador-nombre {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.jugador-equipo {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Badge Posición */
+.card-badge {
+  width: 100px;
+  text-align: center;
+  margin-right: 2rem;
+}
+
+.badge-pos {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: #334155; 
+  color: #fff;
+}
+
+/* Colores de las posiciones (Asegúrate de que coinciden con tu JSON) */
+.badge-pos.del { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.badge-pos.med { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-pos.def { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-pos.por { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+/* Puntos */
+.card-puntos {
+  width: 80px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.puntos-valor {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.puntos-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* --- TROFEOS Y POSICIONES --- */
+.numero-pos {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.trofeo {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* --- PASTILLAS DE POSICIÓN --- */
+.badge-pos {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: #334155; /* Default gris */
+  color: #fff;
+}
+
+/* IMPORTANTE: Los nombres de estas clases deben coincidir con lo que manda tu BD en minúsculas */
+.badge-pos.del { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.badge-pos.med { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-pos.def { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-pos.por { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+/* --- UTILIDADES --- */
+.estado-container {
+  padding: 4rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.proximamente-card {
+  background: var(--bg-card);
+  border: 1px dashed var(--border-color);
+  padding: 3rem;
+  border-radius: 12px;
+}
+
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: var(--accent-green);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+  margin: 0 auto;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
