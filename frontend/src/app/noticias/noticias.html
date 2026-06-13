@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
-    <h1 class="fw-bold mb-2"> Noticias </h1>
-    <p class="text-secondary mb-5"> Bienvenido al apartado de noticias. Aquí podrás ver las últimas noticias y estar al tanto de todas las novedades del fútbol. </p>
-
-    <div class="row g-4">
-        
-        @for (noticia of noticias(); track noticia.id) {
-        <div class="col-12 col-md-6 col-lg-4">
-            
-            <div class="news-card h-100 p-4 rounded-4">
-                
-                <div class="news-header d-flex justify-content-between align-items-center mb-3">
-                    <span class="news-badge">{{ noticia.categoria }}</span>
-                    <span class="news-date"> {{ noticia.fecha }} </span> </div>
-                
-                <h4 class="news-title fw-bold text-white mb-3">{{ noticia.titulo }}</h4>
-                <p class="news-excerpt text-secondary mb-0">
-                    {{ noticia.texto }}
-                </p>
-                
-            </div>
-            
-        </div>
-        }
-        
-    </div>
-=======
 <div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
     
     <header class="mb-4 border-bottom border-dark pb-3">
@@ -76,5 +48,4 @@
         </div>
     }
 
->>>>>>> main
 </div>

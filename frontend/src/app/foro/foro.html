@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
-    <h1 class="fw-bold mb-2"> Foro Global </h1>
-    <p class="text-secondary mb-5"> Bienvenido al foro global. Aquí podrás hablar y debatir sobre fútbol con los demás usuarios de la web.
-    <div class="chat-container">
-        <div class="chat-body" #chatBody>
-            @for (mensaje of mensajes(); track mensaje.id) {
-              <div class="message-card" [class.message-own]="mensaje.usuario.username === usuarioActual()?.username">
-                <div class="message-header">
-                    <span class="username">{{ mensaje.usuario.username }}</span>
-                    <span class="time"> {{ mensaje.fecha }}</span>
-                </div>
-                <hr class="message-separator">
-                <div class="message-content">
-                    <p> {{ mensaje.mensaje }} </p>
-                </div>
-              </div>  
-            }
-        </div>
-        <div class="chat-footer">
-            <input 
-                type="text" 
-                class="chat-input" 
-                placeholder="Escribe un mensaje..."
-                [value]="nuevoMensaje()"
-                (input)="nuevoMensaje.set($any($event.target).value)"
-                (keydown.enter)="enviarMensaje()"
-            >
-            <button class="chat-btn" (click)="enviarMensaje()">Enviar</button>
-        </div>
-    </div>
-=======
 <div class="text-white p-3 mx-auto mt-4 d-flex flex-column align-items-start" style="width: 90%;">
 
   <header class="chat-header w-100 mb-4">
@@ -99,5 +67,4 @@
     </div>
 
   </div>
->>>>>>> main
 </div>
