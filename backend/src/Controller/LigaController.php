@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Liga;
 use App\Repository\LigaRepository;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
@@ -290,12 +291,12 @@ final class LigaController extends AbstractController {
         response: 200,
         description: 'Solicitar unirse a una liga PRIVADA'
     )]
-    public function solicitarUnirseLigaPrivada(Request $request, int $id, #[CurrentUser] $usuario): JsonResponse 
+    public function solicitarUnirseLigaPrivada(Request $request, int $id, #[CurrentUser] $usuario, MailService $mailService): JsonResponse 
     {
         if(!$usuario) {
             return $this->json(['error' => 'Tienes que estar loggeado para poder solicitar unirte a una liga'], 403);
         }
-    
+
         $liga = $this->ligaRepository->findOneBy(['id' => $id, 'privada' => 1]);
 
         if(!$liga) {
@@ -303,7 +304,6 @@ final class LigaController extends AbstractController {
         }
 
         $data = json_decode($request->getContent(), true);
-
         $mensaje = $data['mensaje'] ?? '';
 
         $solicitudExistente = $this->em->getRepository(Solicitud::class)->findOneBy(['liga' => $liga, 'usuario' => $usuario]);
@@ -320,6 +320,29 @@ final class LigaController extends AbstractController {
 
         $this->em->persist($solicitud);
         $this->em->flush();
+
+        // Buscamos al creador de la liga
+        $creadorFantasy = $this->em->getRepository(UsuarioFantasy::class)->findOneBy([
+            'liga' => $liga,
+            'creador' => true
+        ]);
+
+        if($creadorFantasy) {
+            $emailCreador = $creadorFantasy->getUsuario()->getEmail();
+            $nombreCreador = $creadorFantasy->getUsuario()->getUsername();
+
+            $mailService->send(
+                $emailCreador,
+                'Nueva solicitud para unirse a tu liga',
+                'emails/solicitud_liga.html.twig',
+                [
+                    'nombre_creador'    => $nombreCreador,
+                    'nombre_solicitante' => $usuario->getUsername(),
+                    'mensaje_solicitante' => $mensaje,
+                    'nombre_liga'       => $liga->getNombre(),
+                ]
+            );
+        }
 
         return $this->json(['message' => 'Tu solicitud a la liga ' . $liga->getNombre() . ' se ha realizado correctamente']);
     }

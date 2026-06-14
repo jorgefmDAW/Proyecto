@@ -69,7 +69,7 @@ final class PasswordController extends AbstractController {
                 $plainToken = $resetToken->getToken();
 
                 // ruta al formulario para resetear la contraseña del frontend
-                $urlFrontend = 'http://localhost:3000/restablecer-password?token=' . $plainToken;
+                $urlFrontend = 'http://localhost:4200/restablecer-password?token=' . $plainToken;
 
                 $mail_service->send(
                 $usuario->getEmail(), // $to                          

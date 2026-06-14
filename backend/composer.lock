@@ -2570,16 +2570,16 @@
         },
         {
             "name": "symfony/brevo-mailer",
-            "version": "v7.4.0",
+            "version": "v7.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/brevo-mailer.git",
-                "reference": "f1ef26ffe147e9185531030fc1503ed7b63fa0ef"
+                "reference": "2f7aaebc500b06862865e5b4ec227e35573bda44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/brevo-mailer/zipball/f1ef26ffe147e9185531030fc1503ed7b63fa0ef",
-                "reference": "f1ef26ffe147e9185531030fc1503ed7b63fa0ef",
+                "url": "https://api.github.com/repos/symfony/brevo-mailer/zipball/2f7aaebc500b06862865e5b4ec227e35573bda44",
+                "reference": "2f7aaebc500b06862865e5b4ec227e35573bda44",
                 "shasum": ""
             },
             "require": {
@@ -2619,7 +2619,7 @@
             "description": "Symfony Brevo Mailer Bridge",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/brevo-mailer/tree/v7.4.0"
+                "source": "https://github.com/symfony/brevo-mailer/tree/v7.4.13"
             },
             "funding": [
                 {
@@ -2639,7 +2639,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-04T08:00:56+00:00"
+            "time": "2026-05-23T16:05:06+00:00"
         },
         {
             "name": "symfony/cache",

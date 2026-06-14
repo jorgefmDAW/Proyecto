@@ -25,15 +25,16 @@
                     <tr>
                         <td style="background-color: #141C2F; border-radius: 16px; overflow: hidden; border: 1px solid #1E293B; border-top: 4px solid #007bff;">
 
-                            <!-- TITULO -->
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+                                <!-- TITULO -->
                                 <tr>
                                     <td style="padding: 36px 40px 28px 40px; border-bottom: 1px solid #1E293B;">
                                         <p style="margin: 0 0 8px 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #3B82F6;">
-                                            Seguridad de cuenta
+                                            Nueva solicitud
                                         </p>
                                         <h1 style="margin: 0; font-size: 1.6rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">
-                                            Restablece tu contraseña
+                                            Alguien quiere unirse a tu liga
                                         </h1>
                                     </td>
                                 </tr>
@@ -41,33 +42,33 @@
                                 <!-- CUERPO -->
                                 <tr>
                                     <td style="padding: 32px 40px;">
-                                        <p style="margin: 0 0 12px 0; font-size: 0.95rem; line-height: 1.6; color: #94A3B8;">
-                                            Hola <span style="color: #ffffff; font-weight: 600;">{{ nombre_usuario }}</span>,
-                                        </p>
-                                        <p style="margin: 0 0 32px 0; font-size: 0.95rem; line-height: 1.7; color: #94A3B8;">
-                                            Hemos recibido una petición para restablecer la contraseña de tu cuenta en <span style="color: #ffffff; font-weight: 600;">LaLiga Manager</span>. Haz clic en el botón de abajo para elegir una nueva.
+                                        <p style="margin: 0 0 24px 0; font-size: 0.95rem; line-height: 1.7; color: #94A3B8;">
+                                            Hola <span style="color: #ffffff; font-weight: 600;">{{ nombre_creador }}</span>,
+                                            el usuario <span style="color: #ffffff; font-weight: 600;">{{ nombre_solicitante }}</span> ha solicitado unirse a tu liga <span style="color: #ffffff; font-weight: 600;">{{ nombre_liga }}</span>.
                                         </p>
 
-                                        <!-- BOTON -->
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <!-- MENSAJE DEL SOLICITANTE -->
+                                        {% if mensaje_solicitante %}
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 32px;">
                                             <tr>
-                                                <td align="center">
-                                                    <a href="{{ enlace_recuperacion }}"
-                                                       target="_blank"
-                                                       style="display: inline-block; background-color: #007bff; color: #ffffff; font-size: 0.95rem; font-weight: 700; text-decoration: none; padding: 14px 36px; border-radius: 8px; letter-spacing: 0.01em;">
-                                                        Restablecer mi contraseña
-                                                    </a>
+                                                <td style="background-color: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); border-left: 3px solid #007bff; border-radius: 8px; padding: 16px 20px;">
+                                                    <p style="margin: 0 0 6px 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #3B82F6;">
+                                                        Mensaje del solicitante
+                                                    </p>
+                                                    <p style="margin: 0; font-size: 0.95rem; color: #F8FAFC; line-height: 1.6; font-style: italic;">
+                                                        "{{ mensaje_solicitante }}"
+                                                    </p>
                                                 </td>
                                             </tr>
                                         </table>
+                                        {% endif %}
 
-                                        <!-- AVISO CADUCIDAD -->
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px;">
+                                        <!-- AVISO -->
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                             <tr>
                                                 <td style="background-color: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 16px 20px;">
                                                     <p style="margin: 0; font-size: 0.85rem; color: #94A3B8; line-height: 1.6;">
-                                                        Este enlace caducará en <span style="color: #ffffff; font-weight: 600;">1 hora</span>.<br>
-                                                        Si no has solicitado este cambio, puedes ignorar este correo de forma segura.
+                                                        Accede a <span style="color: #ffffff; font-weight: 600;">LaLiga Manager</span> para aceptar o rechazar la solicitud desde el panel de tu liga.
                                                     </p>
                                                 </td>
                                             </tr>
@@ -83,8 +84,8 @@
                                         </p>
                                     </td>
                                 </tr>
-                            </table>
 
+                            </table>
                         </td>
                     </tr>
 
