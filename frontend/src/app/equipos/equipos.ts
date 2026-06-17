@@ -17,10 +17,10 @@ export class Equipos implements OnInit {
   private equipoService = inject(EquiposService);
   
   equipos = signal<any[]>([]);
-
   textoBusqueda = signal<string>('');
+  cargando = signal<boolean>(true);
 
-    equiposFiltrados = computed(() => {
+  equiposFiltrados = computed(() => {
     const texto = this.textoBusqueda().toLowerCase();
     const listaCompleta = this.equipos();
 
@@ -34,6 +34,7 @@ export class Equipos implements OnInit {
   }
 
   cargarEquipos() {
+    this.cargando.set(true);
     this.equipoService.obtenerEquipos().subscribe({
       next: (data) => {
         let lista = data || [];
@@ -41,8 +42,12 @@ export class Equipos implements OnInit {
         lista.sort((a: any, b: any) => a.nombre.localeCompare(b.nombre));
         
         this.equipos.set(lista);
+        this.cargando.set(false);
       },
-      error: (err) => console.error('Error al cargar equipos', err)
+      error: (err) => {
+        console.error(err);
+        this.cargando.set(false);
+      }
     });
   }
 }

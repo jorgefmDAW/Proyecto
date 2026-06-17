@@ -121,4 +121,10 @@ export class Users {
     return !!this.getAccessToken(); // devuelve true si hay un token, y false si es null
   }
 
+    isAdmin(): boolean {
+    const usuario = this.currentUserSubject.getValue();
+    const roles: string[] = usuario?.roles ?? [];
+    return roles.includes('ROLE_ADMIN');
+  }
+
 }

@@ -11,7 +11,7 @@ import { EquiposService } from '../services/equipos-service';
   templateUrl: './noticias.html',
   styleUrl: './noticias.css',
 })
-export class Noticias {
+export class Noticias implements OnInit {
   private service = inject(NoticiasService);
   private users = inject(Users);
   private equiposService = inject(EquiposService);  
@@ -19,7 +19,7 @@ export class Noticias {
   public noticias = signal<any[]>([]);
   public isAdmin = signal<boolean>(false);
   public equipos = signal<any[]>([]);
-
+  public cargando = signal<boolean>(true);
 
   public mostrarModal = signal<boolean>(false);
   public modoEdicion = signal<boolean>(false);
@@ -30,6 +30,9 @@ export class Noticias {
     fecha: ''
   });
 
+  public mostrarModalLeer = signal<boolean>(false);
+  public noticiaLeer = signal<any>(null);
+
   ngOnInit(): void {
     this.getAllNoticias();
     this.comprobarRol();
@@ -39,7 +42,7 @@ export class Noticias {
   cargarEquipos(): void {
     this.equiposService.obtenerEquipos().subscribe({
       next: (res: any[]) => this.equipos.set(res),
-      error: (err) => console.error('Error cargando equipos', err)
+      error: (err) => console.error(err)
     });
   }
 
@@ -53,17 +56,34 @@ export class Noticias {
         }
       },
       error: (err) => {
-        console.error('Error al comprobar rol', err);
+        console.error(err);
         this.isAdmin.set(false);
       }
     });
   }
 
   getAllNoticias(): void {
+    this.cargando.set(true);
     this.service.getAllNoticias().subscribe({
-      next: (res:any) => this.noticias.set(res),
-      error: (err) => console.error('Error mostrando todas las noticias', err)
+      next: (res:any) => {
+        this.noticias.set(res);
+        this.cargando.set(false);
+      },
+      error: (err) => {
+        console.error(err);
+        this.cargando.set(false);
+      }
     });
+  }
+
+  abrirModalLeer(noticia: any): void {
+    this.noticiaLeer.set(noticia);
+    this.mostrarModalLeer.set(true);
+  }
+
+  cerrarModalLeer(): void {
+    this.mostrarModalLeer.set(false);
+    this.noticiaLeer.set(null);
   }
 
   abrirModalCrear(): void {
@@ -84,13 +104,12 @@ export class Noticias {
     if (this.noticiaActual().fecha) {
         try {
            const partes = this.noticiaActual().fecha.split('-');
-           
            if (partes.length === 3) {
              const fechaFormateada = `${partes[2]}-${partes[1]}-${partes[0]}`;
              this.noticiaActual().fecha = fechaFormateada;
            }
         } catch(e) {
-           console.error("Error formateando la fecha:", e);
+           console.error(e);
         }
     }
     
@@ -128,7 +147,8 @@ export class Noticias {
     }
   }
 
-  eliminarNoticia(id: number, titulo: string): void {
+  eliminarNoticia(id: number, titulo: string, event?: Event): void {
+    if (event) event.stopPropagation();
     if (confirm(`¿Estás seguro de que quieres eliminar la noticia "${titulo}"?`)) {
       this.service.deleteNoticia(id).subscribe({
         next: () => this.getAllNoticias(),

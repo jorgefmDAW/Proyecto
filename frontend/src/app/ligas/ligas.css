@@ -320,3 +320,70 @@ input[type="number"] {
     transform: scale(1);
   }
 }
+
+/* --- ANIMACIONES DE PESTAÑAS --- */
+.tab-content-animado {
+  animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% { 
+    opacity: 0; 
+    transform: translateY(15px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* --- SKELETON LOADERS --- */
+.skeleton-wrapper {
+  pointer-events: none; /* Prevenir clics accidentales mientras carga */
+}
+
+.skeleton {
+  background: #1E293B; /* Color base oscuro */
+  /* Gradiente que da el efecto de brillo pasando */
+  background: linear-gradient(
+    110deg,
+    #1E293B 8%,
+    #2D3B4E 18%,
+    #1E293B 33%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border-radius: 6px;
+}
+
+.skeleton-title {
+  width: 55%;
+  height: 24px;
+}
+
+.skeleton-badge {
+  width: 70px;
+  height: 28px;
+  border-radius: 50px;
+}
+
+.skeleton-text {
+  width: 35%;
+  height: 16px;
+}
+
+.skeleton-btn {
+  height: 42px;
+  border-radius: 8px;
+}
+
+.skeleton-btn-small {
+  width: 54px;
+  height: 42px;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position-x: 200%; }
+  100% { background-position-x: -200%; }
+}

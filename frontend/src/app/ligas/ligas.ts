@@ -17,11 +17,14 @@ export class Ligas implements OnInit {
   public ligas = signal<any[]>([]);
   public misLigas = signal<any[]>([]);
 
+  // --- ESTADOS DE CARGA PARA SKELETONS ---
+  public cargandoMisLigas = signal<boolean>(true);
+  public cargandoLigasDisponibles = signal<boolean>(true);
+
   public mostrarModalSolicitud = signal(false);
   public ligaSeleccionada = signal<any>(null);
   public mensajeSolicitud = signal('');
 
-  // --- SISTEMA DE NOTIFICACIONES FLOTANTES (TOAST) ---
   public toast = signal<{tipo: 'exito' | 'error', mensaje: string} | null>(null);
   private toastTimeout: any;
 
@@ -56,18 +59,30 @@ export class Ligas implements OnInit {
   }
 
   getLigasDisponibles(): void {
+    this.cargandoLigasDisponibles.set(true);
     this.service.getLigasDisponibles().subscribe({
       next: (res: any) => {
         this.ligas.set(res.ligas);
+        this.cargandoLigasDisponibles.set(false);
       },
-      error: (err) => console.error('Error mostrando todas las ligas', err)
+      error: (err) => {
+        console.error('Error mostrando todas las ligas', err);
+        this.cargandoLigasDisponibles.set(false);
+      }
     });
   }
 
   getMisLigas(): void {
+    this.cargandoMisLigas.set(true);
     this.service.getMisLigas().subscribe({
-      next: (res: any) => this.misLigas.set(res.ligas),
-      error: (err) => console.error('Error cargando mis ligas', err)
+      next: (res: any) => {
+        this.misLigas.set(res.ligas);
+        this.cargandoMisLigas.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando mis ligas', err);
+        this.cargandoMisLigas.set(false);
+      }
     });
   }
 
@@ -99,7 +114,7 @@ export class Ligas implements OnInit {
         this.crearLigaForm.reset({ privada: false });
         this.getMisLigas();
         this.getLigasDisponibles();
-        this.mostrar_seccion('mis-ligas'); // Te redirige a tus ligas tras crearla
+        this.mostrar_seccion('mis-ligas'); 
       },
       error: (err) => {
         const msg = err?.error?.detail || err?.error?.message || 'Error al crear la liga';

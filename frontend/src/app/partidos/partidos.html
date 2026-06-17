@@ -8,11 +8,10 @@
 
     <div class="selector-container">
       <label class="jornada-label">Jornada</label>
-      
+
       <div class="jornada-nav-wrapper shadow-sm">
-        
-        <button class="nav-arrow" 
-                (click)="seleccionarJornada(jornadaActiva - 1)" 
+        <button class="nav-arrow"
+                (click)="seleccionarJornada(jornadaActiva - 1)"
                 [disabled]="jornadaActiva <= 1">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M15 18l-6-6 6-6"/>
@@ -20,7 +19,7 @@
         </button>
 
         <div class="custom-dropdown-container">
-          <button class="custom-select-btn" 
+          <button class="custom-select-btn"
                   [class.abierto]="menuJornadasAbierto()"
                   (click)="menuJornadasAbierto.set(!menuJornadasAbierto())">
             Jornada {{ jornadaActiva }}
@@ -28,10 +27,9 @@
 
           @if (menuJornadasAbierto()) {
             <div class="dropdown-backdrop" (click)="menuJornadasAbierto.set(false)"></div>
-            
             <div class="custom-dropdown-menu">
               @for (jornada of jornadas; track jornada) {
-                <div class="custom-dropdown-item" 
+                <div class="custom-dropdown-item"
                      [class.active]="jornada === jornadaActiva"
                      (click)="seleccionarJornada(jornada); menuJornadasAbierto.set(false)">
                   Jornada {{ jornada }}
@@ -41,14 +39,13 @@
           }
         </div>
 
-        <button class="nav-arrow" 
-                (click)="seleccionarJornada(jornadaActiva + 1)" 
+        <button class="nav-arrow"
+                (click)="seleccionarJornada(jornadaActiva + 1)"
                 [disabled]="jornadaActiva >= jornadas.length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18l6-6-6-6"/>
           </svg>
         </button>
-
       </div>
     </div>
   </header>
@@ -60,22 +57,34 @@
         <p>Cargando partidos...</p>
       </div>
     } @else {
-      
       <div class="partidos-grid">
         @for (partido of partidos; track partido.id || $index) {
-          
-          <article class="partido-card" [class.opaco]="partido.estado === 'FINALIZADO'">
-            
+
+          <article class="partido-card" [class.opaco]="partido.estado === 'FINALIZADO' && !esAdmin">
             <div class="partido-main">
               <div class="equipo local">
-                <div class="escudo-wrapper">
+                <div class="escudo-wrapper position-relative">
+                  @if (partido.estado === 'FINALIZADO' && partido.prediccionUsuario === 'local') {
+                    <div class="resultado-pick badge-left">
+                      @if (partido.aciertoEquipo) {
+                        <div class="pick-acierto">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                          <span>+5</span>
+                        </div>
+                      } @else {
+                        <div class="pick-fallo">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </div>
+                      }
+                    </div>
+                  }
                   <img [src]="'/imagenes/equipos/' + partido.escudo_local" [alt]="partido.equipoLocal">
                 </div>
                 <h3 class="equipo-nombre">{{ partido.equipoLocal }}</h3>
-                
-                <button class="btn-prediccion" 
+
+                <button class="btn-prediccion"
                         [class.seleccionado]="partido.prediccionUsuario === 'local'"
-                        [disabled]="partido.estado === 'FINALIZADO'"
+                        [disabled]="!puedeInteractuar(partido)"
                         (click)="predecirGanador(partido, 'local')">
                   @if (partido.prediccionUsuario === 'local') {
                     <span>✓ Tu Pick</span>
@@ -91,14 +100,36 @@
                 </span>
 
                 @if (partido.estado === 'FINALIZADO') {
-                  <div class="marcador-final">
+                  <div class="marcador-final position-relative">
+                    @if (partido.prediccionUsuario === 'empate') {
+                      <div class="resultado-pick badge-empate">
+                        @if (partido.aciertoEquipo) {
+                          <div class="pick-acierto">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>+5</span>
+                          </div>
+                        } @else {
+                          <div class="pick-fallo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                          </div>
+                        }
+                      </div>
+                    }
                     <span>{{ partido.golesLocal }}</span>
                     <span class="guion">-</span>
                     <span>{{ partido.golesVisitante }}</span>
                   </div>
+
+                  @if (esAdmin) {
+                    <button class="btn-prediccion empate"
+                            [class.seleccionado]="partido.prediccionUsuario === 'empate'"
+                            (click)="predecirGanador(partido, 'empate')">
+                      Empate
+                    </button>
+                  }
                 } @else {
                   <div class="vs-glow">VS</div>
-                  <button class="btn-prediccion empate" 
+                  <button class="btn-prediccion empate"
                           [class.seleccionado]="partido.prediccionUsuario === 'empate'"
                           (click)="predecirGanador(partido, 'empate')">
                     Empate
@@ -107,14 +138,28 @@
               </div>
 
               <div class="equipo visitante">
-                <div class="escudo-wrapper">
+                <div class="escudo-wrapper position-relative">
+                  @if (partido.estado === 'FINALIZADO' && partido.prediccionUsuario === 'visitante') {
+                    <div class="resultado-pick badge-right">
+                      @if (partido.aciertoEquipo) {
+                        <div class="pick-acierto">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                          <span>+5</span>
+                        </div>
+                      } @else {
+                        <div class="pick-fallo">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </div>
+                      }
+                    </div>
+                  }
                   <img [src]="'/imagenes/equipos/' + partido.escudo_visitante" [alt]="partido.equipoVisitante">
                 </div>
                 <h3 class="equipo-nombre">{{ partido.equipoVisitante }}</h3>
-                
-                <button class="btn-prediccion" 
+
+                <button class="btn-prediccion"
                         [class.seleccionado]="partido.prediccionUsuario === 'visitante'"
-                        [disabled]="partido.estado === 'FINALIZADO'"
+                        [disabled]="!puedeInteractuar(partido)"
                         (click)="predecirGanador(partido, 'visitante')">
                   @if (partido.prediccionUsuario === 'visitante') {
                     <span>✓ Tu Pick</span>
@@ -126,33 +171,53 @@
             </div>
 
             <footer class="partido-footer">
-              <div class="estrella-info">
-                <svg class="icono-estrella" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-                @if (partido.jugadorEstrella) {
-                  <span class="estrella-nombre">{{ partido.jugadorEstrella }}</span>
-                } @else {
-                  <span class="estrella-vacia">Sin estrella elegida</span>
+              <div class="estrella-info w-100 d-flex justify-content-between align-items-center">
+                
+                <div class="d-flex align-items-center gap-2">
+                  <svg class="icono-estrella flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+
+                  @if (partido.jugadorEstrella) {
+                    <div class="d-flex align-items-center gap-2 ms-1">
+                      <img [src]="partido.jugadorEstrellaFoto ? '/imagenes/jugadores/' + partido.jugadorEstrellaFoto : '/imagenes/default-player.png'" class="jugador-mini-foto shadow-sm">
+                      <div class="d-flex flex-column justify-content-center">
+                        <span class="estrella-nombre lh-1 mb-1">{{ partido.jugadorEstrella }}</span>
+                        <div>
+                          <span class="pos-badge" 
+                                [class.pos-por]="partido.jugadorEstrellaPosicion === 'POR'"
+                                [class.pos-def]="partido.jugadorEstrellaPosicion === 'DEF'"
+                                [class.pos-med]="partido.jugadorEstrellaPosicion === 'MED'"
+                                [class.pos-del]="partido.jugadorEstrellaPosicion === 'DEL'">
+                            {{ partido.jugadorEstrellaPosicion }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  } @else {
+                    <span class="estrella-vacia ms-1">Sin estrella elegida</span>
+                  }
+                </div>
+                
+                @if (partido.estado === 'FINALIZADO' && partido.jugadorEstrella) {
+                  <div class="badge-puntos-jugador flex-shrink-0">
+                    {{ partido.puntosJugador }} pts
+                  </div>
                 }
               </div>
 
-              <button class="btn-elegir-estrella" 
-                      [disabled]="partido.estado === 'FINALIZADO'"
+              <button class="btn-elegir-estrella ms-3 flex-shrink-0"
+                      [disabled]="!puedeInteractuar(partido)"
                       (click)="elegirJugadorEstrella(partido)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                   <circle cx="12" cy="7" r="4"/>
                 </svg>
-                <span>Elegir Jugador</span>
+                <span>Elegir</span>
               </button>
             </footer>
           </article>
 
-        } @empty {
-          <div class="estado-container vacio">
-            <p>No hay partidos programados para esta jornada.</p>
-          </div>
         }
       </div>
     }
@@ -162,9 +227,9 @@
 @if (mostrarModalJugadores) {
   <div class="modal-overlay" (click)="cerrarModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-      
+
       <div class="modal-header">
-        <h2>⭐ Elegir Jugador Estrella</h2>
+        <h2>Elegir Jugador Estrella</h2>
         <button class="close-btn" (click)="cerrarModal()">✕</button>
       </div>
 
@@ -173,26 +238,67 @@
           <div class="spinner"></div>
           <p>Cargando plantillas...</p>
         </div>
-      } @else if (jugadoresModal.length === 0) {
-        <div class="estado-container vacio">
-          <p>No se encontraron jugadores.</p>
-        </div>
       } @else {
-        <div class="jugadores-grid">
-          @for (jugador of jugadoresModal; track jugador.nombre) {
-            <div class="jugador-card" (click)="seleccionarEstrella(jugador)">
-              <div class="posicion-badge">{{ jugador.posicion }}</div>
-              <div class="jugador-foto-container">
-                <img [src]="jugador.foto ? '/imagenes/jugadores/' + jugador.foto : '/imagenes/default-player.png'" class="jugador-foto">
-              </div>
-              <div class="jugador-info">
-                <h3 class="jugador-nombre-carta">{{ jugador.nombre }}</h3>
-                <div class="equipo-tag">
-                  <span>{{ jugador.equipo_nombre }}</span>
-                </div>
-              </div>
+        
+        <div class="modal-teams-container">
+          <div class="team-column">
+            <div class="team-header">
+              <img [src]="'/imagenes/equipos/' + partidoSeleccionado?.escudo_local" class="team-escudo-sm">
+              <span>{{ partidoSeleccionado?.equipoLocal }}</span>
             </div>
-          }
+            
+            <div class="players-list">
+              @for (jugador of jugadoresEquipoLocal; track jugador.nombre) {
+                <div class="jugador-list-item" (click)="seleccionarEstrella(jugador)">
+                  <div class="jugador-list-info">
+                    <img [src]="jugador.foto ? '/imagenes/jugadores/' + jugador.foto : '/imagenes/default-player.png'" class="jugador-list-foto shadow-sm">
+                    <div class="d-flex flex-column justify-content-center gap-1">
+                      <span class="jugador-list-name">{{ jugador.nombre }}</span>
+                      <div>
+                        <span class="pos-badge" 
+                              [class.pos-por]="jugador.posicion === 'POR'"
+                              [class.pos-def]="jugador.posicion === 'DEF'"
+                              [class.pos-med]="jugador.posicion === 'MED'"
+                              [class.pos-del]="jugador.posicion === 'DEL'">
+                          {{ jugador.posicion }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="team-column">
+            <div class="team-header">
+              <img [src]="'/imagenes/equipos/' + partidoSeleccionado?.escudo_visitante" class="team-escudo-sm">
+              <span>{{ partidoSeleccionado?.equipoVisitante }}</span>
+            </div>
+            
+            <div class="players-list">
+              @for (jugador of jugadoresEquipoVisitante; track jugador.nombre) {
+                <div class="jugador-list-item" (click)="seleccionarEstrella(jugador)">
+                  <div class="jugador-list-info">
+                    <img [src]="jugador.foto ? '/imagenes/jugadores/' + jugador.foto : '/imagenes/default-player.png'" class="jugador-list-foto shadow-sm">
+                    <div class="d-flex flex-column justify-content-center gap-1">
+                      <span class="jugador-list-name">{{ jugador.nombre }}</span>
+                      <div>
+                        <span class="pos-badge" 
+                              [class.pos-por]="jugador.posicion === 'POR'"
+                              [class.pos-def]="jugador.posicion === 'DEF'"
+                              [class.pos-med]="jugador.posicion === 'MED'"
+                              [class.pos-del]="jugador.posicion === 'DEL'">
+                          {{ jugador.posicion }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
         </div>
       }
     </div>

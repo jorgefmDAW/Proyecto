@@ -1,4 +1,4 @@
-import { Component, inject, signal, ElementRef, ViewChild } from '@angular/core';
+import { Component, inject, signal, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { ForoService } from '../services/foro-service';
 import { Users } from '../services/users-service';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './foro.html',
   styleUrl: './foro.css',
 })
-export class Foro {
+export class Foro implements OnInit {
   private service = inject(ForoService);
   private usersService = inject(Users);
 
@@ -37,7 +37,7 @@ export class Foro {
         this.mensajes.set(res);
         this.scrollAbajo();
       },
-      error: (err) => console.error('Error mostrando todos los mensajes', err)
+      error: (err) => console.error(err)
     });
   }
 
@@ -49,7 +49,7 @@ export class Foro {
         this.nuevoMensaje.set('');
         this.getAllMensajes();
       },
-      error: (err) => console.error('Error al enviar el mensaje', err)
+      error: (err) => console.error(err)
     });
   }
 }

@@ -13,6 +13,22 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.animacion-entrada-principal {
+  opacity: 0;
+  animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% { 
+    opacity: 0; 
+    transform: translateY(15px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
 .chat-header {
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1.5rem;
@@ -40,6 +56,7 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  scroll-behavior: smooth;
 }
 
 .chat-messages::-webkit-scrollbar { width: 8px; }
@@ -59,10 +76,25 @@
   justify-content: flex-start;
   align-items: flex-end;
   gap: 8px;
+  opacity: 0;
+  animation: slideInLeft 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: left bottom;
 }
 
 .mensaje-wrapper.mio {
   justify-content: flex-end;
+  animation: slideInRight 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: right bottom;
+}
+
+@keyframes slideInLeft {
+  0% { opacity: 0; transform: translateX(-20px) scale(0.9); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes slideInRight {
+  0% { opacity: 0; transform: translateX(20px) scale(0.9); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 
 .mensaje-bubble {
@@ -72,6 +104,11 @@
   border-radius: 16px;
   border-bottom-left-radius: 4px;
   position: relative;
+  transition: var(--transition);
+}
+
+.mensaje-wrapper:hover .mensaje-bubble {
+  filter: brightness(1.1);
 }
 
 .mensaje-wrapper.mio .mensaje-bubble {
@@ -116,6 +153,7 @@
   padding: 1rem 1.5rem;
   background: var(--bg-card);
   border-top: 1px solid var(--border-color);
+  z-index: 10;
 }
 
 .chat-input {
@@ -158,11 +196,17 @@
   width: 20px;
   height: 20px;
   margin-right: 2px;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-enviar:not(:disabled):hover {
   background: #2563eb;
   transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+}
+
+.btn-enviar:not(:disabled):active svg {
+  transform: translateX(4px) translateY(-4px);
 }
 
 .btn-enviar:disabled {
@@ -185,7 +229,6 @@
   background-color: transparent;
 }
 
-/* --- AVATARES DE CHAT --- */
 .chat-avatar {
   width: 32px;
   height: 32px;
@@ -208,14 +251,4 @@
 .avatar-mio {
   background-color: var(--accent-blue);
   box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.mensaje-wrapper {
-  animation: fadeIn 0.3s ease-in-out;
 }

@@ -47,18 +47,16 @@
   font-weight: 600;
 }
 
-/* Envoltorio principal de las flechas + select */
 .jornada-nav-wrapper {
   display: flex;
   align-items: center;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  overflow: visible; /* Debe ser visible para que el menú caiga fuera */
+  overflow: visible; 
   transition: var(--transition);
 }
 
-/* Flechas de navegación */
 .nav-arrow {
   background: transparent;
   border: none;
@@ -93,7 +91,6 @@
   border-right: 1px solid var(--border-color);
 }
 
-/* El botón que parece un select */
 .custom-select-btn {
   background-color: transparent;
   color: var(--text-main);
@@ -111,7 +108,6 @@
   text-align: left;
 }
 
-/* Girar la flechita cuando se abre */
 .custom-select-btn.abierto {
   color: var(--accent-blue);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233B82F6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 15l7-7 7 7'%3E%3C/path%3E%3C/svg%3E");
@@ -121,7 +117,6 @@
   color: var(--accent-blue);
 }
 
-/* Fondo invisible para cerrar haciendo clic fuera */
 .dropdown-backdrop {
   position: fixed;
   top: 0;
@@ -132,7 +127,6 @@
   cursor: default;
 }
 
-/* La caja desplegable */
 .custom-dropdown-menu {
   position: absolute;
   top: calc(100% + 8px); 
@@ -148,7 +142,6 @@
   animation: dropDownAnim 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Elementos de la lista y el hover */
 .custom-dropdown-item {
   padding: 0.75rem 1rem;
   color: var(--text-main);
@@ -174,7 +167,6 @@
   color: #fff;
 }
 
-/* Scrollbar Custom para el Menú */
 .custom-dropdown-menu::-webkit-scrollbar { width: 6px; }
 .custom-dropdown-menu::-webkit-scrollbar-track { background: transparent; }
 .custom-dropdown-menu::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
@@ -201,7 +193,7 @@
   overflow: hidden;
   transition: var(--transition);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-bottom: 4px solid transparent; /* Preparado para el Glow */
+  border-bottom: 4px solid transparent; 
 }
 
 .partido-card.opaco { opacity: 0.7; }
@@ -295,7 +287,7 @@
   border-radius: 12px;
   background: rgba(148, 163, 184, 0.1);
   color: var(--text-muted);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem; 
 }
 
 .estado-badge.pendiente {
@@ -416,7 +408,7 @@
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ================= MODAL JUGADORES ================= */
+/* ================= MODAL REDISEÑADO JUGADORES ================= */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -432,9 +424,10 @@
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  width: 90%;
-  max-width: 900px;
+  width: 95%;
+  max-width: 950px;
   max-height: 85vh;
+  margin: auto; /* Garantiza el centrado exacto */
   display: flex;
   flex-direction: column;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -447,63 +440,206 @@
 }
 
 .modal-header {
+  position: relative; /* Clave para que la X sea flotante */
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centramos el título */
   align-items: center;
   padding: 1.5rem;
   border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
-.modal-header h2 { margin: 0; color: var(--accent-gold); }
-.close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: color 0.2s;}
+.modal-header h2 { 
+  margin: 0; 
+  color: var(--accent-gold); 
+  font-size: 1.5rem; 
+  font-weight: 700; 
+  text-align: center;
+}
+
+.close-btn { 
+  position: absolute; /* Sacamos el botón del flujo normal */
+  right: 1.5rem; /* Lo pegamos a la derecha */
+  background: none; 
+  border: none; 
+  color: var(--text-muted); 
+  font-size: 1.5rem; 
+  cursor: pointer; 
+  transition: color 0.2s;
+}
+
 .close-btn:hover { color: #ef4444; }
 
-.jugadores-grid {
+/* Grid de las 2 columnas */
+.modal-teams-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
   padding: 1.5rem;
   overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 20px;
 }
 
-.jugador-card {
-  position: relative;
-  background: var(--bg-hover);
-  border-radius: var(--radius-md);
-  border-top: 4px solid var(--accent-gold);
-  padding: 15px 10px;
+/* Columna de equipo */
+.team-column {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+}
+
+.team-header {
+  display: flex;
   align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-color);
+  position: sticky;
+  top: -1.5rem; /* Para que haga efecto sticky bajo el padding */
+  background-color: var(--bg-card);
+  z-index: 10;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.team-escudo-sm {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Fila de cada jugador (estilo tabla) */
+.jugador-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-hover);
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 1px solid transparent;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.jugador-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+.jugador-list-item:hover {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateX(4px);
 }
 
-.posicion-badge {
-  position: absolute;
-  top: -12px;
-  background: var(--accent-gold);
-  color: #000;
+.jugador-list-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.jugador-list-foto {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #0B1120;
+  border: 2px solid var(--border-color);
+}
+
+.jugador-list-name {
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+/* Badges Posición */
+.pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
   font-weight: 800;
-  font-size: 0.8rem;
-  padding: 2px 12px;
-  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.jugador-foto-container { height: 120px; margin-top: 10px; }
-.jugador-foto { height: 100%; object-fit: contain; }
+.pos-por { background-color: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
+.pos-def { background-color: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.3); }
+.pos-med { background-color: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.pos-del { background-color: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
 
-.jugador-info { text-align: center; margin-top: 10px; width: 100%; }
-.jugador-nombre-carta { color: var(--text-main); font-size: 1rem; font-weight: 700; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.equipo-tag { background: rgba(255,255,255,0.05); padding: 4px; border-radius: 4px;}
-.equipo-tag span { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;}
 
+/* Posicionamiento para escudos y marcadores */
+.position-relative {
+  position: relative;
+}
+
+/* Badge flotante */
+.resultado-pick {
+  position: absolute;
+  top: -10px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-left { left: -15px; }
+.badge-right { right: -15px; }
+
+.badge-empate {
+  top: -35px; /* Lo hemos subido para que no tape al badge de estado */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pick-acierto, .pick-fallo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pick-acierto { background-color: #22c55e; padding: 4px 8px; gap: 4px; }
+.pick-fallo { background-color: #ef4444; width: 28px; height: 28px; border-radius: 50%; padding: 5px; }
+.icono-resultado { width: 16px; height: 16px; }
+
+.badge-puntos-jugador {
+  background-color: #3b82f6;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .partidos-grid { grid-template-columns: 1fr; }
   .partidos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .modal-teams-container { grid-template-columns: 1fr; gap: 2.5rem; } 
+}
+
+.jugador-mini-foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #0B1120;
+  border: 1px solid var(--border-color);
 }
