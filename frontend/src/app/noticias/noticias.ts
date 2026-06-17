@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common'; 
 import { NoticiasService } from '../services/noticias-service';
@@ -15,6 +15,7 @@ export class Noticias implements OnInit {
   private service = inject(NoticiasService);
   private users = inject(Users);
   private equiposService = inject(EquiposService);  
+  private cdr = inject(ChangeDetectorRef);
 
   public noticias = signal<any[]>([]);
   public isAdmin = signal<boolean>(false);
@@ -34,19 +35,26 @@ export class Noticias implements OnInit {
   public noticiaLeer = signal<any>(null);
 
   ngOnInit(): void {
-    this.getAllNoticias();
-    this.comprobarRol();
-    this.cargarEquipos(); 
+    setTimeout(() => {
+      this.getAllNoticias();
+      this.comprobarRol();
+      this.cargarEquipos(); 
+    }, 50);
   }
 
-  cargarEquipos(): void {
+  cargarEquipos = (): void => {
     this.equiposService.obtenerEquipos().subscribe({
-      next: (res: any[]) => this.equipos.set(res),
-      error: (err) => console.error(err)
+      next: (res: any[]) => {
+        this.equipos.set(res);
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.cdr.detectChanges();
+      }
     });
   }
 
-  comprobarRol(): void {
+  comprobarRol = (): void => {
     this.users.usuarioActual().subscribe({
       next: (usuario: any) => {
         if (usuario && usuario.roles && usuario.roles.includes('ROLE_ADMIN')) {
@@ -54,39 +62,43 @@ export class Noticias implements OnInit {
         } else {
           this.isAdmin.set(false);
         }
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error(err);
+      error: () => {
         this.isAdmin.set(false);
+        this.cdr.detectChanges();
       }
     });
   }
 
-  getAllNoticias(): void {
+  getAllNoticias = (): void => {
     this.cargando.set(true);
     this.service.getAllNoticias().subscribe({
       next: (res:any) => {
         this.noticias.set(res);
         this.cargando.set(false);
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error(err);
+      error: () => {
         this.cargando.set(false);
+        this.cdr.detectChanges();
       }
     });
   }
 
-  abrirModalLeer(noticia: any): void {
+  abrirModalLeer = (noticia: any): void => {
     this.noticiaLeer.set(noticia);
     this.mostrarModalLeer.set(true);
+    this.cdr.detectChanges();
   }
 
-  cerrarModalLeer(): void {
+  cerrarModalLeer = (): void => {
     this.mostrarModalLeer.set(false);
     this.noticiaLeer.set(null);
+    this.cdr.detectChanges();
   }
 
-  abrirModalCrear(): void {
+  abrirModalCrear = (): void => {
     this.modoEdicion.set(false);
     this.noticiaActual.set({
       titulo: '',
@@ -95,36 +107,43 @@ export class Noticias implements OnInit {
       fecha: new Date().toISOString().split('T')[0] 
     });
     this.mostrarModal.set(true);
+    this.cdr.detectChanges();
   }
 
-  abrirModalEditar(noticia: any): void {
+  abrirModalEditar = (noticia: any, event: Event): void => {
+    event.stopPropagation();
+    event.preventDefault();
     this.modoEdicion.set(true);
-    this.noticiaActual.set(JSON.parse(JSON.stringify(noticia)));
     
-    if (this.noticiaActual().fecha) {
+    const copia = JSON.parse(JSON.stringify(noticia));
+    
+    if (copia.fecha) {
         try {
-           const partes = this.noticiaActual().fecha.split('-');
+           const partes = copia.fecha.split('-');
            if (partes.length === 3) {
-             const fechaFormateada = `${partes[2]}-${partes[1]}-${partes[0]}`;
-             this.noticiaActual().fecha = fechaFormateada;
+             copia.fecha = `${partes[2]}-${partes[1]}-${partes[0]}`;
            }
-        } catch(e) {
-           console.error(e);
-        }
+        } catch(e) {}
     }
-    
+
+    this.noticiaActual.set(copia);
     this.mostrarModal.set(true);
+    this.cdr.detectChanges();
   }
 
-  cerrarModal(): void {
+  cerrarModal = (): void => {
     this.mostrarModal.set(false);
+    this.cdr.detectChanges();
   }
 
-  guardarNoticia(): void {
+  actualizarCampo = (campo: string, valor: any): void => {
+    this.noticiaActual.update(n => ({ ...n, [campo]: valor }));
+  }
+
+  guardarNoticia = (): void => {
     const noticiaData = this.noticiaActual();
     
     if (!noticiaData.titulo || !noticiaData.categoria || !noticiaData.texto || !noticiaData.fecha) {
-      alert('Por favor, rellena todos los campos.');
       return;
     }
 
@@ -134,7 +153,9 @@ export class Noticias implements OnInit {
           this.getAllNoticias();
           this.cerrarModal();
         },
-        error: (err) => alert('Error al actualizar la noticia')
+        error: () => {
+          this.cdr.detectChanges();
+        }
       });
     } else {
       this.service.crearNoticia(noticiaData).subscribe({
@@ -142,17 +163,22 @@ export class Noticias implements OnInit {
           this.getAllNoticias();
           this.cerrarModal();
         },
-        error: (err) => alert('Error al crear la noticia')
+        error: () => {
+          this.cdr.detectChanges();
+        }
       });
     }
   }
 
-  eliminarNoticia(id: number, titulo: string, event?: Event): void {
-    if (event) event.stopPropagation();
+  eliminarNoticia = (id: number, titulo: string, event: Event): void => {
+    event.stopPropagation();
+    event.preventDefault();
     if (confirm(`¿Estás seguro de que quieres eliminar la noticia "${titulo}"?`)) {
       this.service.deleteNoticia(id).subscribe({
         next: () => this.getAllNoticias(),
-        error: (err) => alert('Error al borrar la noticia')
+        error: () => {
+          this.cdr.detectChanges();
+        }
       });
     }
   }

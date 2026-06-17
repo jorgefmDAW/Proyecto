@@ -6,12 +6,12 @@
       <p class="text-secondary mb-0">Los mejores mánagers y jugadores de la temporada.</p>
     </div>
     
-    <div class="modo-btns shadow-sm">
-      <button class="modo-btn" [class.active]="modo === 'usuarios'" (click)="setModo('usuarios')">
+    <div class="modo-btns shadow-sm mt-3 mt-md-0">
+      <button class="modo-btn" [class.active]="modo() === 'usuarios'" (click)="setModo('usuarios')">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill me-2" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
         Usuarios
       </button>
-      <button class="modo-btn" [class.active]="modo === 'jugadores'" (click)="setModo('jugadores')">
+      <button class="modo-btn" [class.active]="modo() === 'jugadores'" (click)="setModo('jugadores')">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill me-2" viewBox="0 0 16 16"><path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/></svg>
         Jugadores
       </button>
@@ -20,62 +20,102 @@
 
   <div class="tabla-container">
 
-    @if (modo === 'usuarios') {
+    @if (modo() === 'usuarios') {
       <div class="table-responsive animacion-cambio-tab">
         <table class="tabla custom-table">
           <tbody>
-            @for (u of clasificacionUsuarios; track u.id) {
-              <tr>
-                <td class="text-center" style="width: 80px;">
-                  <span class="badge-pos">{{ u.posicion }}</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="avatar-bg rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold flex-shrink-0" style="width: 45px; height: 45px; font-size: 1.1rem;">
-                      {{ u.usuario.charAt(0).toUpperCase() }}
+            @if (cargandoUsuarios()) {
+              @for (item of [1,2,3,4,5,6]; track item) {
+                <tr class="skeleton-wrapper">
+                  <td class="text-center cell-badge" style="width: 80px;">
+                    <div class="skeleton skeleton-badge-pos mx-auto"></div>
+                  </td>
+                  <td class="cell-info">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="skeleton skeleton-avatar flex-shrink-0"></div>
+                      <div class="skeleton skeleton-text skeleton-usuario"></div>
                     </div>
-                    <span class="nombre fw-bold text-white fs-5">{{ u.usuario }}</span>
-                  </div>
-                </td>
-                <td class="text-end pe-4 text-primary fw-bold fs-4">{{ u.puntos }} Pts</td>
-              </tr>
+                  </td>
+                  <td class="text-end pe-4 cell-puntos">
+                    <div class="skeleton skeleton-text w-50 ms-auto"></div>
+                  </td>
+                </tr>
+              }
+            } @else {
+              @for (u of clasificacionUsuarios(); track u.id) {
+                <tr>
+                  <td class="text-center cell-badge" style="width: 80px;">
+                    <span class="badge-pos">{{ u.posicion }}</span>
+                  </td>
+                  <td class="cell-info">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="avatar-bg rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold flex-shrink-0" style="width: 45px; height: 45px; font-size: 1.1rem;">
+                        {{ u.usuario.charAt(0).toUpperCase() }}
+                      </div>
+                      <span class="nombre fw-bold text-white fs-5 text-truncate d-inline-block" style="max-width: 150px;">{{ u.usuario }}</span>
+                    </div>
+                  </td>
+                  <td class="text-end pe-4 text-primary fw-bold fs-4 cell-puntos">{{ u.puntos }} <span class="d-none d-sm-inline">Pts</span></td>
+                </tr>
+              }
             }
           </tbody>
         </table>
       </div>
     }
 
-    @if (modo === 'jugadores') {
+    @if (modo() === 'jugadores') {
       <div class="table-responsive animacion-cambio-tab">
         <table class="tabla custom-table">
           <tbody>
-            @for (j of top10Jugadores; track j.nombre; let i = $index) {
-              <tr>
-                <td class="text-center" style="width: 80px;">
-                  <span class="badge-pos">{{ i + 1 }}</span>
-                </td>
-                <td>
-                  <div class="jugador-cell">
-                    <img class="jugador-foto-lg shadow-sm" [src]="'/imagenes/jugadores/' + j.foto" [alt]="j.nombre" />
-                    <div class="d-flex flex-column justify-content-center">
-                      <span class="nombre fw-bold text-white fs-5 lh-1 mb-2">{{ j.nombre }}</span>
-                      
-                      <div class="d-flex align-items-center gap-2 mt-1">
-                        <span class="pos-badge" 
-                              [class.pos-por]="j.posicion === 'POR'"
-                              [class.pos-def]="j.posicion === 'DEF'"
-                              [class.pos-med]="j.posicion === 'MED'"
-                              [class.pos-del]="j.posicion === 'DEL'">
-                          {{ j.posicion }}
-                        </span>
-                        <img class="escudo-sm" [src]="'/imagenes/equipos/' + j.escudo" [alt]="j.equipo" />
+            @if (cargandoJugadores()) {
+              @for (item of [1,2,3,4,5,6,7,8,9,10]; track item) {
+                <tr class="skeleton-wrapper">
+                  <td class="text-center cell-badge" style="width: 80px;">
+                    <div class="skeleton skeleton-badge-pos mx-auto"></div>
+                  </td>
+                  <td class="cell-info">
+                    <div class="jugador-cell">
+                      <div class="skeleton skeleton-foto flex-shrink-0"></div>
+                      <div class="d-flex flex-column justify-content-center skeleton-jugador-info gap-2">
+                        <div class="skeleton skeleton-text w-100"></div>
+                        <div class="skeleton skeleton-text w-50"></div>
                       </div>
-
                     </div>
-                  </div>
-                </td>
-                <td class="text-end pe-4 text-primary fw-bold fs-4">{{ j.puntos_totales }} Pts</td>
-              </tr>
+                  </td>
+                  <td class="text-end pe-4 cell-puntos">
+                    <div class="skeleton skeleton-text w-50 ms-auto"></div>
+                  </td>
+                </tr>
+              }
+            } @else {
+              @for (j of top10Jugadores(); track j.nombre; let i = $index) {
+                <tr>
+                  <td class="text-center cell-badge" style="width: 80px;">
+                    <span class="badge-pos">{{ i + 1 }}</span>
+                  </td>
+                  <td class="cell-info">
+                    <div class="jugador-cell">
+                      <img class="jugador-foto-lg shadow-sm flex-shrink-0" [src]="'/imagenes/jugadores/' + j.foto" [alt]="j.nombre" />
+                      <div class="d-flex flex-column justify-content-center overflow-hidden">
+                        <span class="nombre fw-bold text-white fs-5 lh-1 mb-2 text-truncate">{{ j.nombre }}</span>
+                        
+                        <div class="d-flex align-items-center gap-2 mt-1 flex-wrap">
+                          <span class="pos-badge" 
+                                [class.pos-por]="j.posicion === 'POR'"
+                                [class.pos-def]="j.posicion === 'DEF'"
+                                [class.pos-med]="j.posicion === 'MED'"
+                                [class.pos-del]="j.posicion === 'DEL'">
+                            {{ j.posicion }}
+                          </span>
+                          <img class="escudo-sm flex-shrink-0" [src]="'/imagenes/equipos/' + j.escudo" [alt]="j.equipo" />
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end pe-4 text-primary fw-bold fs-4 cell-puntos">{{ j.puntos_totales }} <span class="d-none d-sm-inline">Pts</span></td>
+                </tr>
+              }
             }
           </tbody>
         </table>

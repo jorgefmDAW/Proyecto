@@ -98,7 +98,7 @@
 }
 
 .mensaje-bubble {
-  max-width: calc(75% - 40px);
+  max-width: calc(85% - 40px);
   background: var(--bg-bubble);
   padding: 0.75rem 1rem;
   border-radius: 16px;
@@ -251,4 +251,55 @@
 .avatar-mio {
   background-color: var(--accent-blue);
   box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.skeleton-wrapper {
+  pointer-events: none;
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+.skeleton {
+  background: #1E293B;
+  background: linear-gradient(
+    110deg,
+    #1E293B 8%,
+    #2D3B4E 18%,
+    #1E293B 33%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border-radius: 6px;
+}
+
+.skeleton-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.skeleton-bubble {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+.skeleton-text {
+  height: 14px;
+}
+
+@keyframes shimmer {
+  0% { background-position-x: 200%; }
+  100% { background-position-x: -200%; }
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    height: 70vh; 
+  }
+  .mensaje-bubble {
+    max-width: calc(90% - 40px);
+  }
+  .chat-input-area {
+    padding: 0.75rem 1rem;
+  }
 }

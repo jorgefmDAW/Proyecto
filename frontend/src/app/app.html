@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+@if (!appLista()) {
+  <div style="height: 100vh; width: 100vw; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #0B1120;">
+    <div style="width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: #3B82F6; animation: spin 1s ease-in-out infinite;"></div>
+    <style>
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

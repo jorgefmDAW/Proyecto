@@ -12,12 +12,10 @@ interface Partido {
   golesLocal?: number;
   golesVisitante?: number;
   jornada: number;
-  
-  // Datos del jugador estrella
   jugadorEstrella?: string;
   jugadorEstrellaFoto?: string;
   jugadorEstrellaPosicion?: string;
-  
+  jugadorEstrellaEscudo?: string;
   prediccionUsuario?: 'local' | 'visitante' | 'empate';
   escudo_local: any;
   escudo_visitante: any;
@@ -47,7 +45,6 @@ export class Partidos implements OnInit {
   partidos: Partido[] = [];
   cargando = false;
   
-  // Variables del modal
   mostrarModalJugadores = false;
   cargandoJugadores = false;
   partidoSeleccionado: Partido | null = null;
@@ -57,14 +54,15 @@ export class Partidos implements OnInit {
   esAdmin = false;
 
   ngOnInit(): void {
-    this.usersService.usuarioActual().subscribe({
-      next: () => {
-        this.esAdmin = this.usersService.isAdmin();
-        this.cdr.detectChanges();
-      }
-    });
-
-    this.cargarPartidos(this.jornadaActiva);
+    setTimeout(() => {
+      this.usersService.usuarioActual().subscribe({
+        next: () => {
+          this.esAdmin = this.usersService.isAdmin();
+          this.cdr.detectChanges();
+        }
+      });
+      this.cargarPartidos(this.jornadaActiva);
+    }, 50);
   }
 
   private get ligaId(): number | null {
@@ -78,6 +76,8 @@ export class Partidos implements OnInit {
 
   cargarPartidos(jornada: number): void {
     this.cargando = true;
+    this.cdr.detectChanges();
+
     this.partidosService.obtenerPartidosPorJornada(jornada).subscribe({
       next: (response: any) => {
         const datos = response.partidos ? response.partidos : response;
@@ -102,11 +102,10 @@ export class Partidos implements OnInit {
         this.cargando = false;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al cargar los partidos:', err);
+      error: () => {
         this.cargando = false;
         this.cdr.detectChanges();
-      },
+      }
     });
   }
 
@@ -150,12 +149,10 @@ export class Partidos implements OnInit {
           return {
             ...partido,
             prediccionUsuario: prediccion,
-            
-            // Recogemos foto y posición del backend también
             jugadorEstrella: eleccion.jugador_elegido ?? partido.jugadorEstrella,
             jugadorEstrellaFoto: eleccion.jugador_foto ?? partido.jugadorEstrellaFoto,
             jugadorEstrellaPosicion: eleccion.jugador_posicion ?? partido.jugadorEstrellaPosicion,
-            
+            jugadorEstrellaEscudo: eleccion.equipo_foto ?? partido.jugadorEstrellaEscudo,
             aciertoEquipo: aciertoEquipo,
             puntosObtenidosTotales: puntosTotales,
             puntosJugador: puntosJugador
@@ -163,9 +160,9 @@ export class Partidos implements OnInit {
         });
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al cargar elecciones:', err);
-      },
+      error: () => {
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -202,9 +199,9 @@ export class Partidos implements OnInit {
         
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al guardar prediccion:', err);
-      },
+      error: () => {
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -212,23 +209,21 @@ export class Partidos implements OnInit {
     this.partidoSeleccionado = partido;
     this.mostrarModalJugadores = true;
     this.cargandoJugadores = true;
-    
     this.jugadoresEquipoLocal = [];
     this.jugadoresEquipoVisitante = [];
+    this.cdr.detectChanges();
 
     this.partidosService.obtenerJugadoresPorEquipos(partido.id_local, partido.id_visitante).subscribe({
       next: (response: any) => {
         this.jugadoresEquipoLocal = response.jugadores_equipo_1 || [];
         this.jugadoresEquipoVisitante = response.jugadores_equipo_2 || [];
-        
         this.cargandoJugadores = false;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Error cargando los jugadores:', err);
+      error: () => {
         this.cargandoJugadores = false;
         this.cdr.detectChanges();
-      },
+      }
     });
   }
 
@@ -243,10 +238,10 @@ export class Partidos implements OnInit {
 
     this.partidosService.elegirJugador(partido.id, ligaId, jugador.id).subscribe({
       next: () => {
-        // Actualizamos en vivo la foto, el nombre y la posición
         partido.jugadorEstrella = jugador.nombre;
         partido.jugadorEstrellaFoto = jugador.foto;
         partido.jugadorEstrellaPosicion = jugador.posicion;
+        partido.jugadorEstrellaEscudo = jugador.equipo_foto;
         
         this.cerrarModal();
 
@@ -260,10 +255,9 @@ export class Partidos implements OnInit {
 
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al guardar jugador estrella:', err);
+      error: () => {
         this.cerrarModal();
-      },
+      }
     });
   }
 
@@ -272,6 +266,7 @@ export class Partidos implements OnInit {
     this.partidoSeleccionado = null;
     this.jugadoresEquipoLocal = [];
     this.jugadoresEquipoVisitante = [];
+    this.cdr.detectChanges();
   }
 
   getEstadoLabel(estado: string): string {

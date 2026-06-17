@@ -1,25 +1,35 @@
-/* --- FONDOS PRINCIPALES (El nuevo Azul Medianoche) --- */
 .mi-navbar {
-    /* Degradado horizontal: Azul marino profundo hacia casi negro */
     background: linear-gradient(90deg, #0d1b2a 0%, #040814 100%);
     border-bottom: 2px solid #007bff !important;
     box-shadow: 0 4px 20px rgba(0, 123, 255, 0.15);
 }
 
 .mi-sidebar {
-    /* Degradado vertical para que fluya hacia abajo */
     background: linear-gradient(180deg, #0d1b2a 0%, #040814 100%);
-    border-right: 1px solid #1b2a47; /* Borde azulado muy elegante */
+    border-right: 1px solid #1b2a47;
 }
 
 .brand-header {
-    background: transparent; /* Ahora deja ver el fondo del sidebar */
+    background: transparent;
     border-bottom: 1px solid #1b2a47 !important;
 }
 
-/* --- NAVBAR SUPERIOR --- */
+.nav-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
+}
+
 .info-game-bar {
-    background-color: #0b1524; /* Azul oscuro translúcido */
+    background-color: #0b1524;
     border: 1px solid #1b2a47;
     border-radius: 50rem;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
@@ -36,7 +46,7 @@
     color: #e0e0e0;
     border: 1px solid #1b2a47;
     border-radius: 50rem;
-    transition: all 0.2s;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .user-btn:hover {
@@ -48,15 +58,24 @@
 .custom-dropdown {
     background-color: #0b1524;
     border: 1px solid #1b2a47;
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 180px;
+    animation: dropMenuAnim 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: top right;
+}
+
+@keyframes dropMenuAnim {
+    0% { opacity: 0; transform: scale(0.95) translateY(-10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .glow-red {
     box-shadow: 0 0 10px rgba(220, 53, 69, 0.8);
 }
 
-/* --- LINKS DEL MENÚ LATERAL (Ajustados para el nuevo fondo) --- */
 .sidebar-link {
-    color: #8fa0b5; /* Un gris ligeramente azulado */
+    color: #8fa0b5;
     border-left: 3px solid transparent;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     border-radius: 0 12px 12px 0;
@@ -65,13 +84,11 @@
 
 .sidebar-link:hover {
     color: #fff;
-    /* El brillo al pasar el ratón ahora destaca mejor sobre el azul */
     background: linear-gradient(90deg, rgba(0, 123, 255, 0.15) 0%, transparent 100%);
     border-left: 3px solid rgba(0, 123, 255, 0.5);
     transform: translateX(4px);
 }
 
-/* EL ELEMENTO ACTIVO */
 .seccion-activa {
     color: #ffffff !important;
     font-weight: 700;
@@ -84,7 +101,6 @@
     filter: drop-shadow(0 0 8px rgba(0, 123, 255, 0.6));
 }
 
-/* --- BANNER DE LIGA ACTUAL --- */
 .active-league-banner {
     background: linear-gradient(135deg, #1c2b3a 0%, #121212 100%);
     border: 1px solid #2c3e50;
@@ -102,15 +118,21 @@
     font-size: 1.3rem;
     background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    border-radius: 10px; /* Cuadrado con bordes curvos en vez de círculo */
+    border-radius: 10px;
 }
 
-/* --- DETALLES VARIOS --- */
 .hover-white:hover { fill: #ffffff !important; }
 .transition-color { transition: fill 0.2s; }
 
-.hover-salir { transition: all 0.2s ease; }
+.hover-salir {
+    color: #e0e0e0 !important;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .hover-salir:hover {
-    background-color: rgba(220, 53, 69, 0.15);
-    color: #ff4d4d !important;
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #ef4444 !important;
+    transform: translateX(2px);
 }

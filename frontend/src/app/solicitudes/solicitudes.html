@@ -1,4 +1,4 @@
-<div class="text-white p-3 mx-auto mt-4" style="width: 90%;">
+<div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
 
     <header class="mb-4 border-bottom border-dark pb-3">
         <h1 class="fw-bold mb-2 text-white">Solicitudes de Unión</h1>
@@ -29,9 +29,27 @@
         }
 
         @if (cargando()) {
-        <div class="estado-container">
-            <div class="spinner"></div>
-            <p>Cargando peticiones de mánagers...</p>
+        <div class="row g-3">
+            @for (item of [1,2,3,4,5,6]; track item) {
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="solicitud-card skeleton-wrapper p-4 rounded-4 h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-3 w-100">
+                            <div class="skeleton skeleton-avatar flex-shrink-0"></div>
+                            <div class="d-flex flex-column justify-content-center w-100 gap-2">
+                                <div class="skeleton skeleton-text w-50"></div>
+                                <div class="skeleton skeleton-text w-25"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mensaje-box flex-grow-1 p-3 rounded-3 mb-4 skeleton-box border-0">
+                        <div class="skeleton skeleton-text w-75 mb-2"></div>
+                        <div class="skeleton skeleton-text w-50"></div>
+                    </div>
+                    <div class="skeleton skeleton-btn w-100"></div>
+                </div>
+            </div>
+            }
         </div>
         } @else if (solicitudes().length === 0) {
         <div class="estado-container vacio border border-dark rounded-4 p-5">
@@ -51,17 +69,14 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex align-items-center gap-3">
-
                             <div class="avatar-bg rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold flex-shrink-0"
                                 style="width: 45px; height: 45px; font-size: 1.2rem;">
                                 {{ solicitud.usuario.username.charAt(0).toUpperCase() }}
                             </div>
-
                             <div class="d-flex flex-column justify-content-center" style="line-height: 1;">
-                                <span class="text-white fw-bold fs-6 mb-1">{{ solicitud.usuario.username }}</span>
+                                <span class="text-white fw-bold fs-6 mb-1 text-truncate" style="max-width: 150px;">{{ solicitud.usuario.username }}</span>
                                 <span class="text-muted" style="font-size: 0.75rem;">{{ solicitud.fecha }}</span>
                             </div>
-
                         </div>
                     </div>
 

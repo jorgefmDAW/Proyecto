@@ -10,11 +10,20 @@ import { LigasService } from './services/ligas-service';
 })
 export class App implements OnInit {
   protected readonly title = signal('proyecto');
+  
+  public appLista = signal<boolean>(false);
 
   private ligasService = inject(LigasService);
 
   ngOnInit(): void {
-    this.ligasService.getLigaActual().subscribe();
+    this.ligasService.getLigaActual().subscribe({
+      next: () => {
+        this.appLista.set(true);
+      },
+      error: (err) => {
+        console.error('Error obteniendo liga inicial', err);
+        this.appLista.set(true); 
+      }
+    });
   }
-
 }

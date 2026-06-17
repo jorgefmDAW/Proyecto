@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LigasService } from '../services/ligas-service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -13,11 +13,11 @@ export class Ligas implements OnInit {
   private seccion_actual: string = 'mis-ligas';
   private service = inject(LigasService);
   private fb = inject(FormBuilder);
+  private cdr = inject(ChangeDetectorRef);
 
   public ligas = signal<any[]>([]);
   public misLigas = signal<any[]>([]);
 
-  // --- ESTADOS DE CARGA PARA SKELETONS ---
   public cargandoMisLigas = signal<boolean>(true);
   public cargandoLigasDisponibles = signal<boolean>(true);
 
@@ -35,8 +35,10 @@ export class Ligas implements OnInit {
   });
 
   ngOnInit(): void {
-    this.getLigasDisponibles();
-    this.getMisLigas();
+    setTimeout(() => {
+      this.getLigasDisponibles();
+      this.getMisLigas();
+    }, 50);
   }
 
   getSeccion_actual() {
@@ -45,17 +47,23 @@ export class Ligas implements OnInit {
 
   mostrar_seccion(seccion: string) {
     this.seccion_actual = seccion;
+    this.cdr.detectChanges();
   }
 
   mostrarToast(mensaje: string, tipo: 'exito' | 'error') {
     this.toast.set({ mensaje, tipo });
     if (this.toastTimeout) clearTimeout(this.toastTimeout);
-    this.toastTimeout = setTimeout(() => this.toast.set(null), 3500);
+    this.toastTimeout = setTimeout(() => {
+      this.toast.set(null);
+      this.cdr.detectChanges();
+    }, 3500);
+    this.cdr.detectChanges();
   }
 
   cerrarToast() {
     this.toast.set(null);
     if (this.toastTimeout) clearTimeout(this.toastTimeout);
+    this.cdr.detectChanges();
   }
 
   getLigasDisponibles(): void {
@@ -64,10 +72,12 @@ export class Ligas implements OnInit {
       next: (res: any) => {
         this.ligas.set(res.ligas);
         this.cargandoLigasDisponibles.set(false);
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error mostrando todas las ligas', err);
+        console.error(err);
         this.cargandoLigasDisponibles.set(false);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -78,10 +88,12 @@ export class Ligas implements OnInit {
       next: (res: any) => {
         this.misLigas.set(res.ligas);
         this.cargandoMisLigas.set(false);
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error cargando mis ligas', err);
+        console.error(err);
         this.cargandoMisLigas.set(false);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -90,6 +102,7 @@ export class Ligas implements OnInit {
     this.service.entrarEnLiga(liga.id).subscribe({
       next: () => {
         this.mostrarToast(`Has entrado a la liga ${liga.nombre} correctamente`, 'exito');
+        this.cdr.detectChanges();
       },
       error: (err) => {
         if (err.status === 403) {
@@ -97,6 +110,7 @@ export class Ligas implements OnInit {
         } else {
           this.mostrarToast('Error al entrar en la liga.', 'error');
         }
+        this.cdr.detectChanges();
       }
     });
   }
@@ -115,10 +129,12 @@ export class Ligas implements OnInit {
         this.getMisLigas();
         this.getLigasDisponibles();
         this.mostrar_seccion('mis-ligas'); 
+        this.cdr.detectChanges();
       },
       error: (err) => {
         const msg = err?.error?.detail || err?.error?.message || 'Error al crear la liga';
         this.mostrarToast(msg, 'error');
+        this.cdr.detectChanges();
       }
     });
   }
@@ -129,10 +145,12 @@ export class Ligas implements OnInit {
         this.mostrarToast('Te has unido a la liga correctamente', 'exito');
         this.getMisLigas();
         this.getLigasDisponibles();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         const msg = err?.error?.error || 'Error al unirse a la liga';
         this.mostrarToast(msg, 'error');
+        this.cdr.detectChanges();
       }
     });
   }
@@ -143,9 +161,11 @@ export class Ligas implements OnInit {
         this.mostrarToast('Has abandonado la liga', 'exito');
         this.getMisLigas(); 
         this.getLigasDisponibles(); 
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.mostrarToast('Error al abandonar la liga', 'error');
+        this.cdr.detectChanges();
       }
     });
   }
@@ -153,12 +173,14 @@ export class Ligas implements OnInit {
   abrirModalSolicitud(liga: any): void {
     this.ligaSeleccionada.set(liga);
     this.mostrarModalSolicitud.set(true);
+    this.cdr.detectChanges();
   }
 
   cerrarModalSolicitud(): void {
     this.mostrarModalSolicitud.set(false);
     this.ligaSeleccionada.set(null);
     this.mensajeSolicitud.set('');
+    this.cdr.detectChanges();
   }
 
   enviarSolicitud(): void {
@@ -170,10 +192,12 @@ export class Ligas implements OnInit {
         this.mostrarToast('Solicitud enviada correctamente', 'exito');
         this.cerrarModalSolicitud();
         this.getLigasDisponibles();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         const msg = err?.error?.error || 'Error al enviar solicitud';
         this.mostrarToast(msg, 'error');
+        this.cdr.detectChanges();
       }
     });
   }

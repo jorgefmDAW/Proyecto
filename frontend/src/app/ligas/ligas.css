@@ -13,7 +13,46 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- TOAST DE NOTIFICACIONES --- */
+.animacion-entrada-principal {
+  opacity: 0;
+  animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animacion-mis-ligas {
+  opacity: 0;
+  animation: slideFromLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animacion-crear-liga {
+  opacity: 0;
+  animation: scaleUpReveal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animacion-unirse-liga {
+  opacity: 0;
+  animation: slideFromRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideFromLeft {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideFromRight {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleUpReveal {
+  0% { opacity: 0; transform: scale(0.92) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 .toast-flotante {
   position: fixed;
   top: 24px;
@@ -26,9 +65,8 @@
   padding: 16px 20px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  /* Animación de rebote sutil */
   animation: slideInRightBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-  overflow: hidden; /* Para que la barra de tiempo no rompa el borde redondeado */
+  overflow: hidden;
 }
 
 .toast-flotante.exito {
@@ -79,7 +117,6 @@
   background-color: #ef4444;
 }
 
-/* Keyframes para el toast */
 @keyframes slideInRightBounce {
   0% { opacity: 0; transform: translateX(100px); }
   70% { transform: translateX(-10px); }
@@ -91,7 +128,6 @@
   100% { width: 0%; }
 }
 
-/* --- NAVEGACIÓN MODERNA INTEGRADA --- */
 .nav-wrapper {
   width: 100%;
   border-bottom: 1px solid var(--border-color);
@@ -144,7 +180,6 @@
   border-color: var(--accent-blue);
 }
 
-/* --- TARJETAS DE LIGA --- */
 .liga-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -158,13 +193,6 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* --- BADGES Y TEXTOS --- */
-.text-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .badge-soft-blue {
   background-color: rgba(59, 130, 246, 0.15);
   color: var(--accent-blue);
@@ -172,7 +200,6 @@
   font-weight: 600;
 }
 
-/* --- INPUTS Y FORMULARIOS --- */
 .custom-input {
   background-color: #0B1120 !important;
   border: 1px solid var(--border-color) !important;
@@ -222,7 +249,6 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* --- BOTONES --- */
 .custom-btn-blue {
   background: linear-gradient(135deg, var(--accent-blue-hover), var(--accent-blue));
   border: none;
@@ -264,13 +290,11 @@ input[type="number"] {
   box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);
 }
 
-/* --- ESTADOS VACÍOS --- */
 .empty-state-container {
   background-color: var(--bg-card);
   border: 1px dashed var(--border-color);
 }
 
-/* --- MODAL DE SOLICITUD --- */
 .custom-modal-backdrop {
   background: rgba(11, 17, 32, 0.85); 
   backdrop-filter: blur(6px); 
@@ -321,30 +345,12 @@ input[type="number"] {
   }
 }
 
-/* --- ANIMACIONES DE PESTAÑAS --- */
-.tab-content-animado {
-  animation: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes fadeSlideUp {
-  0% { 
-    opacity: 0; 
-    transform: translateY(15px); 
-  }
-  100% { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-/* --- SKELETON LOADERS --- */
 .skeleton-wrapper {
-  pointer-events: none; /* Prevenir clics accidentales mientras carga */
+  pointer-events: none;
 }
 
 .skeleton {
-  background: #1E293B; /* Color base oscuro */
-  /* Gradiente que da el efecto de brillo pasando */
+  background: #1E293B;
   background: linear-gradient(
     110deg,
     #1E293B 8%,
@@ -386,4 +392,26 @@ input[type="number"] {
 @keyframes shimmer {
   0% { background-position-x: 200%; }
   100% { background-position-x: -200%; }
+}
+
+@media (max-width: 768px) {
+  .custom-nav-container {
+    width: 100%;
+    flex-direction: column;
+    border-radius: 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .nav-tab {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    justify-content: center;
+    padding: 16px;
+  }
+  .nav-tab:last-child {
+    border-bottom: none;
+  }
+  .nav-wrapper {
+    border-bottom: none;
+  }
 }

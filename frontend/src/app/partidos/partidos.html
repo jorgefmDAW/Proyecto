@@ -52,9 +52,34 @@
 
   <div style="width: 100%;">
     @if (cargando) {
-      <div class="estado-container cargando">
-        <div class="spinner"></div>
-        <p>Cargando partidos...</p>
+      <div class="partidos-grid">
+        @for (item of [1,2,3,4,5,6]; track item) {
+          <article class="partido-card skeleton-wrapper border-0">
+            <div class="partido-main">
+              <div class="equipo local align-items-center">
+                <div class="skeleton skeleton-escudo mb-3"></div>
+                <div class="skeleton skeleton-text w-75 mb-3"></div>
+                <div class="skeleton skeleton-btn"></div>
+              </div>
+              <div class="partido-centro d-flex flex-column align-items-center justify-content-center">
+                <div class="skeleton skeleton-badge mb-4"></div>
+                <div class="skeleton skeleton-vs"></div>
+              </div>
+              <div class="equipo visitante align-items-center">
+                <div class="skeleton skeleton-escudo mb-3"></div>
+                <div class="skeleton skeleton-text w-75 mb-3"></div>
+                <div class="skeleton skeleton-btn"></div>
+              </div>
+            </div>
+            <footer class="partido-footer d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-2 w-50">
+                 <div class="skeleton skeleton-avatar flex-shrink-0"></div>
+                 <div class="skeleton skeleton-text w-100"></div>
+              </div>
+              <div class="skeleton skeleton-btn-sm w-25"></div>
+            </footer>
+          </article>
+        }
       </div>
     } @else {
       <div class="partidos-grid">
@@ -87,7 +112,7 @@
                         [disabled]="!puedeInteractuar(partido)"
                         (click)="predecirGanador(partido, 'local')">
                   @if (partido.prediccionUsuario === 'local') {
-                    <span>✓ Tu Pick</span>
+                    <span>✓ Tu Elección</span>
                   } @else {
                     <span>¿Ganará?</span>
                   }
@@ -162,7 +187,7 @@
                         [disabled]="!puedeInteractuar(partido)"
                         (click)="predecirGanador(partido, 'visitante')">
                   @if (partido.prediccionUsuario === 'visitante') {
-                    <span>✓ Tu Pick</span>
+                    <span>✓ Tu Elección</span>
                   } @else {
                     <span>¿Ganará?</span>
                   }
@@ -183,7 +208,7 @@
                       <img [src]="partido.jugadorEstrellaFoto ? '/imagenes/jugadores/' + partido.jugadorEstrellaFoto : '/imagenes/default-player.png'" class="jugador-mini-foto shadow-sm">
                       <div class="d-flex flex-column justify-content-center">
                         <span class="estrella-nombre lh-1 mb-1">{{ partido.jugadorEstrella }}</span>
-                        <div>
+                        <div class="d-flex align-items-center gap-2">
                           <span class="pos-badge" 
                                 [class.pos-por]="partido.jugadorEstrellaPosicion === 'POR'"
                                 [class.pos-def]="partido.jugadorEstrellaPosicion === 'DEF'"
@@ -191,6 +216,9 @@
                                 [class.pos-del]="partido.jugadorEstrellaPosicion === 'DEL'">
                             {{ partido.jugadorEstrellaPosicion }}
                           </span>
+                          @if (partido.jugadorEstrellaEscudo) {
+                            <img class="escudo-sm flex-shrink-0" [src]="'/imagenes/equipos/' + partido.jugadorEstrellaEscudo" alt="Escudo">
+                          }
                         </div>
                       </div>
                     </div>
@@ -234,12 +262,37 @@
       </div>
 
       @if (cargandoJugadores) {
-        <div class="estado-container cargando">
-          <div class="spinner"></div>
-          <p>Cargando plantillas...</p>
+        <div class="modal-teams-container">
+          <div class="team-column">
+            <div class="skeleton skeleton-text w-50 mb-3"></div>
+            <div class="players-list">
+              @for (item of [1,2,3,4,5,6]; track item) {
+                <div class="jugador-list-item skeleton-wrapper border-0 bg-transparent p-2">
+                  <div class="skeleton skeleton-avatar flex-shrink-0"></div>
+                  <div class="d-flex flex-column gap-2 w-100 ms-3">
+                    <div class="skeleton skeleton-text w-75"></div>
+                    <div class="skeleton skeleton-text w-25"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="team-column">
+            <div class="skeleton skeleton-text w-50 mb-3"></div>
+            <div class="players-list">
+              @for (item of [1,2,3,4,5,6]; track item) {
+                <div class="jugador-list-item skeleton-wrapper border-0 bg-transparent p-2">
+                  <div class="skeleton skeleton-avatar flex-shrink-0"></div>
+                  <div class="d-flex flex-column gap-2 w-100 ms-3">
+                    <div class="skeleton skeleton-text w-75"></div>
+                    <div class="skeleton skeleton-text w-25"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
         </div>
       } @else {
-        
         <div class="modal-teams-container">
           <div class="team-column">
             <div class="team-header">

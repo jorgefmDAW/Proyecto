@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SolicitudesService } from '../services/solicitudes-service';
 import { LigasService } from '../services/ligas-service';
@@ -13,6 +13,7 @@ import { LigasService } from '../services/ligas-service';
 export class Solicitudes implements OnInit {
   private solicitudesService = inject(SolicitudesService);
   private ligasService = inject(LigasService);
+  private cdr = inject(ChangeDetectorRef);
 
   solicitudes = signal<any[]>([]);
   cargando = signal(true);
@@ -20,7 +21,9 @@ export class Solicitudes implements OnInit {
   mensajeExito = signal('');
 
   ngOnInit(): void {
-    this.cargarSolicitudes();
+    setTimeout(() => {
+      this.cargarSolicitudes();
+    }, 50);
   }
 
   cargarSolicitudes(): void {
@@ -29,20 +32,24 @@ export class Solicitudes implements OnInit {
     if (!ligaActual || !ligaActual.id) {
       this.error.set('No hay ninguna liga activa en este momento.');
       this.cargando.set(false);
+      this.cdr.detectChanges();
       return;
     }
 
     this.cargando.set(true);
+    this.cdr.detectChanges();
     
     this.solicitudesService.getSolicitudesLiga(ligaActual.id).subscribe({
       next: (res) => {
         const pendientes = res.solicitudes.filter((s: any) => s.aceptada === false);
         this.solicitudes.set(pendientes);
         this.cargando.set(false);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error.set(err.error?.error || err.error?.message || 'Error al cargar las solicitudes.');
         this.cargando.set(false);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -52,12 +59,21 @@ export class Solicitudes implements OnInit {
       next: (res) => {
         this.mensajeExito.set(res.message);
         this.solicitudes.update(lista => lista.filter(s => s.id !== solicitudId));
+        this.cdr.detectChanges();
         
-        setTimeout(() => this.mensajeExito.set(''), 4000);
+        setTimeout(() => {
+          this.mensajeExito.set('');
+          this.cdr.detectChanges();
+        }, 4000);
       },
       error: (err) => {
         this.error.set(err.error?.error || 'No se pudo aceptar la solicitud.');
-        setTimeout(() => this.error.set(''), 4000);
+        this.cdr.detectChanges();
+        
+        setTimeout(() => {
+          this.error.set('');
+          this.cdr.detectChanges();
+        }, 4000);
       }
     });
   }

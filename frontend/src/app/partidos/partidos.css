@@ -13,7 +13,6 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- ANIMACIÓN PRINCIPAL --- */
 .animacion-entrada-principal {
   opacity: 0;
   animation: smoothEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -24,7 +23,6 @@
   100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
-/* ================= CABECERA Y NAVEGADOR DE JORNADAS ================= */
 .partidos-header {
   display: flex;
   align-items: center;
@@ -84,7 +82,6 @@
   cursor: not-allowed;
 }
 
-/* ================= DROPDOWN CUSTOM ================= */
 .custom-dropdown-container {
   position: relative;
   border-left: 1px solid var(--border-color);
@@ -177,7 +174,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= GRID DE PARTIDOS ================= */
 .partidos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
@@ -384,31 +380,6 @@
   cursor: not-allowed;
 }
 
-.estado-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem;
-  text-align: center;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--border-color);
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255,255,255,0.1);
-  border-radius: 50%;
-  border-top-color: var(--accent-blue);
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ================= MODAL REDISEÑADO JUGADORES ================= */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -427,7 +398,7 @@
   width: 95%;
   max-width: 950px;
   max-height: 85vh;
-  margin: auto; /* Garantiza el centrado exacto */
+  margin: auto; 
   display: flex;
   flex-direction: column;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -440,9 +411,9 @@
 }
 
 .modal-header {
-  position: relative; /* Clave para que la X sea flotante */
+  position: relative; 
   display: flex;
-  justify-content: center; /* Centramos el título */
+  justify-content: center; 
   align-items: center;
   padding: 1.5rem;
   border-bottom: 1px solid var(--border-color);
@@ -458,8 +429,8 @@
 }
 
 .close-btn { 
-  position: absolute; /* Sacamos el botón del flujo normal */
-  right: 1.5rem; /* Lo pegamos a la derecha */
+  position: absolute; 
+  right: 1.5rem; 
   background: none; 
   border: none; 
   color: var(--text-muted); 
@@ -470,7 +441,6 @@
 
 .close-btn:hover { color: #ef4444; }
 
-/* Grid de las 2 columnas */
 .modal-teams-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -479,7 +449,6 @@
   overflow-y: auto;
 }
 
-/* Columna de equipo */
 .team-column {
   display: flex;
   flex-direction: column;
@@ -493,7 +462,7 @@
   padding-bottom: 12px;
   border-bottom: 2px solid var(--border-color);
   position: sticky;
-  top: -1.5rem; /* Para que haga efecto sticky bajo el padding */
+  top: -1.5rem; 
   background-color: var(--bg-card);
   z-index: 10;
   font-size: 1.15rem;
@@ -513,7 +482,6 @@
   gap: 10px;
 }
 
-/* Fila de cada jugador (estilo tabla) */
 .jugador-list-item {
   display: flex;
   align-items: center;
@@ -554,7 +522,6 @@
   line-height: 1.1;
 }
 
-/* Badges Posición */
 .pos-badge {
   display: inline-flex;
   align-items: center;
@@ -572,13 +539,10 @@
 .pos-med { background-color: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3); }
 .pos-del { background-color: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
 
-
-/* Posicionamiento para escudos y marcadores */
 .position-relative {
   position: relative;
 }
 
-/* Badge flotante */
 .resultado-pick {
   position: absolute;
   top: -10px;
@@ -592,7 +556,7 @@
 .badge-right { right: -15px; }
 
 .badge-empate {
-  top: -35px; /* Lo hemos subido para que no tape al badge de estado */
+  top: -35px; 
   left: 50%;
   transform: translateX(-50%);
 }
@@ -628,13 +592,6 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .partidos-grid { grid-template-columns: 1fr; }
-  .partidos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .modal-teams-container { grid-template-columns: 1fr; gap: 2.5rem; } 
-}
-
 .jugador-mini-foto {
   width: 40px;
   height: 40px;
@@ -642,4 +599,82 @@
   object-fit: cover;
   background-color: #0B1120;
   border: 1px solid var(--border-color);
+}
+
+.escudo-sm {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.skeleton-wrapper {
+  pointer-events: none;
+}
+
+.skeleton {
+  background: #1E293B;
+  background: linear-gradient(
+    110deg,
+    #1E293B 8%,
+    #2D3B4E 18%,
+    #1E293B 33%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border-radius: 6px;
+}
+
+.skeleton-escudo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.skeleton-badge {
+  width: 80px;
+  height: 20px;
+  border-radius: 12px;
+}
+
+.skeleton-vs {
+  width: 60px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.skeleton-btn {
+  height: 32px;
+  width: 100px;
+  border-radius: 20px;
+}
+
+.skeleton-btn-sm {
+  height: 30px;
+  border-radius: 8px;
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skeleton-text {
+  height: 16px;
+}
+
+@keyframes shimmer {
+  0% { background-position-x: 200%; }
+  100% { background-position-x: -200%; }
+}
+
+@media (max-width: 768px) {
+  .partidos-grid { grid-template-columns: 1fr; }
+  .partidos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .modal-teams-container { grid-template-columns: 1fr; gap: 2.5rem; } 
+  .partido-main { padding: 1rem; }
+  .equipo-nombre { font-size: 0.85rem; }
+  .escudo-wrapper { width: 50px; height: 50px; }
+  .vs-glow { font-size: 1.5rem; }
+  .marcador-final { font-size: 2rem; }
 }

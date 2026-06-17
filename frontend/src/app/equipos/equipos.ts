@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectorRef } from '@angular/core';
 import { EquiposService } from '../services/equipos-service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -15,6 +15,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Equipos implements OnInit {
   private equipoService = inject(EquiposService);
+  private cdr = inject(ChangeDetectorRef);
   
   equipos = signal<any[]>([]);
   textoBusqueda = signal<string>('');
@@ -30,7 +31,9 @@ export class Equipos implements OnInit {
   });
 
   ngOnInit() {
-    this.cargarEquipos();
+    setTimeout(() => {
+      this.cargarEquipos();
+    }, 50);
   }
 
   cargarEquipos() {
@@ -43,10 +46,11 @@ export class Equipos implements OnInit {
         
         this.equipos.set(lista);
         this.cargando.set(false);
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error(err);
         this.cargando.set(false);
+        this.cdr.detectChanges();
       }
     });
   }

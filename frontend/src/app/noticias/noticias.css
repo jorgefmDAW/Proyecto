@@ -40,10 +40,6 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
-.pr-admin {
-    padding-right: 50px;
-}
-
 .admin-btn {
     width: 32px;
     height: 32px;
@@ -55,17 +51,15 @@
     background-color: var(--bg-hover);
     color: var(--text-muted);
     transition: var(--transition);
+    position: relative;
+    z-index: 100;
+    pointer-events: auto;
 }
 
 .admin-btn:hover {
     transform: translateY(-2px);
     background-color: var(--accent-blue);
     color: var(--text-main);
-}
-
-.news-card:hover .admin-floating-btns {
-    opacity: 1;
-    transform: scale(1);
 }
 
 .badge-soft-blue {
@@ -117,26 +111,6 @@
 .empty-state-container {
     background-color: var(--bg-card);
     border: 1px dashed var(--border-color);
-}
-
-.admin-btn {
-    background-color: var(--bg-card); 
-    border-color: var(--border-color);
-    color: var(--text-muted);
-    transition: var(--transition);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.admin-btn:hover.btn-outline-primary {
-    background-color: var(--accent-blue);
-    color: white;
-    border-color: var(--accent-blue);
-}
-
-.admin-btn:hover.btn-outline-danger {
-    background-color: #EF4444; 
-    color: white;
-    border-color: #EF4444;
 }
 
 .modal-backdrop-custom {
@@ -273,4 +247,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @keyframes shimmer {
   0% { background-position-x: 200%; }
   100% { background-position-x: -200%; }
+}
+
+@media (max-width: 768px) {
+  .modal-container {
+    width: 100%;
+    margin: 1rem;
+    max-height: 95vh;
+  }
 }

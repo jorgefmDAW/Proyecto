@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -18,7 +18,8 @@ export class ChatLiga implements OnInit, OnDestroy {
   ligaId!: number;
   mensajes = signal<any[]>([]);
   nuevoMensaje = signal('');
-  error = '';
+  error = signal('');
+  cargando = signal<boolean>(true);
   
   private pollingSub?: Subscription;
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
@@ -26,21 +27,30 @@ export class ChatLiga implements OnInit, OnDestroy {
   private chatService = inject(ChatLigaService);
   private ligasService = inject(LigasService);
   private usersService = inject(Users);
+  private cdr = inject(ChangeDetectorRef);
 
   usuarioActual = toSignal(this.usersService.currentUser$);
 
   ngOnInit(): void {
-    this.ligasService.getLigaActual().subscribe({
-      next: (res) => {
-        if (res?.liga_seleccionada?.id) {
-          this.ligaId = res.liga_seleccionada.id;
-          this.iniciarChat();
-        } else {
-          this.error = 'No estás dentro de ninguna liga activa.';
+    setTimeout(() => {
+      this.ligasService.getLigaActual().subscribe({
+        next: (res) => {
+          if (res?.liga_seleccionada?.id) {
+            this.ligaId = res.liga_seleccionada.id;
+            this.iniciarChat();
+          } else {
+            this.error.set('No estás dentro de ninguna liga activa.');
+            this.cargando.set(false);
+            this.cdr.detectChanges();
+          }
+        },
+        error: () => {
+          this.error.set('No se pudo obtener la información de tu liga actual.');
+          this.cargando.set(false);
+          this.cdr.detectChanges();
         }
-      },
-      error: () => this.error = 'No se pudo obtener la información de tu liga actual.'
-    });
+      });
+    }, 50);
   }
 
   ngOnDestroy(): void {
@@ -48,7 +58,7 @@ export class ChatLiga implements OnInit, OnDestroy {
   }
 
   private iniciarChat(): void {
-    this.error = '';
+    this.error.set('');
     this.cargarChat();
     this.pollingSub = interval(5000).subscribe(() => this.cargarChat());
   }
@@ -60,7 +70,9 @@ export class ChatLiga implements OnInit, OnDestroy {
       next: (data) => {
         const esNuevoMensaje = this.mensajes().length !== data.length;
         this.mensajes.set(data);
-        this.error = '';
+        this.error.set('');
+        this.cargando.set(false);
+        this.cdr.detectChanges();
         
         if (esNuevoMensaje) {
           this.hacerScrollAbajo();
@@ -70,8 +82,10 @@ export class ChatLiga implements OnInit, OnDestroy {
         if (err.status === 404) {
           this.mensajes.set([]);
         } else {
-          this.error = err.error?.error || err.error?.message || 'Error de conexión con el chat.';
+          this.error.set(err.error?.error || err.error?.message || 'Error de conexión con el chat.');
         }
+        this.cargando.set(false);
+        this.cdr.detectChanges();
       }
     });
   }
@@ -85,6 +99,7 @@ export class ChatLiga implements OnInit, OnDestroy {
         if (res.mensaje_creado) {
           this.mensajes.update(msgs => [...msgs, res.mensaje_creado]);
           this.nuevoMensaje.set('');
+          this.cdr.detectChanges();
           this.hacerScrollAbajo();
         } else {
           this.nuevoMensaje.set('');
@@ -92,7 +107,8 @@ export class ChatLiga implements OnInit, OnDestroy {
         }
       },
       error: (err) => {
-        this.error = err.error?.error || err.error?.message || 'No se pudo enviar el mensaje';
+        this.error.set(err.error?.error || err.error?.message || 'No se pudo enviar el mensaje');
+        this.cdr.detectChanges();
       }
     });
   }

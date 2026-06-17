@@ -45,7 +45,7 @@
     </div>
 
     @if(getSeccion_actual() == "mis-ligas"){
-        <div class="mb-4 tab-content-animado">
+        <div class="mb-4 animacion-mis-ligas">
             <div class="row g-4">
                 
                 @if (cargandoMisLigas()) {
@@ -108,10 +108,10 @@
     }
 
     @if(getSeccion_actual() == "crear-liga"){
-    <div class="liga-card p-5 rounded-4 mb-4 tab-content-animado">
-        <div class="row align-items-center">
-            <div class="col-md-7 pe-md-5">
-                <h2 class="mb-4 fw-bold text-white">Crear Liga</h2>
+    <div class="liga-card p-4 p-md-5 rounded-4 mb-4 animacion-crear-liga">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-md-7 pe-md-4">
+                <h2 class="mb-4 fw-bold text-white fs-3">Crear Liga</h2>
                 <form [formGroup]="crearLigaForm">
                     <label class="form-label small text-uppercase fw-semibold text-secondary ms-1"> Nombre de la liga </label>
                     <input formControlName="nombre" type="text" class="form-control custom-input mb-4"
@@ -127,7 +127,7 @@
                     <button (click)="crearLiga()" type="button" class="btn custom-btn-blue px-5 py-3 fw-bold w-100 fs-6">Crear Liga</button>
                 </form>
             </div>
-            <div class="col-md-5 text-center mt-5 mt-md-0 d-none d-md-block">
+            <div class="col-12 col-md-5 text-center d-none d-md-block">
                 <img src="imagenes/LogoLigaManager.jpeg" class="img-fluid rounded-4 shadow-lg border border-secondary opacity-75" style="max-height: 300px; object-fit: cover;"/>
             </div>
         </div>
@@ -135,7 +135,7 @@
     }
    
     @if(getSeccion_actual() == "unirse-a-liga"){
-        <div class="mb-4 tab-content-animado">
+        <div class="mb-4 animacion-unirse-liga">
             <div class="row g-4">
                 
                 @if (cargandoLigasDisponibles()) {

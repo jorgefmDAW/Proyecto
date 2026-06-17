@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, effect, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, effect, ChangeDetectorRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClasificacionService } from '../services/clasificacion-service';
 import { LigasService } from '../services/ligas-service';
@@ -15,11 +15,12 @@ export class Clasificacion implements OnInit {
   private ligasService = inject(LigasService);
   private cdr = inject(ChangeDetectorRef);
 
-  modo: 'usuarios' | 'jugadores' = 'usuarios';
-  clasificacionUsuarios: any[] = [];
-  top10Jugadores: any[] = [];
-  cargando = false;
-  error: string | null = null;
+  modo = signal<'usuarios' | 'jugadores'>('usuarios');
+  clasificacionUsuarios = signal<any[]>([]);
+  top10Jugadores = signal<any[]>([]);
+  cargandoUsuarios = signal<boolean>(true);
+  cargandoJugadores = signal<boolean>(true);
+  error = signal<string | null>(null);
 
   constructor() {
     effect(() => {
@@ -31,45 +32,54 @@ export class Clasificacion implements OnInit {
   }
 
   ngOnInit(): void {
-    const liga = this.ligasService.ligaActiva();
-
-    if (!liga?.id) {
-      this.ligasService.getLigaActual().subscribe({
-        error: () => this.error = 'No se pudo obtener la liga activa'
-      });
-    }
-
-    this.cargarJugadores();
+    setTimeout(() => {
+      const liga = this.ligasService.ligaActiva();
+  
+      if (!liga?.id) {
+        this.ligasService.getLigaActual().subscribe({
+          error: () => {
+            this.error.set('No se pudo obtener la liga activa');
+            this.cdr.detectChanges();
+          }
+        });
+      }
+  
+      this.cargarJugadores();
+    }, 50);
   }
 
   setModo(modo: 'usuarios' | 'jugadores'): void {
-    this.modo = modo;
+    this.modo.set(modo);
+    this.cdr.detectChanges();
   }
 
   private cargarUsuarios(ligaId: number): void {
-    this.cargando = true;
+    this.cargandoUsuarios.set(true);
     this.clasificacionService.getClasificacionLiga(ligaId).subscribe({
       next: (res) => {
-        this.clasificacionUsuarios = res.clasificacion;
-        this.cargando = false;
+        this.clasificacionUsuarios.set(res.clasificacion);
+        this.cargandoUsuarios.set(false);
         this.cdr.detectChanges();
       },
       error: () => {
-        this.error = 'Error al cargar la clasificación';
-        this.cargando = false;
+        this.error.set('Error al cargar la clasificación');
+        this.cargandoUsuarios.set(false);
         this.cdr.detectChanges();
       }
     });
   }
 
   private cargarJugadores(): void {
+    this.cargandoJugadores.set(true);
     this.clasificacionService.getTop10Jugadores().subscribe({
       next: (res) => {
-        this.top10Jugadores = res;
+        this.top10Jugadores.set(res);
+        this.cargandoJugadores.set(false);
         this.cdr.detectChanges();
       },
       error: () => {
-        this.error = 'Error al cargar el top de jugadores';
+        this.error.set('Error al cargar el top de jugadores');
+        this.cargandoJugadores.set(false);
         this.cdr.detectChanges();
       }
     });
