@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,8 @@ import { Observable } from 'rxjs';
 export class NoticiasService {
   private http = inject(HttpClient);
   
-  private baseUrl = 'http://localhost:8000/api/noticias';
-  private adminUrl = 'http://localhost:8000/api/admin/noticias';
+  private baseUrl = `${environment.apiUrl}/noticias`;
+  private adminUrl = `${environment.apiUrl}/admin/noticias`;
 
   getAllNoticias(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl);

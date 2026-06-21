@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, tap, of } from 'rxjs'; // <-- Añadido 'of'
+import { Observable, tap, of } from 'rxjs'; 
 import { Router } from '@angular/router';
-import { Users } from './users-service'; // <-- Ajusta la ruta si es necesario
+import { Users } from './users-service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,16 +11,15 @@ import { Users } from './users-service'; // <-- Ajusta la ruta si es necesario
 export class LigasService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private usersService = inject(Users); // <-- INYECTAMOS EL SERVICIO DE USUARIOS
-  private baseUrl = 'http://localhost:8000/api/ligas';
+  private usersService = inject(Users); 
+  private baseUrl = `${environment.apiUrl}/ligas`;
 
   ligaActiva = signal<any>(null);
 
   getLigaActual(): Observable<any> {
-    // EL PORTERO: Si no hay token, no hacemos la petición al backend
     if (!this.usersService.getAccessToken()) {
       this.ligaActiva.set(null);
-      return of(null); // Devolvemos un observable vacío silencioso
+      return of(null);
     }
 
     return this.http.get<any>(`${this.baseUrl}/seleccionada`).pipe(
@@ -39,7 +39,7 @@ export class LigasService {
   }
 
   getMisLigas(): Observable<any> {
-    if (!this.usersService.getAccessToken()) return of([]); // Bloqueo opcional aquí también
+    if (!this.usersService.getAccessToken()) return of([]); 
     return this.http.get<any>(`${this.baseUrl}/mis-ligas`);
   }
 

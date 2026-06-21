@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PartidosService {
   private http = inject(HttpClient);
-  private partidosUrl = 'http://localhost:8000/api/partidos';
-  private jugadoresUrl = 'http://localhost:8000/api/jugadores';
-  private eleccionesUrl = 'http://localhost:8000/api/elecciones';
+  private partidosUrl = `${environment.apiUrl}/partidos`;
+  private jugadoresUrl = `${environment.apiUrl}/jugadores`;
+  private eleccionesUrl = `${environment.apiUrl}/elecciones`;
 
   obtenerPartidosPorJornada(jornada: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.partidosUrl}/${jornada}`);
