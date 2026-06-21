@@ -39,4 +39,4 @@ EXPOSE 8000
 
 # Arranca el servidor de desarrollo de Symfony
 # 0.0.0.0 es imprescindible para que sea accesible desde fuera del contenedor
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+CMD ["sh", "-c", "mkdir -p config/jwt && php bin/console lexik:jwt:generate-keypair --skip-if-exists && php -S 0.0.0.0:8000 -t public"]
