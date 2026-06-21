@@ -9,10 +9,10 @@ export class ClasificacionService {
   private api = `${environment.apiUrl}`;
 
   getClasificacionLiga(ligaId: number): Observable<any> {
-    return this.http.get(`${this.api}/api/ligas/clasificacion/${ligaId}`);
+    return this.http.get(`${this.api}/ligas/clasificacion/${ligaId}`);
   }
 
   getTop10Jugadores(): Observable<any> {
-    return this.http.get(`${this.api}/api/jugadores/top10`);
+    return this.http.get(`${this.api}/jugadores/top10`);
   }
 }
