@@ -3,6 +3,5 @@
 .idea/
 docker-compose.yml
 frontend/Dockerfile
-backend/Dockerfile
 scraper/Dockerfile
 docker.md*:Zone.Identifier

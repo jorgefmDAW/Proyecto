@@ -23,8 +23,13 @@ class Noticia
     #[ORM\Column(type: Types::TEXT)]
     private ?string $texto = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, options: ['default' => 'CURRENT_DATE'])]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $fecha = null;
+
+    public function __construct()
+    {
+        $this->fecha = new \DateTime();
+    }
 
     public function getId(): ?int
     {
