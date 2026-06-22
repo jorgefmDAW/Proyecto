@@ -1,4 +1,4 @@
-<div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
+<div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal layout-container">
     
     <header class="mb-4 border-bottom border-dark pb-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
         <div>
@@ -14,10 +14,10 @@
         }
     </header>
 
-    <div class="row g-4">
+    <div class="row g-3 g-md-4 custom-grid">
         @if (cargando()) {
             @for (item of [1,2,3,4,5,6]; track item) {
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-4 grid-item">
                     <div class="news-card skeleton-wrapper h-100 p-4 rounded-4 d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="skeleton skeleton-badge"></div>
@@ -35,17 +35,17 @@
             }
         } @else {
             @if (noticias().length === 0) {
-                <div class="col-12 text-center py-5 empty-state-container rounded-4">
+                <div class="col-12 text-center py-5 empty-state-container rounded-4 w-100">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#3B82F6" class="bi bi-newspaper mb-3" viewBox="0 0 16 16"><path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.497.5.497h11z"/><path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/></svg>
                     <p class="fs-5 mb-0 text-white fw-bold">No hay noticias disponibles</p>
                     <p class="text-secondary mt-2 mb-0">Vuelve más tarde para mantenerte al tanto de la actualidad.</p>
                 </div>
             } @else {
                 @for (noticia of noticias(); track noticia.id) {
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-4 grid-item">
                     <div class="news-card h-100 p-4 rounded-4 d-flex flex-column" (click)="abrirModalLeer(noticia)">
                         
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                             <span class="badge badge-soft-blue rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-tag-fill" viewBox="0 0 16 16"><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
                                 {{ noticia.categoria }}
@@ -90,13 +90,13 @@
     <div class="modal-backdrop-custom animacion-fade-in" (click)="cerrarModalLeer()">
         <div class="modal-container animacion-slide-up" (click)="$event.stopPropagation()">
             <div class="modal-header-custom border-bottom border-dark position-relative">
-                <h3 class="fw-bold mb-0 text-white w-100 text-center pe-4">{{ noticiaLeer()?.titulo }}</h3>
-                <button type="button" class="btn-close-custom position-absolute end-0 me-4" (click)="cerrarModalLeer()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                <h3 class="fw-bold mb-0 text-white w-100 text-center pe-5 modal-title-text">{{ noticiaLeer()?.titulo }}</h3>
+                <button type="button" class="btn-close-custom position-absolute end-0 top-50 translate-middle-y me-4" (click)="cerrarModalLeer()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                 </button>
             </div>
             <div class="modal-body-custom">
-                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                     <span class="badge badge-soft-blue rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-tag-fill" viewBox="0 0 16 16"><path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>
                         {{ noticiaLeer()?.categoria }}
@@ -118,7 +118,7 @@
     <div class="modal-backdrop-custom animacion-fade-in" (click)="cerrarModal()">
         <div class="modal-container animacion-slide-up" (click)="$event.stopPropagation()">
             <div class="modal-header-custom border-bottom border-dark position-relative">
-                <h3 class="fw-bold mb-0 text-white w-100 text-center pe-4 d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                <h3 class="fw-bold mb-0 text-white w-100 text-center pe-5 d-flex justify-content-center align-items-center gap-2 flex-wrap modal-title-text">
                     @if(modoEdicion()) {
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--accent-blue)" class="bi bi-pencil-square flex-shrink-0" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
                         Editar Noticia
@@ -127,8 +127,8 @@
                         Crear Nueva Noticia
                     }
                 </h3>
-                <button type="button" class="btn-close-custom position-absolute end-0 me-4" (click)="cerrarModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                <button type="button" class="btn-close-custom position-absolute end-0 top-50 translate-middle-y me-4" (click)="cerrarModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                 </button>
             </div>
             <div class="modal-body-custom">
@@ -159,8 +159,8 @@
                         <textarea class="form-control custom-input" rows="6" placeholder="Escribe aquí todo el desarrollo de la noticia..." [ngModel]="noticiaActual().texto" (ngModelChange)="actualizarCampo('texto', $event)" name="texto" required></textarea>
                     </div>
                     <div class="d-flex justify-content-end gap-3 pt-3 border-top border-dark flex-wrap">
-                        <button type="button" class="btn btn-outline-secondary fw-bold px-4" (click)="cerrarModal()">Cancelar</button>
-                        <button type="submit" class="btn btn-primary fw-bold px-4 d-flex align-items-center justify-content-center gap-2 shadow-sm">
+                        <button type="button" class="btn btn-outline-secondary fw-bold px-4 flex-grow-1 flex-md-grow-0" (click)="cerrarModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary fw-bold px-4 d-flex align-items-center justify-content-center gap-2 shadow-sm flex-grow-1 flex-md-grow-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 16 16"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5v-13Z"/><path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5V16Zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V0ZM9 1h2v4H9V1Z"/></svg>
                             Guardar
                         </button>

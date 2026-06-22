@@ -394,7 +394,46 @@ input[type="number"] {
   100% { background-position-x: -200%; }
 }
 
+.custom-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-item {
+  width: 100%;
+}
+
+.crear-liga-img {
+  max-height: 300px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .custom-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .custom-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .layout-container {
+    width: 80% !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .layout-container {
+    width: 95% !important;
+  }
+}
+
 @media (max-width: 768px) {
+  .layout-container {
+    width: 100% !important;
+  }
   .custom-nav-container {
     width: 100%;
     flex-direction: column;
@@ -413,5 +452,11 @@ input[type="number"] {
   }
   .nav-wrapper {
     border-bottom: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .crear-liga-img {
+    max-height: 200px;
   }
 }

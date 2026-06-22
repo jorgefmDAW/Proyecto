@@ -1,12 +1,12 @@
 <div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
     
     <div class="d-flex flex-wrap justify-content-between align-items-end mb-4 border-bottom border-dark pb-3">
-        <div class="mb-3 mb-md-0">
+        <div class="mb-3 mb-md-0 header-text-container">
             <h1 class="fw-bold mb-2">Equipos</h1>
             <p class="text-secondary mb-0">Bienvenido a la sección de Equipos y Jugadores. Aquí podrás ver todos los equipos.</p>
         </div>
         
-        <div class="position-relative" style="width: 100%; max-width: 320px;">
+        <div class="position-relative search-wrapper">
             <span class="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
             </span>
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-2">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-5 g-3 g-md-4 mt-2">
         
         @if (cargando()) {
             @for (item of [1,2,3,4,5,6,7,8,9,10]; track item) {

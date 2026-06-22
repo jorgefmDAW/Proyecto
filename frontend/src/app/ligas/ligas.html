@@ -15,7 +15,7 @@
   </div>
 }
 
-<div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal" style="width: 90%;">
+<div class="text-white p-3 mx-auto mt-4 animacion-entrada-principal layout-container">
     
     <header class="mb-4 border-bottom border-dark pb-3">
       <h1 class="fw-bold mb-2 text-white">Ligas</h1>
@@ -24,33 +24,33 @@
 
     <div class="nav-wrapper mb-4">
         <div class="custom-nav-container">
-            <button (click)="mostrar_seccion('mis-ligas')" class="nav-tab px-5" 
+            <button (click)="mostrar_seccion('mis-ligas')" class="nav-tab" 
               [class.active]="getSeccion_actual() == 'mis-ligas'">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-collection-fill me-2" viewBox="0 0 16 16"><path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/></svg>
-              Mis ligas 
+              <span>Mis ligas</span>
             </button>
             
-            <button (click)="mostrar_seccion('crear-liga')" class="nav-tab px-5"
+            <button (click)="mostrar_seccion('crear-liga')" class="nav-tab"
               [class.active]="getSeccion_actual() == 'crear-liga'">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus-circle-fill me-2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/></svg>
-              Crear nueva liga 
+              <span>Crear nueva liga</span>
             </button>
             
-            <button (click)="mostrar_seccion('unirse-a-liga')" class="nav-tab px-5"
+            <button (click)="mostrar_seccion('unirse-a-liga')" class="nav-tab"
               [class.active]="getSeccion_actual() == 'unirse-a-liga'">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search me-2" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
-              Unirse a una liga 
+              <span>Unirse a una liga</span>
             </button>
         </div>
     </div>
 
     @if(getSeccion_actual() == "mis-ligas"){
         <div class="mb-4 animacion-mis-ligas">
-            <div class="row g-4">
+            <div class="row g-4 custom-grid">
                 
                 @if (cargandoMisLigas()) {
                     @for (item of [1,2,3]; track item) {
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 grid-item">
                             <div class="liga-card p-4 rounded-4 h-100 d-flex flex-column skeleton-wrapper">
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="skeleton skeleton-title"></div>
@@ -59,21 +59,21 @@
                                 <div class="skeleton skeleton-text mt-auto mb-4"></div>
                                 <div class="d-flex gap-2 mt-auto">
                                     <div class="skeleton skeleton-btn flex-grow-1"></div>
-                                    <div class="skeleton skeleton-btn-small"></div>
+                                    <div class="skeleton skeleton-btn-small flex-shrink-0"></div>
                                 </div>
                             </div>
                         </div>
                     }
                 } @else {
                     @for (liga of misLigas(); track liga.id) {
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 grid-item">
                             <div class="liga-card p-4 rounded-4 h-100 d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
                                     <h5 class="fw-bold mb-0 text-white text-truncate pe-2" [title]="liga.nombre">
                                         {{ liga.nombre }}
                                     </h5>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span class="badge badge-soft-blue rounded-pill px-3 py-2">
+                                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                                        <span class="badge badge-soft-blue rounded-pill px-2 px-md-3 py-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-people-fill me-1 mb-1" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
                                             {{ liga.miembros }} / {{ liga.max_miembros }}
                                         </span>
@@ -89,7 +89,7 @@
                                 <p class="text-secondary small mb-4 mt-auto">ID de Liga: <span class="text-light">#{{ liga.id }}</span></p>
                                 <div class="d-flex gap-2 mt-auto">
                                     <button (click)="entrarEnLiga(liga)" class="btn custom-btn-blue flex-grow-1 rounded-3 py-2 fw-bold">Entrar</button>
-                                    <button (click)="abandonarLiga(liga.id)" class="btn custom-btn-danger rounded-3 py-2 px-3" title="Abandonar liga">
+                                    <button (click)="abandonarLiga(liga.id)" class="btn custom-btn-danger rounded-3 py-2 px-3 flex-shrink-0" title="Abandonar liga">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/><path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
                                     </button>
                                 </div>
@@ -110,8 +110,8 @@
     @if(getSeccion_actual() == "crear-liga"){
     <div class="liga-card p-4 p-md-5 rounded-4 mb-4 animacion-crear-liga">
         <div class="row align-items-center g-4">
-            <div class="col-12 col-md-7 pe-md-4">
-                <h2 class="mb-4 fw-bold text-white fs-3">Crear Liga</h2>
+            <div class="col-12 col-lg-7 pe-lg-4">
+                <h2 class="mb-4 fw-bold text-white fs-3 text-center text-lg-start">Crear Liga</h2>
                 <form [formGroup]="crearLigaForm">
                     <label class="form-label small text-uppercase fw-semibold text-secondary ms-1"> Nombre de la liga </label>
                     <input formControlName="nombre" type="text" class="form-control custom-input mb-4"
@@ -121,14 +121,14 @@
                     <input formControlName="max_miembros" type="number" class="form-control custom-input mb-4"
                         [class.is-invalid]="crearLigaForm.get('max_miembros')?.invalid && crearLigaForm.get('max_miembros')?.touched">
                     <div class="mb-4 form-check d-flex align-items-center bg-input-dark p-3 rounded-3 border border-dark">
-                        <input formControlName="privada" type="checkbox" class="form-check-input custom-checkbox me-3 mt-0 ms-1 border-secondary" id="privadaCheck" style="width: 1.5em; height: 1.5em;">
-                        <label class="form-check-label text-white fw-medium" for="privadaCheck">Hacer esta liga privada</label>
+                        <input formControlName="privada" type="checkbox" class="form-check-input custom-checkbox me-3 mt-0 ms-1 border-secondary flex-shrink-0" id="privadaCheck" style="width: 1.5em; height: 1.5em;">
+                        <label class="form-check-label text-white fw-medium w-100" for="privadaCheck">Hacer esta liga privada</label>
                     </div>
                     <button (click)="crearLiga()" type="button" class="btn custom-btn-blue px-5 py-3 fw-bold w-100 fs-6">Crear Liga</button>
                 </form>
             </div>
-            <div class="col-12 col-md-5 text-center d-none d-md-block">
-                <img src="imagenes/LogoLigaManager.jpeg" class="img-fluid rounded-4 shadow-lg border border-secondary opacity-75" style="max-height: 300px; object-fit: cover;"/>
+            <div class="col-12 col-lg-5 text-center d-none d-md-block">
+                <img src="imagenes/LogoLigaManager.jpeg" class="img-fluid rounded-4 shadow-lg border border-secondary opacity-75 crear-liga-img"/>
             </div>
         </div>
     </div>
@@ -136,11 +136,11 @@
    
     @if(getSeccion_actual() == "unirse-a-liga"){
         <div class="mb-4 animacion-unirse-liga">
-            <div class="row g-4">
+            <div class="row g-4 custom-grid">
                 
                 @if (cargandoLigasDisponibles()) {
                     @for (item of [1,2,3,4,5,6]; track item) {
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 grid-item">
                             <div class="liga-card p-4 rounded-4 h-100 d-flex flex-column skeleton-wrapper">
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div class="skeleton skeleton-title"></div>
@@ -153,18 +153,18 @@
                     }
                 } @else {
                     @for (liga of ligas(); track liga.id) {
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 grid-item">
                             <div class="liga-card p-4 rounded-4 h-100 d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex justify-content-between align-items-start mb-3 gap-2">
                                     <h5 class="fw-bold mb-0 text-white text-truncate pe-2" [title]="liga.nombre">{{ liga.nombre }}</h5>
-                                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                                        <span class="badge badge-soft-blue rounded-pill px-3 py-2">
+                                    <div class="d-flex align-items-center gap-2 flex-shrink-0 flex-wrap justify-content-end">
+                                        <span class="badge badge-soft-blue rounded-pill px-2 px-md-3 py-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-people-fill me-1 mb-1" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/></svg>
                                             {{ liga.miembros }} / {{ liga.max_miembros }}
                                         </span>
                                         @if (liga.privada) {
-                                            <span class="badge bg-dark border border-secondary rounded-pill px-3 py-2 text-secondary d-inline-flex align-items-center gap-2" title="Esta liga es privada">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-lock-fill flex-shrink-0" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+                                            <span class="badge bg-dark border border-secondary rounded-pill px-2 px-md-3 py-2 text-secondary d-inline-flex align-items-center justify-content-center" title="Esta liga es privada">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
                                             </span>
                                         }
                                     </div>
@@ -173,13 +173,13 @@
                                 
                                 @if (liga.privada) {
                                     <button (click)="abrirModalSolicitud(liga)" class="btn custom-btn-outline w-100 rounded-3 mt-auto py-2 fw-bold d-flex align-items-center justify-content-center gap-2 border-secondary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>
-                                        Solicitar Unirse
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-fill flex-shrink-0" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>
+                                        <span>Solicitar Unirse</span>
                                     </button>
                                 } @else {
                                     <button (click)="unirseLiga(liga.id)" class="btn custom-btn-blue w-100 rounded-3 mt-auto py-2 fw-bold d-flex align-items-center justify-content-center gap-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/><path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
-                                        Unirse
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-in-right flex-shrink-0" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/><path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/></svg>
+                                        <span>Unirse</span>
                                     </button>
                                 }
                             </div>
@@ -218,7 +218,7 @@
                                         [value]="mensajeSolicitud()"
                                         (input)="mensajeSolicitud.set($any($event.target).value)"></textarea>
                                 </div>
-                                <div class="d-flex gap-3">
+                                <div class="d-flex gap-3 flex-column flex-sm-row">
                                     <button class="btn custom-btn-blue flex-grow-1 rounded-3 py-2 fw-bold" (click)="enviarSolicitud()">Enviar</button>
                                     <button class="btn custom-btn-outline flex-grow-1 rounded-3 py-2 fw-bold" (click)="cerrarModalSolicitud()">Cancelar</button>
                                 </div>
