@@ -21,7 +21,7 @@ use OpenApi\Attributes as OA;
 #[Route(path:'/api/password')]
 final class PasswordController extends AbstractController {
     public function __construct(
-        private string $frontendUrl // Symfony inyectará el valor de DEFAULT_URI
+        private string $frontendUrl = 'https://laligamanager-daw.vercel.app'
     ) {}
     
     // ======================= ENVIA UN CORREO AL USUARIO QUE SE LA HA OLVIDADO LA CONTRASEÑA =======================
