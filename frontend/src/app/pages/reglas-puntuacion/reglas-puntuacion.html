@@ -1,36 +1,43 @@
 <div class="fondo layout-wrapper page-padding">
-    <div class="container content-container">
-        <div class="mb-4">
-            <a [routerLink]="['/']" class="btn btn-nav text-decoration-none">&larr; Volver a Inicio</a>
-        </div>
-        <div class="card border-0 shadow-lg glass-card">
-            <div class="card-body p-5">
-                <h2 class="fw-bold mb-4 page-title">Reglas de Puntuación</h2>
-                <hr class="custom-hr">
-                <p class="mb-5 desc-text">
-                    El sistema de puntuación de LaLiga Manager es muy sencillo. Para demostrar que eres el mejor, suma el máximo de puntos posibles en cada jornada siguiendo estas reglas:
-                </p>
-                <div class="d-flex align-items-center mb-4 p-3 rounded rule-block rule-blue">
-                    <div class="me-4 text-center px-2">
-                        <span class="d-block fw-bold fs-1 points-blue">+5</span>
-                        <span class="small text-uppercase desc-text">Puntos</span>
-                    </div>
-                    <div>
-                        <h5 class="fw-bold mb-1 rule-title">Acierto de Partido</h5>
-                        <p class="mb-0 desc-text">Te llevas 5 puntos por cada partido en el que aciertes el resultado de forma correcta.</p>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center mb-4 p-3 rounded rule-block rule-gold">
-                    <div class="me-4 text-center px-2">
-                        <span class="d-block fw-bold fs-1 points-gold">+20</span>
-                        <span class="small text-uppercase desc-text">Puntos</span>
-                    </div>
-                    <div>
-                        <h5 class="fw-bold mb-1 rule-title">Acierto de MVP</h5>
-                        <p class="mb-0 desc-text">Un gran bonus. Te llevas 20 puntos adicionales si logras adivinar qué jugador será nombrado el MVP (Jugador más valioso) de la jornada.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container content-container">
+    <div class="mb-4 nav-container">
+      <a [routerLink]="['/']" class="btn btn-nav text-decoration-none">&larr; Volver a Inicio</a>
     </div>
+    
+    <div class="card border-0 shadow-lg glass-card">
+      <div class="card-body p-5 custom-padding">
+        
+        <h2 class="page-title text-center m-0">Reglas de Puntuación</h2>
+        
+        <hr class="custom-hr mt-4 mb-4">
+        
+        <p class="mb-5 desc-text text-center">
+          El sistema de puntuación de LaLiga Manager es muy sencillo. Para demostrar que eres el mejor, suma el máximo de puntos posibles en cada jornada siguiendo estas reglas:
+        </p>
+        
+        <div class="d-flex align-items-center mb-4 p-3 rounded rule-block rule-blue fade-in-step" style="animation-delay: 0.1s;">
+          <div class="me-4 text-center px-3 icon-container">
+            <span class="d-block fw-bold fs-1 points-blue">+5</span>
+            <span class="small text-uppercase desc-text">Puntos</span>
+          </div>
+          <div>
+            <h5 class="fw-bold mb-1 rule-title">Acierto de Partido</h5>
+            <p class="mb-0 desc-text">Te llevas 5 puntos por cada partido en el que aciertes el resultado de forma correcta.</p>
+          </div>
+        </div>
+        
+        <div class="d-flex align-items-center mb-4 p-3 rounded rule-block rule-gold fade-in-step" style="animation-delay: 0.2s;">
+          <div class="me-4 text-center px-3 icon-container">
+            <span class="d-block fw-bold fs-1 points-gold">PTS</span>
+            <span class="small text-uppercase desc-text">Variables</span>
+          </div>
+          <div>
+            <h5 class="fw-bold mb-1 rule-title">Elección de Jugador</h5>
+            <p class="mb-0 desc-text">Sumarás puntos en función de las acciones reales que haga el jugador elegido en el partido, como pases completados, regates exitosos, tiros a puerta, asistencias y goles.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
