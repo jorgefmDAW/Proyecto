@@ -12,8 +12,10 @@ import { Jugadores } from './jugadores/jugadores';
 import { Menu } from './menu/menu'; 
 import { ResetPassword } from './reset-password/reset-password';
 import { Solicitudes } from './solicitudes/solicitudes';
+import { ComoFunciona } from './pages/como-funciona/como-funciona';
+import { ReglasPuntuacion } from './pages/reglas-puntuacion/reglas-puntuacion';
 
-// 1. IMPORTA EL GUARDIA QUE ACABAS DE CREAR
+
 import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
@@ -21,7 +23,9 @@ export const routes: Routes = [
     { path: '', component: Start },
     { path: 'login', component: Login },
     { path: 'reset-password', component: ResetPassword },
-    
+    { path: 'como-funciona', component: ComoFunciona },
+    { path: 'reglas-puntuacion', component: ReglasPuntuacion },
+
     {
         // -- RUTAS PRIVADAS --
         path: 'menu', 

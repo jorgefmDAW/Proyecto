@@ -1,0 +1,85 @@
+:host {
+  --black: #080c14;
+  --navy: #0a1628;
+  --blue-bright: #2196f3;
+  --blue-accent: #64b5f6;
+  --white: #f0f4ff;
+  --text-muted: #8faac8;
+  --font-display: Impact, 'Arial Narrow', Arial, sans-serif;
+  --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  font-family: var(--font-body);
+}
+
+.fondo {
+  background:
+    radial-gradient(ellipse 90% 60% at 75% 5%, rgba(21,101,192,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 15% 85%, rgba(13,34,64,0.55) 0%, transparent 65%),
+    linear-gradient(170deg, var(--navy) 0%, var(--black) 45%, #050810 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-padding { padding: 3rem 1rem; }
+.content-container { max-width: 800px; }
+
+.btn-nav {
+  display: inline-block;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all var(--transition);
+  background: rgba(33, 150, 243, 0.1);
+  color: var(--blue-bright);
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  padding: 0.5rem 1.5rem;
+}
+
+.btn-nav:hover {
+  background: var(--blue-bright);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.glass-card {
+  background: rgba(10, 22, 40, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: fadeSlideUp 1s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+.page-title {
+  color: var(--blue-accent);
+  font-family: var(--font-display);
+  letter-spacing: 1px;
+}
+
+.custom-hr {
+  border-color: rgba(255,255,255,0.1);
+  margin-bottom: 2rem;
+}
+
+.step-title { color: var(--white); }
+.desc-text {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@media (max-width: 768px) {
+  .page-padding { padding: 1.5rem 1rem; }
+  
+  .btn-nav { width: 100%; text-align: center; margin-bottom: 0.5rem; }
+  
+  .glass-card .card-body { padding: 1.5rem !important; }
+  .page-title { font-size: 1.8rem; }
+  
+  .desc-text { font-size: 0.95rem; line-height: 1.5; }
+  .step-title { font-size: 1.15rem; }
+}
