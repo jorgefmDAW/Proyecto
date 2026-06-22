@@ -20,10 +20,7 @@ use OpenApi\Attributes as OA;
 
 #[Route(path:'/api/password')]
 final class PasswordController extends AbstractController {
-    public function __construct(
-        private string $frontendUrl = 'https://laligamanager-daw.vercel.app'
-    ) {}
-    
+
     // ======================= ENVIA UN CORREO AL USUARIO QUE SE LA HA OLVIDADO LA CONTRASEÑA =======================
     #[Route(path:'/forgot', methods:['POST'])]
     #[OA\Post(
@@ -72,7 +69,7 @@ final class PasswordController extends AbstractController {
                 $plainToken = $resetToken->getToken();
 
                 // ruta al formulario para resetear la contraseña del frontend
-                $urlFrontend = $this->frontendUrl . '/restablecer-password?token=' . $plainToken;
+                $urlFrontend = 'https://laligamanager-daw.vercel.app/restablecer-password?token=' . $plainToken;
 
                 $mail_service->send(
                 $usuario->getEmail(), // $to                          
