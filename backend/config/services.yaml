@@ -17,6 +17,8 @@ services:
             $fromEmail: '%env(MAILER_FROM_EMAIL)%'
             $fromName: 'LaLiga Manager'
 
+            $frontendUrl: '%env(DEFAULT_URI)%'
+
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

@@ -20,6 +20,9 @@ use OpenApi\Attributes as OA;
 
 #[Route(path:'/api/password')]
 final class PasswordController extends AbstractController {
+    public function __construct(
+        private string $frontendUrl // Symfony inyectará el valor de DEFAULT_URI
+    ) {}
     
     // ======================= ENVIA UN CORREO AL USUARIO QUE SE LA HA OLVIDADO LA CONTRASEÑA =======================
     #[Route(path:'/forgot', methods:['POST'])]
@@ -45,7 +48,7 @@ final class PasswordController extends AbstractController {
         Request $request,
         ValidatorInterface $validator,
         MailService $mail_service,
-        ResetPasswordHelperInterface $resetPasswordHelper // bundle de reset password
+        ResetPasswordHelperInterface $resetPasswordHelper, // bundle de reset password
     ): JsonResponse {
         
         $data = json_decode($request->getContent(), true) ?? [];
@@ -69,7 +72,7 @@ final class PasswordController extends AbstractController {
                 $plainToken = $resetToken->getToken();
 
                 // ruta al formulario para resetear la contraseña del frontend
-                $urlFrontend = 'http://localhost:4200/restablecer-password?token=' . $plainToken;
+                $urlFrontend = $this->frontendUrl . '/restablecer-password?token=' . $plainToken;
 
                 $mail_service->send(
                 $usuario->getEmail(), // $to                          
