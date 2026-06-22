@@ -17,7 +17,6 @@ export class ResetPassword implements OnInit {
 
   token = signal<string>('');
   nuevaPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
-  
   mensajeExito = signal<string>('');
   mensajeError = signal<string>('');
 
@@ -26,22 +25,20 @@ export class ResetPassword implements OnInit {
       if (params['token']) {
         this.token.set(params['token']);
       } else {
-        this.mensajeError.set('Enlace no válido. Falta el token de seguridad.');
+        this.mensajeError.set('Enlace no válido.');
       }
     });
   }
 
   cambiarContrasena() {
-    if (this.nuevaPassword.invalid || !this.token()) return;
+    if (this.nuevaPassword.invalid) return;
 
     this.users.resetearContraseña(this.token(), this.nuevaPassword.value!).subscribe({
       next: () => {
-        this.mensajeExito.set('¡Contraseña cambiada con éxito! Redirigiendo al login...');
-        setTimeout(() => this.router.navigate(['/login']), 3000);
+        this.mensajeExito.set('Contraseña actualizada correctamente.');
+        setTimeout(() => this.router.navigate(['/login']), 2000);
       },
-      error: (err) => {
-        this.mensajeError.set('El enlace ha caducado o no es válido. Vuelve a solicitar el cambio.');
-      }
+      error: () => this.mensajeError.set('El enlace ha caducado o no es válido.')
     });
   }
 }

@@ -69,7 +69,7 @@ final class PasswordController extends AbstractController {
                 $plainToken = $resetToken->getToken();
 
                 // ruta al formulario para resetear la contraseña del frontend
-                $urlFrontend = 'https://laligamanager-daw.vercel.app/restablecer-password?token=' . $plainToken;
+                $urlFrontend = 'https://laligamanager-daw.vercel.app/reset-password?token=' . $plainToken;
 
                 $mail_service->send(
                 $usuario->getEmail(), // $to                          
