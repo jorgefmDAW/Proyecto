@@ -73,8 +73,8 @@
             </div>
             <footer class="partido-footer d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center gap-2 w-50">
-                 <div class="skeleton skeleton-avatar flex-shrink-0"></div>
-                 <div class="skeleton skeleton-text w-100"></div>
+                  <div class="skeleton skeleton-avatar flex-shrink-0"></div>
+                  <div class="skeleton skeleton-text w-100"></div>
               </div>
               <div class="skeleton skeleton-btn-sm w-25"></div>
             </footer>
@@ -84,7 +84,6 @@
     } @else {
       <div class="partidos-grid">
         @for (partido of partidos; track partido.id || $index) {
-
           <article class="partido-card" [class.opaco]="partido.estado === 'FINALIZADO' && !esAdmin">
             <div class="partido-main">
               <div class="equipo local">
@@ -94,7 +93,7 @@
                       @if (partido.aciertoEquipo) {
                         <div class="pick-acierto">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                          <span>+5</span>
+                          <span>+5pts</span>
                         </div>
                       } @else {
                         <div class="pick-fallo">
@@ -106,7 +105,6 @@
                   <img [src]="'/imagenes/equipos/' + partido.escudo_local" [alt]="partido.equipoLocal">
                 </div>
                 <h3 class="equipo-nombre">{{ partido.equipoLocal }}</h3>
-
                 <button class="btn-prediccion"
                         [class.seleccionado]="partido.prediccionUsuario === 'local'"
                         [disabled]="!puedeInteractuar(partido)"
@@ -131,7 +129,7 @@
                         @if (partido.aciertoEquipo) {
                           <div class="pick-acierto">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            <span>+5</span>
+                            <span>+5pts</span>
                           </div>
                         } @else {
                           <div class="pick-fallo">
@@ -169,7 +167,7 @@
                       @if (partido.aciertoEquipo) {
                         <div class="pick-acierto">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icono-resultado"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                          <span>+5</span>
+                          <span>+5pts</span>
                         </div>
                       } @else {
                         <div class="pick-fallo">
@@ -197,12 +195,10 @@
 
             <footer class="partido-footer">
               <div class="estrella-info w-100 d-flex justify-content-between align-items-center">
-                
                 <div class="d-flex align-items-center gap-2">
                   <svg class="icono-estrella flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                   </svg>
-
                   @if (partido.jugadorEstrella) {
                     <div class="d-flex align-items-center gap-2 ms-1">
                       <img [src]="partido.jugadorEstrellaFoto ? '/imagenes/jugadores/' + partido.jugadorEstrellaFoto : '/imagenes/default-player.png'" class="jugador-mini-foto shadow-sm">
@@ -226,14 +222,12 @@
                     <span class="estrella-vacia ms-1">Sin estrella elegida</span>
                   }
                 </div>
-                
                 @if (partido.estado === 'FINALIZADO' && partido.jugadorEstrella) {
                   <div class="badge-puntos-jugador flex-shrink-0">
                     {{ partido.puntosJugador }} pts
                   </div>
                 }
               </div>
-
               <button class="btn-elegir-estrella ms-3 flex-shrink-0"
                       [disabled]="!puedeInteractuar(partido)"
                       (click)="elegirJugadorEstrella(partido)">
@@ -245,7 +239,6 @@
               </button>
             </footer>
           </article>
-
         }
       </div>
     }
@@ -255,7 +248,6 @@
 @if (mostrarModalJugadores) {
   <div class="modal-overlay" (click)="cerrarModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-
       <div class="modal-header">
         <h2>Elegir Jugador Estrella</h2>
         <button class="close-btn" (click)="cerrarModal()">✕</button>
@@ -299,7 +291,6 @@
               <img [src]="'/imagenes/equipos/' + partidoSeleccionado?.escudo_local" class="team-escudo-sm">
               <span>{{ partidoSeleccionado?.equipoLocal }}</span>
             </div>
-            
             <div class="players-list">
               @for (jugador of jugadoresEquipoLocal; track jugador.nombre) {
                 <div class="jugador-list-item" (click)="seleccionarEstrella(jugador)">
@@ -328,7 +319,6 @@
               <img [src]="'/imagenes/equipos/' + partidoSeleccionado?.escudo_visitante" class="team-escudo-sm">
               <span>{{ partidoSeleccionado?.equipoVisitante }}</span>
             </div>
-            
             <div class="players-list">
               @for (jugador of jugadoresEquipoVisitante; track jugador.nombre) {
                 <div class="jugador-list-item" (click)="seleccionarEstrella(jugador)">
@@ -351,7 +341,6 @@
               }
             </div>
           </div>
-
         </div>
       }
     </div>

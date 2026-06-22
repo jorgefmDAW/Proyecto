@@ -176,8 +176,14 @@
 
 .partidos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .partidos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .partido-card {
@@ -669,7 +675,6 @@
 }
 
 @media (max-width: 768px) {
-  .partidos-grid { grid-template-columns: 1fr; }
   .partidos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .modal-teams-container { grid-template-columns: 1fr; gap: 2.5rem; } 
   .partido-main { padding: 1rem; }
@@ -677,4 +682,34 @@
   .escudo-wrapper { width: 50px; height: 50px; }
   .vs-glow { font-size: 1.5rem; }
   .marcador-final { font-size: 2rem; }
+}
+
+@media (max-width: 576px) {
+  .resultado-pick {
+    top: -5px;
+  }
+  .badge-left { left: -10px; }
+  .badge-right { right: -10px; }
+  
+  .equipo-nombre { font-size: 0.8rem; }
+  .btn-prediccion { font-size: 0.75rem; padding: 0.4rem 0.6rem; }
+  
+  .partido-footer { padding: 0.75rem; }
+  .btn-elegir-estrella span { display: none; } 
+  .btn-elegir-estrella { padding: 0.6rem; }
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 800px;
+}
+
+.pick-acierto {
+  font-size: 0.75rem !important;
+  padding: 2px 6px !important;
+}
+
+.btn-elegir-estrella {
+  border-radius: 50px;
+  transition: all 0.2s;
 }

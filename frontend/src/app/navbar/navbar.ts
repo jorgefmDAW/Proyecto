@@ -17,6 +17,8 @@ export class Navbar implements OnInit {
 
   ligasService = inject(LigasService);
   usuarioActual = toSignal(this.usersService.currentUser$);
+  
+  public menuAbierto = false;
 
   ngOnInit(): void {
     this.usersService.usuarioActual().subscribe({
